@@ -68,7 +68,7 @@
         <dependency>
             <groupId>org.languagetool</groupId>
             <artifactId>languagetool-gui-commons</artifactId>
-            <version>${languagetool.version}</version>
+            <version>5.5</version>
         </dependency>
         <dependency>
             <groupId>org.languagetool</groupId>

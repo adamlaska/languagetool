@@ -149,7 +149,7 @@
         <org.apache.commons.commons-csv.version>1.8</org.apache.commons.commons-csv.version>
         <org.apache.commons.commons-pool2.version>2.9.0</org.apache.commons.commons-pool2.version>
         <org.apache.commons.lang3.version>3.11</org.apache.commons.lang3.version>
-        <org.apache.commons.text.version>1.9</org.apache.commons.text.version>
+        <org.apache.commons.text.version>1.10.0</org.apache.commons.text.version>
         <org.apache.opennlp.opennlp-tools.version>1.9.4</org.apache.opennlp.opennlp-tools.version>
 
         <org.eclipse.jetty.version>9.4.44.v20210927</org.eclipse.jetty.version>

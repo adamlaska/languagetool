@@ -24,7 +24,7 @@
         <dependency>
             <groupId>org.languagetool</groupId>
             <artifactId>language-all</artifactId>
-            <version>5.6</version>
+            <version>5.8</version>
         </dependency>
         <!--
         <dependency>

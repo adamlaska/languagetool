@@ -48,6 +48,7 @@ public class CatalanUnpairedBracketsRuleTest {
   public void testRule() throws IOException {
     
     // correct sentences:
+    assertMatches("Guns N' Roses", 0);
     assertMatches("L'«home és així»", 0);
     assertMatches("l'«home»", 0);
     assertMatches("«\"És així\" o no»", 0);
@@ -101,6 +102,13 @@ public class CatalanUnpairedBracketsRuleTest {
     assertMatches("Harper’s Dictionary of Classical Antiquities", 0);
 
     // incorrect sentences:
+    assertMatches("Això és “important i ara què passa. ", 1);
+    assertMatches("Això és \"important i ara què passa. ", 1);
+    assertMatches("Això és (impossible. ", 1);
+    assertMatches("Això es (impossible. ", 1);
+    assertMatches("Això és) impossible. ", 1);
+    assertMatches("Això es impossible). ", 1);
+    assertMatches("Això és «important, oi que sí?", 1);
     assertMatches("(aquesta 'és la solució)", 1);
     assertMatches("(L'\"especialista\"", 0);
     assertMatches("(L'\"especialista\".", 1);
@@ -165,6 +173,29 @@ public class CatalanUnpairedBracketsRuleTest {
         .check("Aquesta és una sentència múltiple amb parèntesis "
             + "(Ací hi ha un parèntesi. \n\n Amb algun text.) i ací continua.");
     assertEquals(0, matches.size());
+  }
+  
+  @Test
+  public void testQuestionExclamation() throws IOException {
+    final JLanguageTool tool = new JLanguageTool(new Catalan());
+    tool.enableRule("CA_UNPAIRED_QUESTION");
+    tool.enableRule("CA_UNPAIRED_EXCLAMATION");
+
+    List<RuleMatch> matches;
+    matches = tool
+        .check("-Com estàs?\n");
+    assertEquals(1, matches.size());
+    assertEquals("[¿Com]", matches.get(0).getSuggestedReplacements().toString());
+    
+    matches = tool
+        .check("-Benvinguda!\n");
+    assertEquals(1, matches.size());
+    assertEquals("[¡Benvinguda]", matches.get(0).getSuggestedReplacements().toString());
+
+    matches = tool.check("-Tinc raó, oi?\n");
+    assertEquals(1, matches.size());
+    assertEquals("[¿oi]", matches.get(0).getSuggestedReplacements().toString());
+    
   }
 
 }

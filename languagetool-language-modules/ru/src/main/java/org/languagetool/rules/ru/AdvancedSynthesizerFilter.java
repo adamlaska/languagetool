@@ -19,11 +19,7 @@
 
 package org.languagetool.rules.ru;
 
-
-import org.languagetool.language.Russian;
 import org.languagetool.rules.AbstractAdvancedSynthesizerFilter;
-import org.languagetool.synthesis.Synthesizer;
-import org.languagetool.synthesis.ru.RussianSynthesizer;
 
 /*
  * Synthesize suggestions using the lemma from one token (lemma_from) 
@@ -33,12 +29,5 @@ import org.languagetool.synthesis.ru.RussianSynthesizer;
  * to choose one among several possible readings.
  */
 public class AdvancedSynthesizerFilter extends AbstractAdvancedSynthesizerFilter {
-
-  private final RussianSynthesizer synth = new RussianSynthesizer(new Russian());
-  
-  @Override
-  protected Synthesizer getSynthesizer() {
-    return synth;
-  }
 
 }

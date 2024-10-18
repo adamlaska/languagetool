@@ -27,6 +27,7 @@ import org.languagetool.tools.StringTools;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.*;
@@ -37,7 +38,8 @@ import static java.util.Collections.*;
 class AgreementSuggestor2 {
 
   private final static String detTemplate = "ART:IND/DEF:NOM/AKK/DAT/GEN:SIN/PLU:MAS/FEM/NEU";
-  private final static String proPosTemplate = "PRO:POS:NOM/AKK/DAT/GEN:SIN/PLU:MAS/FEM/NEU:BEG";
+  private final static List<String> proPosTemplate = Arrays.asList("PRO:POS:NOM/AKK/DAT/GEN:SIN/PLU:MAS/FEM/NEU:BEG",
+    "PRO:POS:NOM/AKK/DAT/GEN:SIN/PLU:MAS/FEM/NEU:B/S");
   private final static List<String> proDemTemplates = Arrays.asList(
     "PRO:DEM:NOM/AKK/DAT/GEN:SIN/PLU:MAS/FEM/NEU:BEG",
     "PRO:DEM:NOM/AKK/DAT/GEN:SIN/PLU:MAS/FEM/NEU:B/S");
@@ -52,9 +54,14 @@ class AgreementSuggestor2 {
     "SUB:NOM/AKK/DAT/GEN:SIN/PLU:MAS/FEM/NEU",
     "SUB:NOM/AKK/DAT/GEN:SIN/PLU:MAS/FEM/NEU:INF");   // INF is for cases like "das Züchten" etc.
   private final static List<String> number = Arrays.asList("SIN", "PLU");
-  private final static List<String> gender = Arrays.asList("MAS", "FEM", "NEU");
+  private final static List<String> gender = Arrays.asList("MAS", "FEM", "NEU", "NOG");
   private final static List<String> cases = Arrays.asList("NOM", "AKK", "DAT", "GEN");
   private final static List<String> nounCases = Arrays.asList("NOM", "AKK", "DAT", "GEN");
+  private final static Set<String> skipSuggestions =
+    new HashSet<>(Arrays.asList("unsren", "unsrem", "unsres", "unsre", "unsern", "unserm", "unsrer"));
+  private static final Pattern sinPlu = Pattern.compile("SIN/PLU");
+  private static final Pattern masFemNeu = Pattern.compile("MAS/FEM/NEU");
+  private static final Pattern nomAkkDatGen = Pattern.compile("NOM/AKK/DAT/GEN");
 
   private final Synthesizer synthesizer;
   private final AnalyzedTokenReadings determinerToken;
@@ -177,11 +184,19 @@ class AgreementSuggestor2 {
             continue;
           }
           for (AnalyzedToken detReading : determinerToken.getReadings()) {
-            String[] detSynthesized = getDetOrPronounSynth(num, gen, aCase, detReading);
-            String[] adj1Synthesized = getAdjSynth(num, gen, aCase, adjToken1, detReading);
-            String[] adj2Synthesized = getAdjSynth(num, gen, aCase, adjToken2, detReading);
-            String[] nounSynthesized = getNounSynth(num, gen, aCase);
-            combineSynth(result, detSynthesized, adj1Synthesized, adj2Synthesized, nounSynthesized);
+            if (gen.equals("NOG")) {  // needed to offer suggestions for e.g. "meinem Eltern" -> "meine Eltern, ..."
+              String[] detSynthesized = getDetOrPronounSynth(num, "MAS", aCase, detReading);
+              String[] adj1Synthesized = getAdjSynth(num, "MAS", aCase, adjToken1, detReading);
+              String[] adj2Synthesized = getAdjSynth(num, "MAS", aCase, adjToken2, detReading);
+              String[] nounSynthesized = getNounSynth(num, "NOG", aCase);
+              combineSynth(result, detSynthesized, adj1Synthesized, adj2Synthesized, nounSynthesized);
+            } else {
+              String[] detSynthesized = getDetOrPronounSynth(num, gen, aCase, detReading);
+              String[] adj1Synthesized = getAdjSynth(num, gen, aCase, adjToken1, detReading);
+              String[] adj2Synthesized = getAdjSynth(num, gen, aCase, adjToken2, detReading);
+              String[] nounSynthesized = getNounSynth(num, gen, aCase);
+              combineSynth(result, detSynthesized, adj1Synthesized, adj2Synthesized, nounSynthesized);
+            }
           }
         }
       }
@@ -214,10 +229,14 @@ class AgreementSuggestor2 {
     }
     boolean isDef = detPos.contains(":DEF:");
     List<String> templates;
-    if (detPos.contains("ART:")) {
+    if (detReading.getToken().matches("([Dd]as|[Dd]er|[Dd]ie|[Dd]em|[Dd]es)selben?")) {
+      templates = singletonList("PRO:DEM:NOM/AKK/DAT/GEN:SIN/PLU:MAS/FEM/NEU");
+    } else if (detReading.getToken().matches("[Ww]elche[nmsr]?")) {
+      templates = singletonList("PRO:RIN:NOM/AKK/DAT/GEN:SIN/PLU:MAS/FEM/NEU:B/S");
+    } else if (detPos.contains("ART:")) {
       templates = singletonList(detTemplate);
     } else if (detPos.contains("PRO:POS:")) {
-      templates = singletonList(proPosTemplate);
+      templates = proPosTemplate;
     } else if (detPos.contains("PRO:DEM:")) {
       templates = proDemTemplates;
     } else if (detPos.contains("PRO:IND:")) {
@@ -241,6 +260,7 @@ class AgreementSuggestor2 {
       String origFirstChar = detReading.getToken().substring(0, 1);
       synthesized.addAll(Arrays.stream(tmp)
         .filter(k -> k.toLowerCase().startsWith(origFirstChar.toLowerCase()))
+        .filter(k -> !skipSuggestions.contains(k.toLowerCase()))
         .map(k -> Character.isUpperCase(origFirstChar.charAt(0)) ? StringTools.uppercaseFirstChar(k) : k)  // don't suggest "dein" for "mein" etc.
         .collect(Collectors.toList()));
     }
@@ -362,7 +382,10 @@ class AgreementSuggestor2 {
   }
 
   private String replaceVars(String template, String num, String gen, String aCase) {
-    return template.replaceFirst("SIN/PLU", num).replaceFirst("MAS/FEM/NEU", gen).replaceFirst("NOM/AKK/DAT/GEN", aCase);
+    template = sinPlu.matcher(template).replaceFirst(num);
+    template = masFemNeu.matcher(template).replaceFirst(gen);
+    template = nomAkkDatGen.matcher(template).replaceFirst(aCase);
+    return template;
   }
 
   private static class Suggestion implements Comparable<Suggestion> {

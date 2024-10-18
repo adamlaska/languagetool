@@ -21,7 +21,6 @@ package org.languagetool.synthesis.pt;
 
 import org.junit.Test;
 import org.languagetool.AnalyzedToken;
-import org.languagetool.language.Portuguese;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -35,7 +34,7 @@ public class PortugueseSynthesizerTest {
 
   @Test
   public final void testSynthesizeString() throws IOException {
-    PortugueseSynthesizer synth = new PortugueseSynthesizer(new Portuguese());
+    PortugueseSynthesizer synth = PortugueseSynthesizer.INSTANCE;
     assertEquals(synth.synthesize(dummyToken("blablabla"), "blablabla").length, 0);
 
     assertEquals("[bois]", Arrays.toString(
@@ -46,6 +45,8 @@ public class PortugueseSynthesizerTest {
     
     assertEquals("[resolver]", Arrays.toString(getSortedArray(synth.synthesize(dummyToken("resolver"), "VMN0000", true))));
     assertEquals("[resolveu]", Arrays.toString(getSortedArray(synth.synthesize(dummyToken("resolver"), "VMIS3S0", true))));
+    // as of dict v1.0.1: issues with 'mesmíssimo' assigned to 'mesmo' lemma
+    assertEquals("[mesmas]", Arrays.toString(getSortedArray(synth.synthesize(dummyToken("mesmo"), "DD0FP0", true))));
   }
 
   private String[] getSortedArray(String... ar) {

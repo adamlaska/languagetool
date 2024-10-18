@@ -18,9 +18,6 @@
  */
 package org.languagetool.rules.en;
 
-import java.util.*;
-import java.util.function.Supplier;
-
 import org.languagetool.AnalyzedTokenReadings;
 import org.languagetool.Tag;
 import org.languagetool.language.AmericanEnglish;
@@ -31,13 +28,15 @@ import org.languagetool.rules.patterns.PatternTokenBuilder;
 import org.languagetool.synthesis.Synthesizer;
 import org.languagetool.synthesis.en.EnglishSynthesizer;
 import org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRule;
+import org.languagetool.tools.Tools;
+
+import java.util.*;
+import java.util.function.Supplier;
 
 import static org.languagetool.rules.patterns.PatternRuleBuilderHelper.*;
 
 public class EnglishRepeatedWordsRule extends AbstractRepeatedWordsRule{
   
-  private static final EnglishSynthesizer synth = new EnglishSynthesizer(new AmericanEnglish());
-
   private final Supplier<List<DisambiguationPatternRule>> antiPatterns;
 
   private static final List<List<PatternToken>> ANTI_PATTERNS = Arrays.asList(
@@ -61,6 +60,12 @@ public class EnglishRepeatedWordsRule extends AbstractRepeatedWordsRule{
     Arrays.asList(
       tokenRegex("math|word"),       // "math/word problem"
       tokenRegex("problems?")
+    ),
+
+    Arrays.asList(
+      tokenRegex("as"),       // "doesn't apply to the group as a whole"
+      tokenRegex("a"),
+      tokenRegex("whole")
     ),
 
     Arrays.asList(
@@ -180,6 +185,13 @@ public class EnglishRepeatedWordsRule extends AbstractRepeatedWordsRule{
     super(messages, new AmericanEnglish());
     setTags(Collections.singletonList(Tag.picky));
     antiPatterns = cacheAntiPatterns(new AmericanEnglish(), ANTI_PATTERNS);
+    String id = this.getId();
+    if (id.equals("EN_REPEATEDWORDS_DEFINITELY")){
+      this.setUrl(Tools.getUrl("https://languagetool.org/insights/post/i-agree-synonyms/"));
+    }
+    if (id.equals("EN_REPEATEDWORDS_CHOOSE")){
+      this.setUrl(Tools.getUrl("https://languagetool.org/insights/post/choose-vs-chose/"));
+    }
     //super.setDefaultTempOff();
   }
   
@@ -207,7 +219,7 @@ public class EnglishRepeatedWordsRule extends AbstractRepeatedWordsRule{
 
   @Override
   protected Synthesizer getSynthesizer() {
-    return synth;
+    return EnglishSynthesizer.INSTANCE;
   }
 
   @Override

@@ -19,15 +19,23 @@
 package org.languagetool.rules.de;
 
 import org.languagetool.Language;
+import org.languagetool.Languages;
 import org.languagetool.UserConfig;
 import org.languagetool.language.GermanyGerman;
 import org.languagetool.rules.AbstractCompoundRule;
 import org.languagetool.rules.Categories;
 import org.languagetool.rules.CompoundRuleData;
 import org.languagetool.rules.Example;
+import org.languagetool.rules.patterns.PatternTokenBuilder;
+import org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRule;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import static org.languagetool.rules.patterns.PatternRuleBuilderHelper.token;
+import static org.languagetool.rules.patterns.PatternRuleBuilderHelper.tokenRegex;
 
 /**
  * Checks that compounds are not written as separate words. The supported compounds are loaded
@@ -36,6 +44,49 @@ import java.util.ResourceBundle;
  * @author Daniel Naber
  */
 public class GermanCompoundRule extends AbstractCompoundRule {
+
+  private static final Language GERMAN = Languages.getLanguageForShortCode("de-DE");
+  private static final List<DisambiguationPatternRule> ANTI_PATTERNS = makeAntiPatterns(Arrays.asList(
+    Arrays.asList(  // "Die Bürger konnten an die 900 Meter Kabel in Eigenregie verlegen."
+      tokenRegex("an|um"),
+      token("die"),
+      tokenRegex("\\d+")
+    ),
+    Arrays.asList(  // "Lohnt sich die Werbung vom ausgegebenen Euro aus gedacht?"
+      new PatternTokenBuilder().tokenRegex("von|vom").setSkip(5).build(),
+      token("aus"),
+      token("gedacht")
+    ),
+    Arrays.asList(  // "Die Bürger konnten an die 900 Meter Kabel in Eigenregie verlegen."
+      tokenRegex("rund|etwa|zirka|cirka|ungefähr|annähernd|grob|wohl|gegen|schätzungsweise"),
+      tokenRegex("\\d+")
+    ),
+    Arrays.asList(  // "Die Bürger konnten ca. 900 Meter Kabel in Eigenregie verlegen."
+      token("ca"),
+      token("."),
+      tokenRegex("\\d+")
+    ),
+    Arrays.asList(  // Eigenname
+      token("Kung"),
+      token("Fu"),
+      tokenRegex("Panda|Fighting")
+    ),
+    Arrays.asList(  // Eigenname
+      token("Harlem"),
+      token("Gospel"),
+      token("Singers")
+    ),
+    Arrays.asList(  // Englisch
+      token("Always"),
+      token("on"),
+      tokenRegex("my|your|the|an?|their")
+    ),
+    Arrays.asList(  // sich selbst gerecht werden
+      tokenRegex("sich|uns|ihm|ihr|mir|euch"),
+      token("selbst"),
+      tokenRegex("gerecht.*")
+    )
+  ), GERMAN);
 
   private static volatile CompoundRuleData compoundData;
   
@@ -71,13 +122,17 @@ public class GermanCompoundRule extends AbstractCompoundRule {
         }
       }
     }
-
     return data;
   }
   
   @Override
   public boolean isMisspelled(String word) throws IOException {
-    //return !GermanTagger.INSTANCE.tag(Arrays.asList(word)).get(0).isTagged();
     return GermanyGerman.INSTANCE.getDefaultSpellingRule().isMisspelled(word);
   }
+
+  @Override
+  public List<DisambiguationPatternRule> getAntiPatterns() {
+    return ANTI_PATTERNS;
+  }
+
 }

@@ -18,6 +18,13 @@
  */
 package org.languagetool.rules.ca;
 
+import org.languagetool.AnalyzedToken;
+import org.languagetool.AnalyzedTokenReadings;
+import org.languagetool.rules.RuleMatch;
+import org.languagetool.rules.patterns.RuleFilter;
+import org.languagetool.synthesis.Synthesizer;
+import org.languagetool.synthesis.ca.CatalanSynthesizer;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,13 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.languagetool.AnalyzedToken;
-import org.languagetool.AnalyzedTokenReadings;
-import org.languagetool.language.Catalan;
-import org.languagetool.rules.*;
-import org.languagetool.rules.patterns.RuleFilter;
-import org.languagetool.synthesis.ca.CatalanSynthesizer;
+import java.util.stream.Collectors;
 
 /**
  * This rule checks if an adjective doesn't agree with the previous noun and at
@@ -105,20 +106,18 @@ public class PostponedAdjectiveConcordanceFilter extends RuleFilter {
   private static final Pattern KEEP_COUNT2 = Pattern.compile(",|i|o|ni"); // |\\d+%?|%
   private static final Pattern STOP_COUNT = Pattern.compile("[;:]");
   private static final Pattern PREPOSICIONS = Pattern.compile("SPS.*");
-  private static final Pattern PREPOSICIO_CANVI_NIVELL = Pattern.compile("de|d'|en|sobre|a|entre|per|pe|amb|sense|contra|com");
+  private static final Pattern PREPOSICIO_CANVI_NIVELL = Pattern.compile("de|d'|en|sobre|a|entre|per|pe|amb|sense|contra|com|envers");
   private static final Pattern VERB = Pattern.compile("V.[^P].*|_GV_");
   private static final Pattern GV = Pattern.compile("_GV_");
   
-  private static final CatalanSynthesizer synth = new CatalanSynthesizer(new Catalan());
-
   boolean adverbAppeared = false;
   boolean conjunctionAppeared = false;
   boolean punctuationAppeared = false;
 
   @Override
   public RuleMatch acceptRuleMatch(RuleMatch match, Map<String, String> arguments, int patternTokenPos,
-      AnalyzedTokenReadings[] patternTokens) throws IOException {
-    
+                                   AnalyzedTokenReadings[] patternTokens, List<Integer> tokenPositions) throws IOException {
+    boolean addComma = getOptional("addComma", arguments, "false").equalsIgnoreCase("true")? true : false;
     AnalyzedTokenReadings[] tokens = match.getSentence().getTokensWithoutWhitespace();
     int i = patternTokenPos;
     int j;
@@ -228,21 +227,24 @@ public class PostponedAdjectiveConcordanceFilter extends RuleFilter {
         }
       }
       if (!matchPostagRegexp(tokens[i - j], ADVERBI)) {
-        if (matchPostagRegexp(tokens[i - j], DET_MS)) {
-          cDMS[level]++;
-          canBeMS = true;
-        }
-        if (matchPostagRegexp(tokens[i - j], DET_FS)) {
-          cDFS[level]++;
-          canBeFS = true;
-        }
-        if (matchPostagRegexp(tokens[i - j], DET_MP)) {
-          cDMP[level]++;
-          canBeMP = true;
-        }
-        if (matchPostagRegexp(tokens[i - j], DET_FP)) {
-          cDFP[level]++;
-          canBeFP = true;
+        // exception: tot el
+        if (!(tokens[i - j].hasLemma("tot") && tokens[i - j + 1].hasLemma("el"))) {
+          if (matchPostagRegexp(tokens[i - j], DET_MS)) {
+            cDMS[level]++;
+            canBeMS = true;
+          }
+          if (matchPostagRegexp(tokens[i - j], DET_FS)) {
+            cDFS[level]++;
+            canBeFS = true;
+          }
+          if (matchPostagRegexp(tokens[i - j], DET_MP)) {
+            cDMP[level]++;
+            canBeMP = true;
+          }
+          if (matchPostagRegexp(tokens[i - j], DET_FP)) {
+            cDFP[level]++;
+            canBeFP = true;
+          }
         }
       }
       if (i - j - 1 > 0) {
@@ -380,8 +382,9 @@ public class PostponedAdjectiveConcordanceFilter extends RuleFilter {
       }
     }
 
+    Synthesizer synth = getSynthesizerFromRuleMatch(match);
     // The rule matches
-    // Synthesize suggestions  
+    // Synthesize suggestions
     List<String> suggestions = new ArrayList<>();
     AnalyzedToken at = getAnalyzedToken(tokens[patternTokenPos], ADJECTIU_CS);
     if (at != null) {
@@ -424,10 +427,19 @@ public class PostponedAdjectiveConcordanceFilter extends RuleFilter {
     if (suggestions.contains(tokens[patternTokenPos].getToken().toLowerCase())) {
       suggestions.remove(tokens[patternTokenPos].getToken().toLowerCase());
     }
-    match.setSuggestedReplacements(suggestions);
-
+    List<String> definitiveSugestions = new ArrayList<>();
+    if (addComma) {
+      definitiveSugestions.add(", " + tokens[patternTokenPos].getToken());
+      for (String s : suggestions) {
+        definitiveSugestions.add(" " + s);
+      }
+      match.setOffsetPosition(match.getFromPos() - 1,  match.getToPos());
+      match.setSentencePosition(match.getFromPosSentence() - 1, match.getToPosSentence());
+    } else {
+      definitiveSugestions.addAll(suggestions);
+    }
+    match.setSuggestedReplacements(definitiveSugestions.stream().distinct().collect(Collectors.toList()));
     return match;
-
   }
 
   private int updateJValue(AnalyzedTokenReadings[] tokens, int i, int j, int level) {

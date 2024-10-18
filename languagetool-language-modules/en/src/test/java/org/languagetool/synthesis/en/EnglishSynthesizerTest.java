@@ -21,7 +21,6 @@ package org.languagetool.synthesis.en;
 
 import org.junit.Test;
 import org.languagetool.AnalyzedToken;
-import org.languagetool.language.English;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -40,7 +39,7 @@ public class EnglishSynthesizerTest {
 
   @Test
   public void testSynthesizeStringString() throws IOException {
-    EnglishSynthesizer synth = new EnglishSynthesizer(new English());
+    EnglishSynthesizer synth = EnglishSynthesizer.INSTANCE;
     assertEquals(synth.synthesize(dummyToken("blablabla"), "blablabla").length, 0);
 
     assertEquals("[was, were]", Arrays.toString(synth.synthesize(dummyToken("be"), "VBD")));
@@ -72,6 +71,8 @@ public class EnglishSynthesizerTest {
     assertEquals("[twelve]", Arrays.toString(synth.synthesize(dummyToken("12"), "_spell_number_", true)));
 
     assertEquals("[I]", Arrays.toString(synth.synthesize(dummyToken("myself", "I"), "PRP_S1S", true)));
+
+    assertEquals("[my]", Arrays.toString(synth.synthesize(dummyToken("myself", "I"), "PRP\\$_A1S", true)));
 
     assertEquals("[mixed]", Arrays.toString(synth.synthesize(dummyToken("mix"), "VBD")));
     assertEquals("[mixed]", Arrays.toString(synth.synthesize(dummyToken("mix"), "VBN")));

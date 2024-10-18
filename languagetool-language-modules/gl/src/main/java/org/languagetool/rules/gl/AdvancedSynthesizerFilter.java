@@ -20,10 +20,7 @@
 package org.languagetool.rules.gl;
 
 
-import org.languagetool.language.Galician;
 import org.languagetool.rules.AbstractAdvancedSynthesizerFilter;
-import org.languagetool.synthesis.Synthesizer;
-import org.languagetool.synthesis.gl.GalicianSynthesizer;
 
 /*
  * Synthesize suggestions using the lemma from one token (lemma_from) 
@@ -33,12 +30,5 @@ import org.languagetool.synthesis.gl.GalicianSynthesizer;
  * to choose one among several possible readings.
  */
 public class AdvancedSynthesizerFilter extends AbstractAdvancedSynthesizerFilter {
-
-  private final GalicianSynthesizer synth = new GalicianSynthesizer(new Galician());
-  
-  @Override
-  protected Synthesizer getSynthesizer() {
-    return synth;
-  }
 
 }

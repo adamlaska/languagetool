@@ -135,6 +135,45 @@ public class CleanOverlappingFilterTest {
     assertThat(matches13.get(0).getRule().getId(), is("P1_RULE"));  // hidden match should be kept
     */
 
+    // juxtaposed matches, comma in the same place
+    RuleMatch ruleMatch1 = new RuleMatch(new FakeRule("COMMA_LOW_PRIORITY"), sentence, 5, 10, "msg1");
+    ruleMatch1.addSuggestedReplacement("right,");
+    RuleMatch ruleMatch2 = new RuleMatch(new FakeRule("COMMA_HIGH_PRIORITY"), sentence, 10, 15, "msg2");
+    ruleMatch2.addSuggestedReplacement(", left");
+    List<RuleMatch> matches14 = Arrays.asList(ruleMatch1, ruleMatch2);
+    matches14 = filter.filter(matches14);
+    assertThat(matches14.size(), is(1)); // filtering
+    assertThat(matches14.get(0).getRule().getId(), is("COMMA_HIGH_PRIORITY"));
+
+    RuleMatch ruleMatch3 = new RuleMatch(new FakeRule("COMMA_HIGH_PRIORITY"), sentence, 5, 10, "msg1");
+    ruleMatch3.addSuggestedReplacement("right,");
+    RuleMatch ruleMatch4 = new RuleMatch(new FakeRule("COMMA_LOW_PRIORITY"), sentence, 10, 15, "msg2");
+    ruleMatch4.addSuggestedReplacement(", left");
+    List<RuleMatch> matches15 = Arrays.asList(ruleMatch3, ruleMatch4);
+    matches15 = filter.filter(matches15);
+    assertThat(matches15.size(), is(1)); // filtering
+    assertThat(matches15.get(0).getRule().getId(), is("COMMA_HIGH_PRIORITY"));
+
+    RuleMatch ruleMatch5 = new RuleMatch(new FakeRule("COMMA_LOW_PRIORITY2"), sentence, 5, 10, "msg1");
+    ruleMatch5.addSuggestedReplacement("right,");
+    RuleMatch ruleMatch6 = new RuleMatch(new FakeRule("COMMA_LOW_PRIORITY"), sentence, 10, 15, "msg2");
+    ruleMatch6.addSuggestedReplacement(", left");
+    List<RuleMatch> matches16 = Arrays.asList(ruleMatch5, ruleMatch6);
+    matches16 = filter.filter(matches16);
+    assertThat(matches16.size(), is(1)); // filtering
+    assertThat(matches16.get(0).getRule().getId(), is("COMMA_LOW_PRIORITY"));
+
+    // same suggestion for the same place
+
+    RuleMatch ruleMatch7 = new RuleMatch(new FakeRule("MISSING_THE_HIGH_PRIORITY"), sentence, 5, 10, "msg1");
+    ruleMatch7.addSuggestedReplacement("of the");
+    RuleMatch ruleMatch8 = new RuleMatch(new FakeRule("MISSING_THE_LOW_PRIORITY"), sentence, 11, 15, "msg2");
+    ruleMatch8.addSuggestedReplacement("the provisions");
+    List<RuleMatch> matches17 = Arrays.asList(ruleMatch7, ruleMatch8);
+    matches17 = filter.filter(matches17);
+    assertThat(matches17.size(), is(1)); // filtering
+    assertThat(matches17.get(0).getRule().getId(), is("MISSING_THE_HIGH_PRIORITY"));
+
     try {
       List<RuleMatch> unordered = Arrays.asList(
         new RuleMatch(new FakeRule("P1_RULE"), sentence, 11, 12, "msg2"),
@@ -162,10 +201,15 @@ public class CleanOverlappingFilterTest {
         case "P3_RULE": return 3;
         case "P2_RULE":
         case "P2_PREMIUM_RULE":
+        case "COMMA_HIGH_PRIORITY":
+        case "MISSING_THE_HIGH_PRIORITY":
                         return 2;
         case "P1_RULE":
         case "P1_RULE_B":
         case "P1_PREMIUM_RULE":
+        case "COMMA_LOW_PRIORITY":
+        case "COMMA_LOW_PRIORITY2":
+        case "MISSING_THE_LOW_PRIORITY":
                         return 1;
         case "MISC":    return 0;
         default: throw new RuntimeException("No priority defined for " + id);

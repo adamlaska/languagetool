@@ -20,10 +20,7 @@
 package org.languagetool.rules.en;
 
 
-import org.languagetool.language.English;
 import org.languagetool.rules.AbstractAdvancedSynthesizerFilter;
-import org.languagetool.synthesis.Synthesizer;
-import org.languagetool.synthesis.en.EnglishSynthesizer;
 
 /*
  * Synthesize suggestions using the lemma from one token (lemma_from) 
@@ -33,12 +30,5 @@ import org.languagetool.synthesis.en.EnglishSynthesizer;
  * to choose one among several possible readings.
  */
 public class AdvancedSynthesizerFilter extends AbstractAdvancedSynthesizerFilter {
-
-  private final EnglishSynthesizer synth = new EnglishSynthesizer(new English());
-  
-  @Override
-  protected Synthesizer getSynthesizer() {
-    return synth;
-  }
 
 }

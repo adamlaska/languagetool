@@ -86,6 +86,28 @@ public class UpperCaseNgramRuleTest {
     assertGood("And mine is Wed.");
     assertGood("I would support Knicks rather than Hawks.");
     assertGood("You Can't Judge a Book by the Cover");
+    assertGood("What Does an Effective Cover Letter Look Like?");
+    assertGood("Our external Counsel are reviewing the authority of FMPA to enter into the proposed transaction");
+
+    // Parentheses
+    assertGood("(4 hrs/wk) Manage all IT affairs.");
+    assertGood("(Laravel MVC) Implements two distinct working algorithms.");
+    assertGood("(Later) Connect different cont.");
+
+    assertGood("$$/month (Includes everything!)");
+    assertGood("- Foot care (Cleaning of feet, wash...");
+    assertGood("- Exercise (Engage in exercises...");
+
+    // Arrows
+    assertGood("-> Allowed the civilian government...");
+    assertGood("-> Led by Italian Physicians...");
+    assertGood("-> Used as inspiration...");
+
+    // Quotes
+    assertGood("The sign read \"Seats to be Added\".");
+    assertGood("“Helm, Engage.”");
+    assertGood("\"Be careful, Reign!\"");
+
     // TODO:
     //assertGood("Best Regards.");
     //assertGood("USB Port.");

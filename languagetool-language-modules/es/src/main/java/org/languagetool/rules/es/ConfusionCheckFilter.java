@@ -18,6 +18,7 @@
  */
 package org.languagetool.rules.es;
 
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,13 +42,14 @@ public class ConfusionCheckFilter extends RuleFilter {
 
   @Override
   public RuleMatch acceptRuleMatch(RuleMatch match, Map<String, String> arguments, int patternTokenPos,
-      AnalyzedTokenReadings[] patternTokens) {
+                                   AnalyzedTokenReadings[] patternTokens, List<Integer> tokenPositions) {
 
     Pattern desiredGenderNumberPattern = null;
     String replacement = null;
     String postag = getRequired("postag", arguments);
     String originalForm = getRequired("form", arguments);
     boolean isAllUppercase = StringTools.isAllUppercase(originalForm);
+    boolean isCapitalized = StringTools.isCapitalizedWord(originalForm);
     String form = originalForm.toLowerCase();
     String gendernumberFrom = getOptional("gendernumberFrom", arguments);
     if (gendernumberFrom != null) {
@@ -91,8 +93,12 @@ public class ConfusionCheckFilter extends RuleFilter {
       if (isAllUppercase) {
         replacement = replacement.toUpperCase();
       }
+      if (isCapitalized) {
+        replacement = StringTools.uppercaseFirstChar(replacement);
+      }
       String suggestion = match.getSuggestedReplacements().get(0).replace("{suggestion}", replacement);
       suggestion = suggestion.replace("{Suggestion}", StringTools.uppercaseFirstChar(replacement));
+      suggestion = suggestion.replace("{SUGGESTION}", replacement.toUpperCase());
       ruleMatch.setSuggestedReplacement(suggestion);
       return ruleMatch;
     }    

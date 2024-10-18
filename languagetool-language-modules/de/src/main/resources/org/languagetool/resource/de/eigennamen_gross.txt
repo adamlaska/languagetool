@@ -1,6 +1,6 @@
-# Eigennamen, die großgeschrieben werden müssen wie "Regierender Bürgermeister".
+# Eigennamen, die großgeschrieben werden müssen wie "Europäische Zentralbank".
 # In dieser Liste sollten Einträge aus Adjektiv + Nomen bestehen (bzw. 
-# auch aus mehreren Adjetiven + ein Nomen), sonst kann es beim Start von LT
+# auch aus mehreren Adjektiven + ein Nomen), sonst kann es beim Start von LT
 # zu einer Warnung kommen ("No base form found for ...").
 Dreißigjährige Krieg
 Schwarze Mamba
@@ -29,7 +29,6 @@ Deutsch-Französische Krieg
 Deutscher Fußball-Bund
 Deutscher Gewerkschaftsbund
 Deutsches Institut für Normung
-Deutsche Post
 Deutsche Presse-Agentur
 Deutscher Schäferhund
 Deutsche Reich
@@ -49,4 +48,7 @@ Orangenen Revolution
 Russische Föderation
 Ständiger Internationaler Gerichtshof
 Vorsitzende Richter
+Vorsitzende Richterin
 Zweite Bundesliga
+Allgemeine Relativitätstheorie
+Mecklenburgische Seenplatte

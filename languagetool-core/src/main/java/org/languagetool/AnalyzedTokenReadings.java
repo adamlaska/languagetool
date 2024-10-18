@@ -21,8 +21,11 @@ package org.languagetool;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.jetbrains.annotations.NotNull;
 import org.languagetool.chunking.ChunkTag;
 import org.languagetool.tools.StringTools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -38,6 +41,7 @@ import static org.languagetool.JLanguageTool.*;
  */
 public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
 
+  private static final Logger logger = LoggerFactory.getLogger(AnalyzedTokenReadings.class);
   private static final Pattern NON_WORD_REGEX = Pattern.compile("[.?!…:;,~’'\"„“”»«‚‘›‹()\\[\\]\\-–—*×∗·+÷/=]");
 
   private final boolean isWhitespace;
@@ -61,6 +65,7 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
   // it should never be matched by any rule. Used to have generalized
   // mechanism for exceptions in rules.
   private boolean isImmunized;
+  private int immunizationSourceLine;
 
   // If true, then the token is marked up as ignored in all spelling rules:
   // other rules can freely match it.
@@ -95,30 +100,29 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
     setNoRealPOStag();
     hasSameLemmas = areLemmasSame();
     whitespaceBeforeChar = "";
-    hasTypographicApostrophe = hasTypographicApostrophe();
   }
   
   // Constructor from a previous AnalyzedTokenReadings with new readings, and annotation of the change  
   public AnalyzedTokenReadings(AnalyzedTokenReadings oldAtr, List<AnalyzedToken> newReadings, String ruleApplied) {
     this(newReadings, oldAtr.getStartPos());
     if (oldAtr.isSentenceEnd()) {
-      this.setSentEnd();
+      setSentEnd();
     }
     if (oldAtr.isParagraphEnd()) {
-      this.setParagraphEnd();
+      setParagraphEnd();
     }
-    this.setWhitespaceBefore(oldAtr.getWhitespaceBefore());
-    this.setChunkTags(oldAtr.getChunkTags());
+    setWhitespaceBefore(oldAtr.getWhitespaceBefore());
+    setChunkTags(oldAtr.getChunkTags());
     if (oldAtr.isImmunized()) {
-      this.immunize();
+      immunize(oldAtr.getImmunizationSourceLine());
     }
     if (oldAtr.isIgnoredBySpeller()) {
-      this.ignoreSpelling();
+      ignoreSpelling();
     }
     if (oldAtr.hasTypographicApostrophe()) {
-      this.setTypographicApostrophe();
+      setTypographicApostrophe();
     }
-    this.setHistoricalAnnotations(oldAtr.getHistoricalAnnotations());
+    setHistoricalAnnotations(oldAtr.getHistoricalAnnotations());
     addHistoricalAnnotations(oldAtr.toString(), ruleApplied); 
   }
 
@@ -140,34 +144,28 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
 
   /**
    * Checks if the token has a particular POS tag.
-   * 
    * @param posTag POS tag to look for
    */
   public boolean hasPosTag(String posTag) {
-    boolean found = false;
     for (AnalyzedToken reading : anTokReadings) {
-      found = posTag.equals(reading.getPOSTag());
-      if (found) {
-        break;
+      if (posTag.equals(reading.getPOSTag())) {
+        return true;
       }
     }
-    return found;
+    return false;
   }
   
   /**
    * Checks if the token has a particular POS tag and lemma.
-   * 
    * @param posTag POS tag and lemma to look for
    */
   public boolean hasPosTagAndLemma(String posTag, String lemma) {
-    boolean found = false;
     for (AnalyzedToken reading : anTokReadings) {
-      found = posTag.equals(reading.getPOSTag()) && lemma.equals(reading.getLemma());
-      if (found) {
-        break;
+      if (posTag.equals(reading.getPOSTag()) && lemma.equals(reading.getLemma())) {
+        return true;
       }
     }
-    return found;
+    return false;
   }
 
   /**
@@ -177,19 +175,16 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
   public boolean hasReading() {
     return anTokReadings != null && anTokReadings.length > 0;
   }
+
   /**
    * Checks if one of the token's readings has a particular lemma.
-   *
    * @param lemma lemma POS tag to look for
    */
   public boolean hasLemma(String lemma) {
     boolean found = false;
     for (AnalyzedToken reading : anTokReadings) {
-      if (reading.getLemma() != null) {
-        found = lemma.equals(reading.getLemma());
-        if (found) {
-          break;
-        }
+      if (reading.getLemma() != null && lemma.equals(reading.getLemma())) {
+        return true;
       }
     }
     return found;
@@ -197,20 +192,17 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
 
   /**
    * Checks if one of the token's readings has one of the given lemmas
-   *
-   * @param lemmas to look for
+   * @param lemmas lemmas to look for
    */
   public boolean hasAnyLemma(String... lemmas) {
-    boolean found = false;
     for(String lemma : lemmas) {
       for (AnalyzedToken reading : anTokReadings) {
-        found = lemma.equals(reading.getLemma());
-        if (found) {
-          return found;
+        if (lemma.equals(reading.getLemma())) {
+          return true;
         }
       }
     }
-    return found;
+    return false;
   }
 
   /**
@@ -220,16 +212,12 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
    * @since 1.8
    */
   public boolean hasPartialPosTag(String posTag) {
-    boolean found = false;
     for (AnalyzedToken reading : anTokReadings) {
-      if (reading.getPOSTag() != null) {
-        found = reading.getPOSTag().contains(posTag);
-        if (found) {
-          break;
-        }
+      if (reading.getPOSTag() != null && reading.getPOSTag().contains(posTag)) {
+        return true;
       }
     }
-    return found;
+    return false;
   }
 
  /**
@@ -254,67 +242,66 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
    * @since 4.0
    */
   public boolean hasPosTagStartingWith(String posTag) {
-    boolean found = false;
     for (AnalyzedToken reading : anTokReadings) {
-      if (reading.getPOSTag() != null) {
-        found = reading.getPOSTag().startsWith(posTag);
-        if (found) {
-          break;
-        }
+      if (reading.getPOSTag() != null && reading.getPOSTag().startsWith(posTag)) {
+        return true;
       }
     }
-    return found;
+    return false;
   }
 
   /**
    * Checks if at least one of the readings matches a given POS tag regex.
-   *
    * @param posTagRegex POS tag regular expression to look for
    * @since 2.9
    */
   public boolean matchesPosTagRegex(String posTagRegex) {
     Pattern pattern = Pattern.compile(posTagRegex);
-    boolean found = false;
+    return matchesPosTagRegex(pattern);
+  }
+
+  /**
+   * Checks if at least one of the readings matches a given POS tag pattern.
+   * @since 6.4
+   */
+  public boolean matchesPosTagRegex(Pattern pattern) {
     for (AnalyzedToken reading : anTokReadings) {
-      if (reading.getPOSTag() != null) {
-        found = pattern.matcher(reading.getPOSTag()).matches();
-        if (found) {
-          break;
-        }
+      if (reading.getPOSTag() != null && pattern.matcher(reading.getPOSTag()).matches()) {
+        return true;
       }
     }
-    return found;
+    return false;
   }
-  
+
   public boolean matchesChunkRegex(String chunkRegex) {
     Pattern pattern = Pattern.compile(chunkRegex);
-    boolean found = false;
-    for ( ChunkTag chunk : getChunkTags()) {
-      if (chunk != null) {
-        found = pattern.matcher(chunk.getChunkTag()).matches();
-        if (found) {
-          break;
-        }
+    for (ChunkTag chunk : getChunkTags()) {
+      if (chunk != null && pattern.matcher(chunk.getChunkTag()).matches()) {
+        return true;
       }
     }
-    return found;
+    return false;
   }
   
   /**
    * Returns the first reading that matches a given POS tag regex.
-   *
    * @param posTagRegex POS tag regular expression to look for
    * @since 5.5
    */
   public AnalyzedToken readingWithTagRegex(String posTagRegex) {
     Pattern pattern = Pattern.compile(posTagRegex);
-    boolean found = false;
     for (AnalyzedToken reading : anTokReadings) {
-      if (reading.getPOSTag() != null) {
-        found = pattern.matcher(reading.getPOSTag()).matches();
-        if (found) {
-          return reading;
-        }
+      if (reading.getPOSTag() != null && pattern.matcher(reading.getPOSTag()).matches()) {
+        return reading;
+      }
+    }
+    return null;
+  }
+
+  public AnalyzedToken readingWithTagRegex(Pattern pattern) {
+    for (AnalyzedToken reading : anTokReadings) {
+      if (reading.getPOSTag() != null && pattern.matcher(reading.getPOSTag()).matches()) {
+        return reading;
       }
     }
     return null;
@@ -322,18 +309,12 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
   
   /**
    * Returns the first reading that matches a given lemma.
-   *
-   * @param posTagRegex POS tag regular expression to look for
    * @since 5.8
    */
   public AnalyzedToken readingWithLemma(String lemma) {
-    boolean found = false;
     for (AnalyzedToken reading : anTokReadings) {
-      if (reading.getLemma() != null) {
-        found = reading.getLemma().equals(lemma);
-        if (found) {
-          return reading;
-        }
+      if (reading.getLemma() != null && reading.getLemma().equals(lemma)) {
+        return reading;
       }
     }
     return null;
@@ -543,12 +524,20 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
     return isWhitespaceBefore;
   }
 
-  public void immunize() {
+  public void immunize(int sourceLine) {
     isImmunized = true;
+    immunizationSourceLine = sourceLine;
   }
 
   public boolean isImmunized() {
+    if (isImmunized && logger.isDebugEnabled()) {
+      logger.debug("'" + getToken() + "' is immunized by antipattern in line " + immunizationSourceLine);
+    }
     return isImmunized;
+  }
+
+  public int getImmunizationSourceLine() {
+    return immunizationSourceLine;
   }
 
   /**
@@ -612,16 +601,17 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
    * @param historicalAnnotations the historicalAnnotations to set
    */
   private void setHistoricalAnnotations(String historicalAnnotations) {
-    this.historicalAnnotations = historicalAnnotations;
+    if (GlobalConfig.isVerbose()) {
+      this.historicalAnnotations = historicalAnnotations;
+    }
   }
   
   private void addHistoricalAnnotations(String oldValue, String ruleApplied) {
-    if (!ruleApplied.isEmpty()) {
+    if (!ruleApplied.isEmpty() && GlobalConfig.isVerbose()) {
       this.historicalAnnotations = this.getHistoricalAnnotations() + "\n" + ruleApplied + ": " + oldValue + " -> "
           + this;
     }
   }
-  
 
   /**
    * @since 2.3
@@ -699,7 +689,6 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
 
   /**
    * Used to optimize pattern matching.
-   * 
    * @return true if all {@link AnalyzedToken} lemmas are the same.
    */
   public boolean hasSameLemmas() {
@@ -748,6 +737,7 @@ public final class AnalyzedTokenReadings implements Iterable<AnalyzedToken> {
   /**
    * @since 2.3
    */
+  @NotNull
   @Override
   public Iterator<AnalyzedToken> iterator() {
     AtomicInteger i = new AtomicInteger(0);

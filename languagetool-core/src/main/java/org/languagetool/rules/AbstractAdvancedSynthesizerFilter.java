@@ -29,7 +29,9 @@ import java.util.regex.Pattern;
 
 import org.languagetool.AnalyzedToken;
 import org.languagetool.AnalyzedTokenReadings;
-import org.languagetool.rules.RuleMatch;
+import org.languagetool.Language;
+import org.languagetool.rules.patterns.AbstractPatternRule;
+import org.languagetool.rules.patterns.PatternRule;
 import org.languagetool.rules.patterns.RuleFilter;
 import org.languagetool.synthesis.Synthesizer;
 import org.languagetool.tools.StringTools;
@@ -43,28 +45,30 @@ import org.languagetool.tools.StringTools;
  */
 public abstract class AbstractAdvancedSynthesizerFilter extends RuleFilter {
 
-  abstract protected Synthesizer getSynthesizer();
-
   @Override
   public RuleMatch acceptRuleMatch(RuleMatch match, Map<String, String> arguments, int patternTokenPos,
-      AnalyzedTokenReadings[] patternTokens) throws IOException {
+                                   AnalyzedTokenReadings[] patternTokens, List<Integer> tokenPositions) throws IOException {
     
-    //if (match.getSentence().getText().contains("Das ist wider der Vernunft")) {
-    //  int ii=0;
-    //  ii++;
-    //}
+//    if (match.getSentence().getText().contains("Jo pensem")) {
+//      int ii=0;
+//      ii++;
+//    }
 
     String postagSelect = getRequired("postagSelect", arguments);
     String lemmaSelect = getRequired("lemmaSelect", arguments);
     String postagFromStr = getRequired("postagFrom", arguments);
     String lemmaFromStr = getRequired("lemmaFrom", arguments);
+    String newLemma = getOptional("newLemma", arguments, "");
     
     int postagFrom = 0;
-    if (postagFromStr.equals("marker")) {
+    if (postagFromStr.startsWith("marker")) {
       while (postagFrom < patternTokens.length && patternTokens[postagFrom].getStartPos() < match.getFromPos()) {
         postagFrom++;
       }
       postagFrom++;
+      if (postagFromStr.length()>6) {
+        postagFrom += Integer.parseInt(postagFromStr.replace("marker", ""));
+      }
     } else {
       postagFrom = Integer.parseInt(postagFromStr);
     }
@@ -73,11 +77,14 @@ public abstract class AbstractAdvancedSynthesizerFilter extends RuleFilter {
           + match.getRule().getFullId() + ", value: " + postagFromStr);
     }
     int lemmaFrom = 0;
-    if (lemmaFromStr.equals("marker")) {
+    if (lemmaFromStr.startsWith("marker")) {
       while (lemmaFrom < patternTokens.length && patternTokens[lemmaFrom].getStartPos() < match.getFromPos()) {
         lemmaFrom++;
       }
       lemmaFrom++;
+      if (lemmaFromStr.length()>6) {
+        lemmaFrom += Integer.parseInt(lemmaFromStr.replace("marker", ""));
+      }
     } else {
       lemmaFrom = Integer.parseInt(lemmaFromStr);
     }
@@ -91,9 +98,13 @@ public abstract class AbstractAdvancedSynthesizerFilter extends RuleFilter {
     String desiredLemma = getAnalyzedToken(patternTokens[lemmaFrom - 1], lemmaSelect).getLemma();
     String originalPostag = getAnalyzedToken(patternTokens[lemmaFrom - 1], lemmaSelect).getPOSTag();
     String desiredPostag = getAnalyzedToken(patternTokens[postagFrom - 1], postagSelect).getPOSTag();
+    if (!newLemma.isEmpty()) {
+      desiredLemma = newLemma;
+    }
     
     if (desiredPostag == null) {
-      throw new IllegalArgumentException("AdvancedSynthesizerFilter: undefined POS tag");
+      throw new IllegalArgumentException("AdvancedSynthesizerFilter: undefined POS tag for rule " +
+        match.getRule().getFullId() + " with POS regex '" + postagSelect + "' for token: " + patternTokens[postagFrom-1]);
     }
 
     if (postagReplace != null) {
@@ -104,8 +115,9 @@ public abstract class AbstractAdvancedSynthesizerFilter extends RuleFilter {
     boolean isWordCapitalized = StringTools.isCapitalizedWord(patternTokens[lemmaFrom - 1].getToken());
     boolean isWordAllupper = StringTools.isAllUppercase(patternTokens[lemmaFrom - 1].getToken());
     AnalyzedToken token = new AnalyzedToken("", desiredPostag, desiredLemma);
-    String[] replacements = getSynthesizer().synthesize(token, desiredPostag, true);
-    
+    Language language = getLanguageFromRuleMatch(match);
+    Synthesizer synth = language.getSynthesizer();
+    String[] replacements = synth.synthesize(token, desiredPostag, true);
     if (replacements.length > 0) {
       RuleMatch newMatch = new RuleMatch(match.getRule(), match.getSentence(), match.getFromPos(), match.getToPos(),
           match.getMessage(), match.getShortMessage());
@@ -118,7 +130,7 @@ public abstract class AbstractAdvancedSynthesizerFilter extends RuleFilter {
           if (isSuggestionException(nr, desiredPostag)) {
             continue;
           }
-          if (r.contains("{suggestion}") || r.contains("{Suggestion}")) {
+          if (r.contains("{suggestion}") || r.contains("{Suggestion}") || r.contains("{SUGGESTION}")) {
             suggestionUsed = true;
           }
           if (isWordCapitalized) {
@@ -129,19 +141,26 @@ public abstract class AbstractAdvancedSynthesizerFilter extends RuleFilter {
           }
           String completeSuggestion = r.replace("{suggestion}", nr);
           completeSuggestion = completeSuggestion.replace("{Suggestion}", StringTools.uppercaseFirstChar(nr));
-          replacementsList.add(completeSuggestion);
+          completeSuggestion = completeSuggestion.replace("{SUGGESTION}", nr.toUpperCase());
+          if (!replacementsList.contains(completeSuggestion)) {
+            replacementsList.add(completeSuggestion);
+          }
         }
       }
       if (!suggestionUsed) {
         replacementsList.addAll(Arrays.asList(replacements));
       }
-      newMatch.setSuggestedReplacements(replacementsList);
+      List<String> adjustedReplacementsList = new ArrayList<>();
+      for (String replacement : replacementsList) {
+        adjustedReplacementsList.add(language.adaptSuggestion(replacement));
+      }
+      newMatch.setSuggestedReplacements(adjustedReplacementsList);
       return newMatch;
     }
     return match;
   }
 
-  private String getCompositePostag(String lemmaSelect, String postagSelect, String originalPostag,
+  public String getCompositePostag(String lemmaSelect, String postagSelect, String originalPostag,
       String desiredPostag, String postagReplace) {
     Pattern aPattern = Pattern.compile(lemmaSelect, Pattern.UNICODE_CASE);
     Pattern bPattern = Pattern.compile(postagSelect, Pattern.UNICODE_CASE);

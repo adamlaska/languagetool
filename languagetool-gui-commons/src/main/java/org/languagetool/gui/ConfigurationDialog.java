@@ -26,6 +26,7 @@ import org.languagetool.Language;
 import org.languagetool.Languages;
 import org.languagetool.languagemodel.LuceneLanguageModel;
 import org.languagetool.rules.Rule;
+import org.languagetool.rules.RuleOption;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -59,12 +60,15 @@ public class ConfigurationDialog implements ActionListener {
 
   private static final int SHIFT1 = 4;
   private static final int SHIFT2 = 20;
+  private static final int SHIFT3 = 44;
 
   private final ResourceBundle messages;
   private final Configuration original;
   private final Configuration config;
   private final Frame owner;
   private final boolean insideOffice;
+  private final Image ltImage;
+  private String dialogTitle;
   private boolean configChanged = false;
   private boolean profileChanged = true;
   private boolean restartShow = false;
@@ -84,10 +88,16 @@ public class ConfigurationDialog implements ActionListener {
   private Rule rule;
 
   public ConfigurationDialog(Frame owner, boolean insideOffice, Configuration config) {
+    this(owner, insideOffice, null, null, config);
+  }
+
+  public ConfigurationDialog(Frame owner, boolean insideOffice, Image ltImage, String title, Configuration config) {
     this.owner = owner;
     this.insideOffice = insideOffice;
     this.original = config;
     this.config = original.copy(original);
+    this.ltImage = ltImage;
+    dialogTitle = title;
     messages = JLanguageTool.getMessageBundle();
   }
 
@@ -172,6 +182,10 @@ public class ConfigurationDialog implements ActionListener {
     return configChanged;
   }
     
+  public void close() {
+    dialog.setVisible(false);
+  }
+
   public boolean showPanel(List<Rule> rules) {
     configChanged = false;
     if (original != null && !restartShow) {
@@ -179,7 +193,13 @@ public class ConfigurationDialog implements ActionListener {
     }
     restartShow = false;
     dialog = new JDialog(owner, true);
-    dialog.setTitle(messages.getString("guiConfigWindowTitle"));
+    if (dialogTitle == null) {
+      dialogTitle = messages.getString("guiConfigWindowTitle");
+    }
+    dialog.setTitle(dialogTitle);
+    if (ltImage != null) {
+      ((Frame) dialog.getOwner()).setIconImage(ltImage);
+    }
     // close dialog when user presses Escape key:
     KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
     ActionListener actionListener = actionEvent -> dialog.setVisible(false);
@@ -213,7 +233,7 @@ public class ConfigurationDialog implements ActionListener {
       Collections.sort(rules, new CategoryComparator());
       if(i == 0) {
         rootNode[i] = createTree(rules, false, null, null);   //  grammar options
-      } else if(i ==1 ) {
+      } else if(i == 1) {
         rootNode[i] = createTree(rules, true, null, null);    //  Style options
       } else {
         rootNode[i] = createTree(rules, true, specialTabNames[i - 2], null);    //  Special tab options
@@ -321,7 +341,7 @@ public class ConfigurationDialog implements ActionListener {
       jPane.add(getMotherTonguePanel(cons), cons);
       cons.gridx = 0;
       cons.gridy++;
-      jPane.add(getNgramAndWord2VecPanel(), cons);
+      jPane.add(getNgramPanel(), cons);
     }
     cons.gridy++;
     cons.anchor = GridBagConstraints.WEST;
@@ -395,6 +415,7 @@ public class ConfigurationDialog implements ActionListener {
 
     tabpane.addTab(messages.getString("guiStyleRules"), jPane);
 
+//  Style special tabs (optional)
     for (int i = 0; i < specialTabNames.length; i++) {
       jPane = new JPanel();
       jPane.setLayout(new GridBagLayout());
@@ -423,6 +444,20 @@ public class ConfigurationDialog implements ActionListener {
 
       tabpane.addTab(specialTabNames[i], jPane);
     }
+    
+    if(insideOffice) {
+      //    technical options tab (only office)
+      String label = messages.getString("guiTechnicalSettings");
+      if (label.endsWith(":")) {
+        label = label.substring(0, label.length() - 1);
+      }
+      tabpane.add(label, new JScrollPane(getOfficeTechnicalElements()));
+      
+      //    AI options tab (only office)
+      label = messages.getString("guiAiSupportSettings");
+      tabpane.add(label, new JScrollPane(getOfficeAiElements()));
+    }
+
     Container contentPane = dialog.getContentPane();
     contentPane.setLayout(new GridBagLayout());
     cons = new GridBagConstraints();
@@ -456,7 +491,13 @@ public class ConfigurationDialog implements ActionListener {
         ((SavablePanel) extra).componentShowing();
       }
     }
+    dialog.setAutoRequestFocus(true);
+    
+    if(insideOffice) {
+      dialog.setAlwaysOnTop(true);
+    }
     dialog.setVisible(true);
+    dialog.toFront();
     return configChanged;
   }
 
@@ -585,7 +626,7 @@ public class ConfigurationDialog implements ActionListener {
     portPanel.add(languagePanel, cons);
   }
 
-  private void addOfficeTextruleElements(GridBagConstraints cons, JPanel portPanel, JCheckBox useQueueResetbox, JCheckBox saveCacheBox) {
+  private void addOfficeTextruleElements(GridBagConstraints cons, JPanel portPanel) {
     int numParaCheck = config.getNumParasToCheck();
     boolean useTextLevelQueue = config.useTextLevelQueue();
     JRadioButton[] radioButtons = new JRadioButton[3];
@@ -610,9 +651,7 @@ public class ConfigurationDialog implements ActionListener {
     if (numParaCheck == 0 || config.onlySingleParagraphMode()) {
       radioButtons[1].setSelected(true);
       numParaField.setEnabled(false);
-      saveCacheBox.setEnabled(false);
       config.setUseTextLevelQueue(false);
-//      useQueueResetbox.setEnabled(false);
       if (config.onlySingleParagraphMode()) {
         radioButtons[0].setEnabled(false);
         radioButtons[2].setEnabled(false);
@@ -631,16 +670,12 @@ public class ConfigurationDialog implements ActionListener {
       numParaField.setEnabled(false);
       config.setNumParasToCheck(-2);
       config.setUseTextLevelQueue(true);
-//      useQueueResetbox.setEnabled(false);
-      saveCacheBox.setEnabled(true);
     });
     
     radioButtons[1].addActionListener(e -> {
       numParaField.setEnabled(false);
       config.setNumParasToCheck(0);
       config.setUseTextLevelQueue(false);
-//      useQueueResetbox.setEnabled(true);
-      saveCacheBox.setEnabled(false);
     });
     
     radioButtons[2].addActionListener(e -> {
@@ -652,8 +687,6 @@ public class ConfigurationDialog implements ActionListener {
       numParaField.setText(Integer.toString(numParaCheck1));
       numParaField.setEnabled(true);
       config.setUseTextLevelQueue(false);
-//      useQueueResetbox.setEnabled(true);
-      saveCacheBox.setEnabled(true);
     });
     
     numParaField.getDocument().addDocumentListener(new DocumentListener() {
@@ -705,11 +738,18 @@ public class ConfigurationDialog implements ActionListener {
     portPanel.add(radioPanel, cons);
   }
   
-  private void addOfficeTechnicalElements(GridBagConstraints cons, JPanel portPanel) {
-    JLabel typeOfCheckLabel = new JLabel(Tools.getLabel(messages.getString("guiTechnicalSettings")));
+  private JPanel getOfficeTechnicalElements() {
     // technical settings
-    cons.gridy++;
-    portPanel.add(typeOfCheckLabel, cons);
+    JPanel portPanel = new JPanel();
+    portPanel.setLayout(new GridBagLayout());
+    GridBagConstraints cons = new GridBagConstraints();
+    cons.insets = new Insets(0, SHIFT1, 0, 0);
+    cons.gridx = 0;
+    cons.gridy = 0;
+    cons.anchor = GridBagConstraints.WEST;
+    cons.fill = GridBagConstraints.NONE;
+    cons.weightx = 0.0f;
+    JCheckBox saveCacheBox = new JCheckBox(Tools.getLabel(messages.getString("guiSaveCacheToFile")));
     JTextField otherServerNameField = new JTextField(config.getServerUrl() ==  null ? "" : config.getServerUrl(), 25);
     otherServerNameField.setMinimumSize(new Dimension(100, 25));
     otherServerNameField.getDocument().addDocumentListener(new DocumentListener() {
@@ -757,12 +797,81 @@ public class ConfigurationDialog implements ActionListener {
         firstSelection = true;
       }
     });
+
+    JLabel usernameLabel = new JLabel(Tools.getLabel(messages.getString("guiPremiumUsername")));
+
+    JTextField usernameField = new JTextField(config.getRemoteUsername() ==  null ? "" : config.getRemoteUsername(), 25);
+    usernameField.setMinimumSize(new Dimension(100, 25));
+    usernameField.getDocument().addDocumentListener(new DocumentListener() {
+      @Override
+      public void insertUpdate(DocumentEvent e) {
+        changedUpdate(e);
+      }
+      @Override
+      public void removeUpdate(DocumentEvent e) {
+        changedUpdate(e);
+      }
+      @Override
+      public void changedUpdate(DocumentEvent e) {
+        String username = usernameField.getText();
+        username = username.trim();
+        if(username.isEmpty()) {
+          username = null;
+        }
+        if (username != null) {
+          config.setRemoteUsername(username);
+        }
+      }
+    });
+
+    JLabel apiKeyLabel = new JLabel(Tools.getLabel(messages.getString("guiPremiumApiKey")));
+
+    JTextField apiKeyField = new JTextField(config.getRemoteApiKey() ==  null ? "" : config.getRemoteApiKey(), 25);
+    apiKeyField.setMinimumSize(new Dimension(100, 25));
+    apiKeyField.getDocument().addDocumentListener(new DocumentListener() {
+      @Override
+      public void insertUpdate(DocumentEvent e) {
+        changedUpdate(e);
+      }
+      @Override
+      public void removeUpdate(DocumentEvent e) {
+        changedUpdate(e);
+      }
+      @Override
+      public void changedUpdate(DocumentEvent e) {
+        String apiKey = apiKeyField.getText();
+        apiKey = apiKey.trim();
+        if(apiKey.isEmpty()) {
+          apiKey = null;
+        }
+        if (apiKey != null) {
+          config.setRemoteApiKey(apiKey);
+        }
+      }
+    });
+
+    JCheckBox isPremiumBox = new JCheckBox(Tools.getLabel(messages.getString("guiUsePremiumAccount")) + " ");
+    isPremiumBox.setSelected(config.isPremium());
+    isPremiumBox.addItemListener(e -> {
+      boolean selected = isPremiumBox.isSelected();
+      config.setPremium(selected);
+      usernameLabel.setEnabled(selected);
+      usernameField.setEnabled(selected);
+      apiKeyLabel.setEnabled(selected);
+      apiKeyField.setEnabled(selected);
+    });
+    
     JRadioButton[] typeOfCheckButtons = new JRadioButton[3];
     ButtonGroup typeOfCheckGroup = new ButtonGroup();
     typeOfCheckButtons[0] = new JRadioButton(Tools.getLabel(messages.getString("guiOneThread")));
     typeOfCheckButtons[0].addActionListener(e -> {
       otherServerNameField.setEnabled(false);
       useServerBox.setEnabled(false);
+      usernameLabel.setEnabled(false);
+      usernameField.setEnabled(false);
+      apiKeyLabel.setEnabled(false);
+      apiKeyField.setEnabled(false);
+      isPremiumBox.setEnabled(false);
       config.setMultiThreadLO(false);
       config.setRemoteCheck(false);
     });
@@ -770,6 +879,11 @@ public class ConfigurationDialog implements ActionListener {
     typeOfCheckButtons[1].addActionListener(e -> {
       otherServerNameField.setEnabled(false);
       useServerBox.setEnabled(false);
+      usernameLabel.setEnabled(false);
+      usernameField.setEnabled(false);
+      apiKeyLabel.setEnabled(false);
+      apiKeyField.setEnabled(false);
+      isPremiumBox.setEnabled(false);
       config.setMultiThreadLO(true);
       config.setRemoteCheck(false);
     });
@@ -787,6 +901,11 @@ public class ConfigurationDialog implements ActionListener {
 //        typeOfCheckButtons[2].setSelected(selected);
         otherServerNameField.setEnabled(useServerBox.isSelected());
         useServerBox.setEnabled(true);
+        usernameLabel.setEnabled(isPremiumBox.isSelected());
+        usernameField.setEnabled(isPremiumBox.isSelected());
+        apiKeyLabel.setEnabled(isPremiumBox.isSelected());
+        apiKeyField.setEnabled(isPremiumBox.isSelected());
+        isPremiumBox.setEnabled(true);
         config.setMultiThreadLO(false);
         config.setRemoteCheck(true);
       } else {
@@ -805,18 +924,33 @@ public class ConfigurationDialog implements ActionListener {
       typeOfCheckButtons[2].setSelected(true);
       otherServerNameField.setEnabled(useServerBox.isSelected());
       useServerBox.setEnabled(true);
+      usernameLabel.setEnabled(isPremiumBox.isSelected());
+      usernameField.setEnabled(isPremiumBox.isSelected());
+      apiKeyLabel.setEnabled(isPremiumBox.isSelected());
+      apiKeyField.setEnabled(isPremiumBox.isSelected());
+      isPremiumBox.setEnabled(true);
       config.setMultiThreadLO(false);
       config.setRemoteCheck(true);
     } else if (config.isMultiThread()) {
       typeOfCheckButtons[1].setSelected(true);
       otherServerNameField.setEnabled(false);
       useServerBox.setEnabled(false);
+      usernameLabel.setEnabled(false);
+      usernameField.setEnabled(false);
+      apiKeyLabel.setEnabled(false);
+      apiKeyField.setEnabled(false);
+      isPremiumBox.setEnabled(false);
       config.setMultiThreadLO(true);
       config.setRemoteCheck(false);
     } else {
       typeOfCheckButtons[0].setSelected(true);
       otherServerNameField.setEnabled(false);
       useServerBox.setEnabled(false);
+      usernameLabel.setEnabled(false);
+      usernameField.setEnabled(false);
+      apiKeyLabel.setEnabled(false);
+      apiKeyField.setEnabled(false);
+      isPremiumBox.setEnabled(false);
       config.setMultiThreadLO(false);
       config.setRemoteCheck(false);
     }
@@ -843,17 +977,48 @@ public class ConfigurationDialog implements ActionListener {
     serverExampleLabel.setEnabled(false);
     cons1.gridy++;
     serverPanel.add(serverExampleLabel, cons1);
-
     cons.gridx = 0;
     cons.gridy++;
     portPanel.add(serverPanel, cons);
+
+    JPanel premiumPanel = new JPanel();
+    premiumPanel.setLayout(new GridBagLayout());
+    cons1 = new GridBagConstraints();
+    cons1.insets = new Insets(0, SHIFT2, 0, 0);
+    cons1.gridx = 0;
+    cons1.gridy = 0;
+    cons1.anchor = GridBagConstraints.WEST;
+    cons1.fill = GridBagConstraints.NONE;
+    cons1.weightx = 0.0f;
+    premiumPanel.add(isPremiumBox, cons1);
+    cons1.insets = new Insets(0, SHIFT3, 0, 0);
+    cons1.gridy++;
+    premiumPanel.add(usernameLabel, cons1);
+    cons1.gridy++;
+    premiumPanel.add(usernameField, cons1);
+    cons1.gridy++;
+    premiumPanel.add(apiKeyLabel, cons1);
+    cons1.gridy++;
+    premiumPanel.add(apiKeyField, cons1);
+    cons.gridx = 0;
+    cons.gridy++;
+    portPanel.add(premiumPanel, cons);
+    saveCacheBox.setSelected(config.saveLoCache());
+    saveCacheBox.addItemListener(e1 -> {
+      config.setSaveLoCache(saveCacheBox.isSelected());
+    });
+    cons.insets = new Insets(0, SHIFT2, 0, 0);
+    cons.gridx = 0;
+    cons.gridy++;
+    portPanel.add(saveCacheBox, cons);
+
+    cons.gridy++;
+    portPanel.add(getNgramPanel(), cons);
+    return portPanel;
   }
   
   private void createOfficeElements(GridBagConstraints cons, JPanel portPanel) {
 
-    JCheckBox useQueueResetbox = new JCheckBox(Tools.getLabel(messages.getString("guiUseTextLevelQueue")));
-    JCheckBox saveCacheBox = new JCheckBox(Tools.getLabel(messages.getString("guiSaveCacheToFile")));
-    
     addOfficeLanguageElements(cons, portPanel);
 
     cons.gridx = 0;
@@ -867,19 +1032,19 @@ public class ConfigurationDialog implements ActionListener {
     cons.gridy++;
     portPanel.add(new JLabel(" "), cons);
     
+    JCheckBox useLtSpellCheckerBox = new JCheckBox(Tools.getLabel(messages.getString("guiUseLtSpellChecker")));
+    useLtSpellCheckerBox.setSelected(config.useLtSpellChecker());
+    useLtSpellCheckerBox.addItemListener(e -> {
+      config.setUseLtSpellChecker(useLtSpellCheckerBox.isSelected());
+    });
+    cons.gridy++;
+    portPanel.add(useLtSpellCheckerBox, cons);
+
     JCheckBox markSingleCharBold = new JCheckBox(Tools.getLabel(messages.getString("guiMarkSingleCharBold")));
     markSingleCharBold.setSelected(config.markSingleCharBold());
     markSingleCharBold.addItemListener(e -> config.setMarkSingleCharBold(markSingleCharBold.isSelected()));
     cons.gridy++;
     portPanel.add(markSingleCharBold, cons);
-
-    JCheckBox useLtDictionaryBox = new JCheckBox(Tools.getLabel(messages.getString("guiUseLtDictionary")));
-    useLtDictionaryBox.setSelected(config.useLtDictionary());
-    useLtDictionaryBox.addItemListener(e -> {
-      config.setUseLtDictionary(useLtDictionaryBox.isSelected());
-    });
-    cons.gridy++;
-    portPanel.add(useLtDictionaryBox, cons);
 
     JCheckBox noSynonymsAsSuggestionsBox = new JCheckBox(Tools.getLabel(messages.getString("guiNoSynonymsAsSuggestions")));
     noSynonymsAsSuggestionsBox.setSelected(config.noSynonymsAsSuggestions());
@@ -888,6 +1053,38 @@ public class ConfigurationDialog implements ActionListener {
     });
     cons.gridy++;
     portPanel.add(noSynonymsAsSuggestionsBox, cons);
+
+    JCheckBox includeTrackedChangesBox = new JCheckBox(Tools.getLabel(messages.getString("guiIncludeTrackedChanges")));
+    includeTrackedChangesBox.setSelected(config.includeTrackedChanges());
+    includeTrackedChangesBox.addItemListener(e -> {
+      config.setIncludeTrackedChanges(includeTrackedChangesBox.isSelected());
+    });
+    cons.gridy++;
+    portPanel.add(includeTrackedChangesBox, cons);
+
+    JCheckBox enableTmpOffRulesBox = new JCheckBox(Tools.getLabel(messages.getString("guiActivateTempOffRules")));
+    enableTmpOffRulesBox.setSelected(config.enableTmpOffRules());
+    enableTmpOffRulesBox.addItemListener(e -> {
+      config.setEnableTmpOffRules(enableTmpOffRulesBox.isSelected());
+    });
+    cons.gridy++;
+    portPanel.add(enableTmpOffRulesBox, cons);
+
+    JCheckBox enableGoalSpecificRulesBox = new JCheckBox(Tools.getLabel(messages.getString("guiEnableGoalSpecificRules")));
+    enableGoalSpecificRulesBox.setSelected(config.enableGoalSpecificRules());
+    enableGoalSpecificRulesBox.addItemListener(e -> {
+      config.setEnableGoalSpecificRules(enableGoalSpecificRulesBox.isSelected());
+    });
+    cons.gridy++;
+    portPanel.add(enableGoalSpecificRulesBox, cons);
+
+    JCheckBox filterOverlappingMatchesBox = new JCheckBox(Tools.getLabel(messages.getString("guiFilterOverlappingMatches")));
+    filterOverlappingMatchesBox.setSelected(config.filterOverlappingMatches());
+    filterOverlappingMatchesBox.addItemListener(e -> {
+      config.setFilterOverlappingMatches(filterOverlappingMatchesBox.isSelected());
+    });
+    cons.gridy++;
+    portPanel.add(filterOverlappingMatchesBox, cons);
 
     JCheckBox noBackgroundCheckBox = new JCheckBox(Tools.getLabel(messages.getString("guiNoBackgroundCheck")));
     noBackgroundCheckBox.setSelected(config.noBackgroundCheck());
@@ -898,40 +1095,14 @@ public class ConfigurationDialog implements ActionListener {
     cons.gridy++;
     portPanel.add(new JLabel(" "), cons);
     
-    addOfficeTextruleElements(cons, portPanel, useQueueResetbox, saveCacheBox);
+    addOfficeTextruleElements(cons, portPanel);
     
     cons.insets = new Insets(0, SHIFT1, 0, 0);
     cons.gridx = 0;
-/*
-    cons.gridy++;
-    JLabel dummyLabel4 = new JLabel(" ");
-    portPanel.add(dummyLabel4, cons);
-*/    
     cons.gridy++;
     portPanel.add(new JLabel(" "), cons);
     
-    addOfficeTechnicalElements(cons, portPanel);
-/*
-    useQueueResetbox.setSelected(config.useTextLevelQueue());
-    useQueueResetbox.addItemListener(e -> {
-      config.setUseTextLevelQueue(useQueueResetbox.isSelected());
-    });
-    cons.insets = new Insets(0, SHIFT1, 0, 0);
-    cons.gridx = 0;
-    cons.gridy++;
-    portPanel.add(useQueueResetbox, cons);
-*/
-    saveCacheBox.setSelected(config.saveLoCache());
-    saveCacheBox.addItemListener(e -> {
-      config.setSaveLoCache(saveCacheBox.isSelected());
-    });
-    cons.insets = new Insets(0, SHIFT2, 0, 0);
-    cons.gridx = 0;
-    cons.gridy++;
-    portPanel.add(saveCacheBox, cons);
-    
-    cons.gridy++;
-    portPanel.add(getNgramAndWord2VecPanel(), cons);
+//    addOfficeTechnicalElements(cons, portPanel);
   }
   
   private int showRemoteServerHint(Component component, boolean otherServer) {
@@ -1101,6 +1272,7 @@ public class ConfigurationDialog implements ActionListener {
     JPanel profilePanel = new JPanel();
     profilePanel.setLayout(new GridBagLayout());
     GridBagConstraints cons = new GridBagConstraints();
+    cons.insets = new Insets(4, 4, 0, 8);
     cons.gridx = 0;
     cons.gridy = 0;
     cons.weightx = 1.0f;
@@ -1147,7 +1319,7 @@ public class ConfigurationDialog implements ActionListener {
     });
       
     profilePanel.add(new JLabel(addColonToMessageString("guiCurrentProfile")), cons);
-    cons.insets = new Insets(6, 12, 0, 8);
+    cons.insets = new Insets(6, 16, 0, 8);
     cons.gridy++;
     profilePanel.add(profileBox, cons);
     
@@ -1230,11 +1402,11 @@ public class ConfigurationDialog implements ActionListener {
     });
     cons.gridx++;
     profilePanel.add(deleteButton, cons);
-    cons.insets = new Insets(16, 0, 0, 8);
+    cons.insets = new Insets(16, 4, 0, 8);
     cons.gridx = 0;
     cons.gridy++;
     profilePanel.add(new JLabel(addColonToMessageString("guiAddNewProfile")), cons);
-    cons.insets = new Insets(6, 12, 0, 8);
+    cons.insets = new Insets(6, 16, 0, 8);
     
     
     JButton addButton = new JButton(messages.getString("guiAddProfile") + "...");
@@ -1344,8 +1516,8 @@ public class ConfigurationDialog implements ActionListener {
     motherTonguePanel.add(motherTongueBox, cons);
     return motherTonguePanel;
   }
-  
-  private JPanel getNgramAndWord2VecPanel() {
+
+  private JPanel getNgramPanel() {
     JPanel panel = new JPanel();
     panel.setLayout(new GridBagLayout());
     GridBagConstraints cons1 = new GridBagConstraints();
@@ -1356,8 +1528,6 @@ public class ConfigurationDialog implements ActionListener {
     cons1.fill = GridBagConstraints.NONE;
     cons1.weightx = 0.0f;
     addNgramPanel(cons1, panel);
-    cons1.gridy++;
-    addWord2VecPanel(cons1, panel);
     return panel;
   }
 
@@ -1391,38 +1561,6 @@ public class ConfigurationDialog implements ActionListener {
     panel.add(ngramDirButton, cons);
     JButton helpButton = new JButton(messages.getString("guiNgramHelp"));
     helpButton.addActionListener(e -> Tools.openURL("https://dev.languagetool.org/finding-errors-using-n-gram-data"));
-    cons.gridx++;
-    panel.add(helpButton, cons);
-  }
-
-  private void addWord2VecPanel(GridBagConstraints cons, JPanel panel) {
-    cons.gridx = 0;
-    panel.add(new JLabel((messages.getString("guiWord2VecDir")) + "  "), cons);
-    File dir = config.getWord2VecDirectory();
-    int maxDirDisplayLength = 45;
-    String buttonText = dir != null ? StringUtils.abbreviate(dir.getAbsolutePath(), maxDirDisplayLength) : messages.getString("guiWord2VecDirSelect");
-    JButton word2vecDirButton = new JButton(buttonText);
-    word2vecDirButton.addActionListener(e -> {
-      File newDir = Tools.openDirectoryDialog(owner, dir);
-      if (newDir != null) {
-        try {
-          config.setWord2VecDirectory(newDir);
-          word2vecDirButton.setText(StringUtils.abbreviate(newDir.getAbsolutePath(), maxDirDisplayLength));
-        } catch (Exception ex) {
-          Tools.showErrorMessage(ex);
-        }
-      } else {
-        // not the best UI, but this way user can turn off word2vec feature without another checkbox
-        config.setWord2VecDirectory(null);
-        word2vecDirButton.setText(StringUtils.abbreviate(messages.getString("guiWord2VecDirSelect"), maxDirDisplayLength));
-      }
-    });
-    cons.gridx++;
-    panel.add(word2vecDirButton, cons);
-    JButton helpButton = new JButton(messages.getString("guiWord2VecHelp"));
-    helpButton.addActionListener(e -> {
-      Tools.openURL("https://github.com/gulp21/languagetool-neural-network");
-    });
     cons.gridx++;
     panel.add(helpButton, cons);
   }
@@ -1517,7 +1655,7 @@ public class ConfigurationDialog implements ActionListener {
     for (int i = 0; i < numConfigTrees; i++) {
       if(i == 0) {
         rootNode[i] = createTree(rules, false, null, rootNode[i]);   //  grammar options
-      } else if(i ==1 ) {
+      } else if(i == 1) {
         rootNode[i] = createTree(rules, true, null, rootNode[i]);    //  Style options
       } else {
         rootNode[i] = createTree(rules, true, specialTabNames[i - 2], rootNode[i]);    //  Special tab options
@@ -1544,7 +1682,7 @@ public class ConfigurationDialog implements ActionListener {
     } else {
       panel.removeAll();
     }
-    panel.setBackground(Color.WHITE);
+    panel.setBackground(new Color(169,169,169));
     panel.setBorder(BorderFactory.createLineBorder(Color.black));
     panel.setLayout(new GridBagLayout());
     GridBagConstraints cons = new GridBagConstraints();
@@ -1555,20 +1693,31 @@ public class ConfigurationDialog implements ActionListener {
     cons.fill = GridBagConstraints.NONE;
     cons.insets = new Insets(4, 3, 0, 4);
     
-    Set<String> changedRuleIds;
+    List<String> changedRuleIds;
     if (enabledRules) {
-      changedRuleIds = config.getEnabledRuleIds();
+      changedRuleIds = new ArrayList<String>(config.getEnabledRuleIds());
     } else {
-      changedRuleIds = config.getDisabledRuleIds();
+      changedRuleIds = new ArrayList<String>(config.getDisabledRuleIds());
     }
     
     if (changedRuleIds != null) {
       List<JCheckBox> ruleCheckboxes = new ArrayList<>();
-      for (String ruleId : changedRuleIds) {
+      for (int i = changedRuleIds.size() - 1; i >= 0; i--) {
+        String ruleId = changedRuleIds.get(i);
         String ruleDescription = null;
         for (Rule rule : rules) {
           if (rule.getId().equals(ruleId)) {
-            ruleDescription = rule.getDescription();
+            if ((enabledRules && (rule.getCategory().isDefaultOff() || (rule.isDefaultOff() && !rule.isOfficeDefaultOn()))) ||
+                (!enabledRules && !rule.getCategory().isDefaultOff() && (!rule.isDefaultOff() || rule.isOfficeDefaultOn()))) {
+              ruleDescription = rule.getDescription();
+            } else {
+              if (enabledRules) {
+                config.removeEnabledRuleId(ruleId);
+              } else {
+                config.removeDisabledRuleId(ruleId);
+              }
+            }
+            
             break;
           }
         }
@@ -1703,11 +1852,48 @@ public class ConfigurationDialog implements ActionListener {
       changeButton.add(new JButton(messages.getString("guiUColorChange")));
       changeButton.get(nCat).addActionListener(e -> {
         Color oldColor = uLabel.getForeground();
-        Color newColor = JColorChooser.showDialog( null, messages.getString("guiUColorDialogHeader"), oldColor);
+        if(insideOffice) {
+          dialog.setAlwaysOnTop(false);
+        }
+        
+        JColorChooser colorChooser = new JColorChooser(oldColor);
+        ActionListener okActionListener = new ActionListener() {
+          public void actionPerformed(ActionEvent actionEvent) {
+            Color newColor = colorChooser.getColor();
+            if(newColor != null && newColor != oldColor) {
+              uLabel.setForeground(newColor);
+              config.setUnderlineColor(cLabel, newColor);
+            }
+            if(insideOffice) {
+              dialog.setAlwaysOnTop(true);
+            }
+          }
+        };
+        // For cancel selection, change button background to red
+        ActionListener cancelActionListener = new ActionListener() {
+          public void actionPerformed(ActionEvent actionEvent) {
+            if(insideOffice) {
+              dialog.setAlwaysOnTop(true);
+            }
+          }
+        };
+        JDialog colorDialog = JColorChooser.createDialog(dialog, messages.getString("guiUColorDialogHeader"), true,
+            colorChooser, okActionListener, cancelActionListener);
+        if(insideOffice) {
+          colorDialog.setAlwaysOnTop(true);
+        }
+        colorDialog.toFront();
+        colorDialog.setVisible(true);
+/*
+        Color newColor = JColorChooser.showDialog(null, messages.getString("guiUColorDialogHeader"), oldColor);
         if(newColor != null && newColor != oldColor) {
           uLabel.setForeground(newColor);
           config.setUnderlineColor(cLabel, newColor);
         }
+        if(insideOffice) {
+          dialog.setAlwaysOnTop(true);
+        }
+*/
       });
       cons.gridx++;
       panel.add(changeButton.get(nCat), cons);
@@ -1786,6 +1972,42 @@ public class ConfigurationDialog implements ActionListener {
     JButton changeButton = new JButton(messages.getString("guiUColorChange"));
     changeButton.addActionListener(e -> {
       Color oldColor = underlineLabel.getForeground();
+      if(insideOffice) {
+        dialog.setAlwaysOnTop(false);
+      }
+      JColorChooser colorChooser = new JColorChooser(oldColor);
+      ActionListener okActionListener = new ActionListener() {
+        public void actionPerformed(ActionEvent actionEvent) {
+          Color newColor = colorChooser.getColor();
+          if(newColor != null && newColor != oldColor) {
+            underlineLabel.setForeground(newColor);
+            if (rule == null) {
+              config.setUnderlineColor(category, newColor);
+            } else {
+              config.setUnderlineRuleColor(rule.getId(), newColor);
+            }
+          }
+          if(insideOffice) {
+            dialog.setAlwaysOnTop(true);
+          }
+        }
+      };
+      // For cancel selection, change button background to red
+      ActionListener cancelActionListener = new ActionListener() {
+        public void actionPerformed(ActionEvent actionEvent) {
+          if(insideOffice) {
+            dialog.setAlwaysOnTop(true);
+          }
+        }
+      };
+      JDialog colorDialog = JColorChooser.createDialog(dialog, messages.getString("guiUColorDialogHeader"), true,
+          colorChooser, okActionListener, cancelActionListener);
+      if(insideOffice) {
+        colorDialog.setAlwaysOnTop(true);
+      }
+      colorDialog.toFront();
+      colorDialog.setVisible(true);
+/*      
       Color newColor = JColorChooser.showDialog( null, messages.getString("guiUColorDialogHeader"), oldColor);
       if(newColor != null && newColor != oldColor) {
         underlineLabel.setForeground(newColor);
@@ -1795,6 +2017,10 @@ public class ConfigurationDialog implements ActionListener {
           config.setUnderlineRuleColor(rule.getId(), newColor);
         }
       }
+      if(insideOffice) {
+        dialog.setAlwaysOnTop(true);
+      }
+*/
     });
     cons1.gridx++;
     colorPanel.add(changeButton);
@@ -1816,74 +2042,31 @@ public class ConfigurationDialog implements ActionListener {
         }
         underlineType.setSelectedIndex(getUnderlineType(category, ruleId));
       }
+      config.removeConfigurableValue(ruleId);
     });
     cons1.gridx++;
     colorPanel.add(defaultButton);
     colorPanel.setVisible(false);
     // End of Color Panel
     
-    // Start of special option panel
-    JPanel specialOptionPanel = new JPanel();
-    specialOptionPanel.setLayout(new GridBagLayout());
-    GridBagConstraints cons2 = new GridBagConstraints();
-    cons2.gridx = 0;
-    cons2.gridy = 0;
-    cons2.weightx = 2.0f;
-    cons2.anchor = GridBagConstraints.WEST;
-    
-    JLabel ruleLabel = new JLabel("");
-    specialOptionPanel.add(ruleLabel, cons2);
-
-    cons2.gridx++;
-    JTextField ruleValueField = new JTextField("   ", 3);
-    ruleValueField.setMinimumSize(new Dimension(50, 28));  // without this the box is just a few pixels small, but why?
-    specialOptionPanel.add(ruleValueField, cons2);
-
-    ruleValueField.getDocument().addDocumentListener(new DocumentListener() {
-      @Override
-      public void insertUpdate(DocumentEvent e) {
-        changedUpdate(e);
-      }
-
-      @Override
-      public void removeUpdate(DocumentEvent e) {
-        changedUpdate(e);
-      }
-
-      @Override
-      public void changedUpdate(DocumentEvent e) {
-        try {
-          if (rule != null) {
-            int num = Integer.parseInt(ruleValueField.getText());
-            if (num < rule.getMinConfigurableValue()) {
-              num = rule.getMinConfigurableValue();
-              ruleValueField.setForeground(Color.RED);
-            } else if (num > rule.getMaxConfigurableValue()) {
-              num = rule.getMaxConfigurableValue();
-              ruleValueField.setForeground(Color.RED);
-            } else {
-              ruleValueField.setForeground(null);
-            }
-            config.setConfigurableValue(rule.getId(), num);
-          }
-        } catch (Exception ex) {
-          ruleValueField.setForeground(Color.RED);
-        }
-      }
-    });
-    specialOptionPanel.setVisible(false);
-    // End of special option panel
+    List<JPanel> specialOptionPanels = new ArrayList<>();
     
     ruleOptionsPanel.add(colorPanel, cons0);
     cons0.gridx = 0;
     cons0.gridy = 1;
-    ruleOptionsPanel.add(specialOptionPanel, cons0);
-    ruleOptionsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     
     configTree[num].addTreeSelectionListener(e -> {
       DefaultMutableTreeNode node = (DefaultMutableTreeNode)
           configTree[num].getLastSelectedPathComponent();
       if (node != null) {
+        if (specialOptionPanels.size() > 0) {
+          for (JPanel optionPanel : specialOptionPanels) {
+            optionPanel.setVisible(false);
+            ruleOptionsPanel.remove(optionPanel);
+          }
+          specialOptionPanels.clear();
+        }
+        ruleOptionsPanel.setVisible(false);
         if (node instanceof RuleNode) {
           RuleNode o = (RuleNode) node;
           rule = o.getRule();
@@ -1895,16 +2078,154 @@ public class ConfigurationDialog implements ActionListener {
             underlineType.setSelectedIndex(getUnderlineType(category, ruleId));
           }
           colorPanel.setVisible(true);
-          if (rule.hasConfigurableValue()) {
-            ruleLabel.setText(rule.getConfigureText() + " ");
-            int value = config.getConfigurableValue(rule.getId());
-            if (value < 0) {
-              value = rule.getDefaultValue();
+          RuleOption[] ruleOptions = rule.getRuleOptions();
+          if (ruleOptions != null && ruleOptions.length > 0) {
+            Object[] obj = new Object[ruleOptions.length];
+            for (int i = 0; i < ruleOptions.length; i++) {
+              // Start of special option panel
+              JPanel specialOptionPanel = new JPanel();
+              specialOptionPanels.add(specialOptionPanel);
+              specialOptionPanel.setLayout(new GridBagLayout());
+              GridBagConstraints cons2 = new GridBagConstraints();
+              cons2.gridx = 0;
+              cons2.gridy = 0;
+              cons2.weightx = 2.0f;
+              cons2.anchor = GridBagConstraints.WEST;
+              RuleOption ruleOption = ruleOptions[i];
+              int n = i;
+
+              Object defValue = ruleOption.getDefaultValue();
+              
+              if (defValue instanceof Boolean) {
+                JCheckBox isTrueBox = new JCheckBox(ruleOption.getConfigureText());
+                boolean value = config.getConfigValueByID(rule.getId(), i, Boolean.class, (Boolean) defValue);
+                isTrueBox.setSelected(value);
+                obj[n] = value;
+                isTrueBox.addItemListener(e1 -> {
+                  obj[n] = isTrueBox.isSelected();
+                  config.setConfigurableValue(rule.getId(), obj);
+                });
+                specialOptionPanel.add(isTrueBox, cons2);
+              } else {
+                JLabel ruleLabel = new JLabel(ruleOption.getConfigureText() + " ");
+                specialOptionPanel.add(ruleLabel, cons2);
+    
+                cons2.gridx++;
+                JTextField ruleValueField = new JTextField("   ", 3);
+                ruleValueField.setMinimumSize(new Dimension(50, 28));  // without this the box is just a few pixels small, but why?
+                String fieldValue;
+                if (defValue instanceof Integer) {
+                  obj[n] = (int) config.getConfigValueByID(rule.getId(), i, Integer.class, (Integer) defValue);
+                  fieldValue = Integer.toString((int) obj[n]);
+                } else if (defValue instanceof Character) {
+                  obj[n] = (char) config.getConfigValueByID(rule.getId(), i, Character.class, (Character) defValue);
+                  fieldValue = Character.toString((char) obj[n]);
+                } else if (defValue instanceof Double) {
+                  obj[n] = (double) config.getConfigValueByID(rule.getId(), i, Double.class, (Double) defValue);
+                  fieldValue = Double.toString((double) obj[n]);
+                } else if (defValue instanceof Float) {
+                  obj[n] = (float) config.getConfigValueByID(rule.getId(), i, Float.class, (Float) defValue);
+                  fieldValue = Float.toString((float) obj[n]);
+                } else {
+                  obj[n] = (String) config.getConfigValueByID(rule.getId(), i, String.class, (String) defValue);
+                  fieldValue = (String) obj[n];
+                }
+                ruleValueField.setText(fieldValue);
+                specialOptionPanel.add(ruleValueField, cons2);
+    
+                ruleValueField.getDocument().addDocumentListener(new DocumentListener() {
+                  @Override
+                  public void insertUpdate(DocumentEvent e) {
+                    changedUpdate(e);
+                  }
+    
+                  @Override
+                  public void removeUpdate(DocumentEvent e) {
+                    changedUpdate(e);
+                  }
+    
+                  @Override
+                  public void changedUpdate(DocumentEvent e) {
+                    try {
+                      if (rule != null) {
+                        RuleOption[] ruleOptions = rule.getRuleOptions();
+                        if (ruleOptions != null && ruleOptions.length > 0) {
+                          boolean isCorrect = false;
+                          if (defValue instanceof Integer) {
+                            int num = Integer.parseInt(ruleValueField.getText());
+                            if (num < (int) ruleOption.getMinConfigurableValue()) {
+                              num = (int) ruleOption.getMinConfigurableValue();
+                              ruleValueField.setForeground(Color.RED);
+                            } else if (num > (int) ruleOption.getMaxConfigurableValue()) {
+                              num = (int) ruleOption.getMaxConfigurableValue();
+                              ruleValueField.setForeground(Color.RED);
+                            } else {
+                              ruleValueField.setForeground(null);
+                              isCorrect = true;
+                              obj[n] = num;
+                            }
+                          } else if (defValue instanceof Character) {
+                            char num = ruleValueField.getText().charAt(0);
+                            if (num < (char) ruleOption.getMinConfigurableValue()) {
+                              num = (char) ruleOption.getMinConfigurableValue();
+                              ruleValueField.setForeground(Color.RED);
+                            } else if (num > (char) ruleOption.getMaxConfigurableValue()) {
+                              num = (char) ruleOption.getMaxConfigurableValue();
+                              ruleValueField.setForeground(Color.RED);
+                            } else {
+                              ruleValueField.setForeground(null);
+                              isCorrect = true;
+                              obj[n] = num;
+                            }
+                          } else if (defValue instanceof Double) {
+                            double num = Double.parseDouble(ruleValueField.getText());
+                            if (num < (double) ruleOption.getMinConfigurableValue()) {
+                              num = (double) ruleOption.getMinConfigurableValue();
+                              ruleValueField.setForeground(Color.RED);
+                            } else if (num > (double) ruleOption.getMaxConfigurableValue()) {
+                              num = (double) ruleOption.getMaxConfigurableValue();
+                              ruleValueField.setForeground(Color.RED);
+                            } else {
+                              ruleValueField.setForeground(null);
+                              isCorrect = true;
+                              obj[n] = num;
+                            }
+                          } else if (defValue instanceof Float) {
+                            float num = Float.parseFloat(ruleValueField.getText());
+                            if (num < (float) ruleOption.getMinConfigurableValue()) {
+                              num = (float) ruleOption.getMinConfigurableValue();
+                              ruleValueField.setForeground(Color.RED);
+                            } else if (num > (float) ruleOption.getMaxConfigurableValue()) {
+                              num = (float) ruleOption.getMaxConfigurableValue();
+                              ruleValueField.setForeground(Color.RED);
+                            } else {
+                              ruleValueField.setForeground(null);
+                              isCorrect = true;
+                              obj[n] = num;
+                            }
+                          } else {
+                            String num = ruleValueField.getText();
+                            ruleValueField.setForeground(null);
+                            isCorrect = true;
+                            obj[n] = num;
+                          }
+                          if (isCorrect) {
+                            config.setConfigurableValue(rule.getId(), obj);
+                          }
+                        }
+                      }
+                    } catch (Exception ex) {
+                      ruleValueField.setForeground(Color.RED);
+                    }
+                  }
+                });
+              }
+              ruleOptionsPanel.add(specialOptionPanel, cons0);
+              ruleOptionsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+              ruleOptionsPanel.setVisible(true);
+              cons0.gridy++;
+              // End of special option panel
             }
-            ruleValueField.setText(Integer.toString(value));
-            specialOptionPanel.setVisible(true);
-          } else {
-            specialOptionPanel.setVisible(false);
           }
         } else if (node instanceof CategoryNode) {
           CategoryNode o = (CategoryNode) node;
@@ -1915,12 +2236,183 @@ public class ConfigurationDialog implements ActionListener {
             underlineType.setSelectedIndex(getUnderlineType(category, null));
           }
           colorPanel.setVisible(true);
-          specialOptionPanel.setVisible(false);
           rule = null;
         }
+        ruleOptionsPanel.setVisible(true);
       }
     });
     return ruleOptionsPanel;
   }
+  
+  private JPanel getOfficeAiElements() {
+    JPanel aiOptionPanel = new JPanel();
+    aiOptionPanel.setLayout(new GridBagLayout());
+    GridBagConstraints cons = new GridBagConstraints();
+    cons.insets = new Insets(6, 6, 6, 6);
+    cons.gridx = 0;
+    cons.gridy = 0;
+    cons.anchor = GridBagConstraints.NORTHWEST;
+    cons.fill = GridBagConstraints.BOTH;
+    cons.weightx = 0.0f;
+    cons.weighty = 0.0f;
+    
+    JLabel otherUrlLabel = new JLabel(messages.getString("guiAiUrl") + ":");
 
+    JTextField aiUrlField = new JTextField(config.aiUrl() ==  null ? "" : config.aiUrl(), 25);
+    aiUrlField.setMinimumSize(new Dimension(100, 25));
+    aiUrlField.getDocument().addDocumentListener(new DocumentListener() {
+      @Override
+      public void insertUpdate(DocumentEvent e) {
+        changedUpdate(e);
+      }
+      @Override
+      public void removeUpdate(DocumentEvent e) {
+        changedUpdate(e);
+      }
+      @Override
+      public void changedUpdate(DocumentEvent e) {
+        String serverName = aiUrlField.getText();
+        serverName = serverName.trim();
+        if(serverName.isEmpty()) {
+          serverName = null;
+        }
+        if (config.isValidAiServerUrl(serverName)) {
+          aiUrlField.setForeground(Color.BLACK);
+          config.setAiUrl(serverName);;
+        } else {
+          aiUrlField.setForeground(Color.RED);
+        }
+      }
+    });
+
+    JLabel modelLabel = new JLabel(messages.getString("guiAiModel") + ":");
+
+    JTextField modelField = new JTextField(config.aiModel() ==  null ? "" : config.aiModel(), 25);
+    modelField.setMinimumSize(new Dimension(100, 25));
+    modelField.getDocument().addDocumentListener(new DocumentListener() {
+      @Override
+      public void insertUpdate(DocumentEvent e) {
+        changedUpdate(e);
+      }
+      @Override
+      public void removeUpdate(DocumentEvent e) {
+        changedUpdate(e);
+      }
+      @Override
+      public void changedUpdate(DocumentEvent e) {
+        String model = modelField.getText();
+        model = model.trim();
+        if(model.isEmpty()) {
+          model = null;
+        }
+        if (model != null) {
+          config.setAiModel(model);
+        }
+      }
+    });
+
+    JLabel apiKeyLabel = new JLabel(messages.getString("guiAiApiKey") + ":");
+
+    JTextField apiKeyField = new JTextField(config.aiApiKey() ==  null ? "" : config.aiApiKey(), 25);
+    apiKeyField.setMinimumSize(new Dimension(100, 25));
+    apiKeyField.getDocument().addDocumentListener(new DocumentListener() {
+      @Override
+      public void insertUpdate(DocumentEvent e) {
+        changedUpdate(e);
+      }
+      @Override
+      public void removeUpdate(DocumentEvent e) {
+        changedUpdate(e);
+      }
+      @Override
+      public void changedUpdate(DocumentEvent e) {
+        String apiKey = apiKeyField.getText();
+        apiKey = apiKey.trim();
+        if(apiKey.isEmpty()) {
+          apiKey = null;
+        }
+        if (apiKey != null) {
+          config.setAiApiKey(apiKey);
+        }
+      }
+    });
+    
+    JCheckBox showStylisticChangesBox = new JCheckBox(messages.getString("guiAiShowStylisticChanges"));
+    showStylisticChangesBox.setSelected(config.aiShowStylisticChanges());
+    showStylisticChangesBox.addItemListener(e -> {
+      config.setAiShowStylisticChanges(showStylisticChangesBox.isSelected());
+    });
+
+    JCheckBox autoCorrectBox = new JCheckBox(messages.getString("guiAiAutoCorrect"));
+    autoCorrectBox.setSelected(config.aiAutoCorrect());
+    autoCorrectBox.addItemListener(e -> {
+      config.setAiAutoCorrect(autoCorrectBox.isSelected());
+      showStylisticChangesBox.setEnabled(autoCorrectBox.isSelected());
+    });
+
+    JCheckBox useAiSupportBox = new JCheckBox(messages.getString("guiUseAiSupport"));
+    useAiSupportBox.setSelected(config.useAiSupport());
+    useAiSupportBox.addItemListener(e -> {
+      config.setUseAiSupport(useAiSupportBox.isSelected());
+      aiUrlField.setEnabled(useAiSupportBox.isSelected());
+      modelField.setEnabled(useAiSupportBox.isSelected());
+      apiKeyField.setEnabled(useAiSupportBox.isSelected());
+      autoCorrectBox.setEnabled(useAiSupportBox.isSelected());
+      showStylisticChangesBox.setEnabled(useAiSupportBox.isSelected() && autoCorrectBox.isSelected());
+    });
+    
+    aiUrlField.setEnabled(config.useAiSupport());
+    modelField.setEnabled(config.useAiSupport());
+    apiKeyField.setEnabled(config.useAiSupport());
+    autoCorrectBox.setEnabled(config.useAiSupport());
+    showStylisticChangesBox.setEnabled(config.useAiSupport() && config.aiAutoCorrect());
+
+    JLabel experimentalHint = new JLabel(messages.getString("guiAiExperimentalHint"));
+    experimentalHint.setForeground(Color.red);
+    cons.gridy++;
+    aiOptionPanel.add(experimentalHint, cons);
+    JLabel qualityHint = new JLabel(messages.getString("guiAiQualityHint"));
+    qualityHint.setForeground(Color.blue);
+    cons.gridy++;
+    aiOptionPanel.add(qualityHint, cons);
+    JLabel tmp = new JLabel(" ");
+    cons.gridy++;
+    aiOptionPanel.add(tmp, cons);
+    cons.insets = new Insets(0, SHIFT2, 0, 0);
+    aiOptionPanel.add(useAiSupportBox, cons);
+    JPanel serverPanel = new JPanel();
+    serverPanel.setLayout(new GridBagLayout());
+    GridBagConstraints cons1 = new GridBagConstraints();
+    cons1.insets = new Insets(0, SHIFT2, 0, 0);
+    cons1.gridx = 0;
+    cons1.gridy = 0;
+    cons1.anchor = GridBagConstraints.WEST;
+    cons1.fill = GridBagConstraints.NONE;
+    cons1.weightx = 0.0f;
+    serverPanel.add(otherUrlLabel, cons1);
+    cons1.gridy++;
+    serverPanel.add(aiUrlField, cons1);
+    cons1.gridy++;
+    serverPanel.add(modelLabel, cons1);
+    cons1.gridy++;
+    serverPanel.add(modelField, cons1);
+    cons1.gridy++;
+    serverPanel.add(apiKeyLabel, cons1);
+    cons1.gridy++;
+    serverPanel.add(apiKeyField, cons1);
+
+    cons.gridx = 0;
+    cons.gridy++;
+    aiOptionPanel.add(serverPanel, cons);
+    
+    cons.gridy++;
+    aiOptionPanel.add(autoCorrectBox, cons);
+    
+    cons.gridy++;
+    cons.insets = new Insets(0, SHIFT3, 0, 0);
+    aiOptionPanel.add(showStylisticChangesBox, cons);
+    
+    return aiOptionPanel;
+  }
+  
 }

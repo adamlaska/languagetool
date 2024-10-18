@@ -30,6 +30,8 @@ import org.languagetool.tools.StringTools;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 /**
  * Checks that compounds (if in the list) are not written as separate words.
@@ -40,6 +42,11 @@ public abstract class AbstractCompoundRule extends Rule {
 
   static final int MAX_TERMS = 5;
 
+  private static final Pattern WHITESPACE_DASH = Pattern.compile(" - ", Pattern.LITERAL);
+  private static final Pattern WHITESPACE = Pattern.compile("\\s+");
+  private static final Pattern DIGIT = Pattern.compile("\\d+");
+  private static final Pattern DASHES = Pattern.compile("--+");
+
   private final String withHyphenMessage;
   private final String withoutHyphenMessage;
   private final String withOrWithoutHyphenMessage;
@@ -48,6 +55,7 @@ public abstract class AbstractCompoundRule extends Rule {
   protected final Language lang;                 // used by LO/OO Linguistic Service 
   // if true, the first word will be uncapitalized before compared to the entries in CompoundRuleData
   protected boolean sentenceStartsWithUpperCase = true;
+  protected boolean subRuleSpecificIds;
 
   @Override
   public abstract String getId();
@@ -58,6 +66,10 @@ public abstract class AbstractCompoundRule extends Rule {
   @Override
   public int estimateContextForSureMatch() {
     return 1;
+  }
+
+  public void useSubRuleSpecificIds() {
+    subRuleSpecificIds = true;
   }
 
   /** @since 3.0 */
@@ -98,6 +110,7 @@ public abstract class AbstractCompoundRule extends Rule {
 
     RuleMatch prevRuleMatch = null;
     ArrayDeque<AnalyzedTokenReadings> prevTokens = new ArrayDeque<>(MAX_TERMS);
+    boolean containsDigits = false;
     for (int i = 0; i < tokens.length + MAX_TERMS; i++) {
       AnalyzedTokenReadings token;
       // we need to extend the token list so we find matches at the end of the original list:
@@ -123,7 +136,12 @@ public abstract class AbstractCompoundRule extends Rule {
       for (int k = stringsToCheck.size()-1; k >= 0; k--) {
         String stringToCheck = stringsToCheck.get(k);
         String origStringToCheck = origStringsToCheck.get(k);
-        if (getCompoundRuleData().getIncorrectCompounds().contains(stringToCheck)) {
+        String digitsRegexp = null;
+        if (Stream.of(stringToCheck.split(" ")).anyMatch(s -> StringUtils.isNumeric(s))) {
+            containsDigits = true;
+        }
+        if (getCompoundRuleData().getIncorrectCompounds().contains(stringToCheck) ||
+            (containsDigits && getCompoundRuleData().getIncorrectCompounds().contains(digitsRegexp = DIGIT.matcher(stringToCheck).replaceAll("\\\\d+")))) {
           AnalyzedTokenReadings atr = stringToToken.get(stringToCheck);
           String msg = null;
           List<String> replacement = new ArrayList<>();
@@ -131,7 +149,8 @@ public abstract class AbstractCompoundRule extends Rule {
             // It is already joined
             break;
           }
-          if (getCompoundRuleData().getDashSuggestion().contains(stringToCheck)) {
+          if (getCompoundRuleData().getDashSuggestion().contains(stringToCheck) ||
+              (containsDigits && getCompoundRuleData().getIncorrectCompounds().contains(digitsRegexp))) {
             replacement.add(origStringToCheck.replace(' ', '-'));
             msg = withHyphenMessage;
           }
@@ -152,7 +171,16 @@ public abstract class AbstractCompoundRule extends Rule {
           if (replacement.isEmpty()) {
             break;
           }
-          RuleMatch ruleMatch = new RuleMatch(this, sentence, firstMatchToken.getStartPos(), atr.getEndPos(), msg, shortDesc);
+          int startPos = firstMatchToken.getStartPos();
+          int endPos = atr.getEndPos();
+          RuleMatch ruleMatch = new RuleMatch(this, sentence, startPos, endPos, msg, shortDesc);
+          if (subRuleSpecificIds) {
+            String id = StringTools.toId(getId() + "_" + stringToCheck, lang);
+            String description = getDescription().replace("$match", origStringToCheck);
+            SpecificIdRule subRuleId = new SpecificIdRule(id, description, isPremium(), getCategory(),
+              getLocQualityIssueType(), getTags());
+            ruleMatch = new RuleMatch(subRuleId, sentence, startPos, endPos, msg, shortDesc);
+          }
           ruleMatch.setSuggestedReplacements(replacement);
           // avoid duplicate matches:
           if (prevRuleMatch != null && prevRuleMatch.getFromPos() == ruleMatch.getFromPos()) {
@@ -170,9 +198,9 @@ public abstract class AbstractCompoundRule extends Rule {
   }
 
   protected List<String> filterReplacements(List<String> replacements, String original) throws IOException {
-    List<String> newReplacements = new ArrayList<String>();
+    List<String> newReplacements = new ArrayList<>();
     for (String replacement : replacements) {
-      String newReplacement = replacement.replaceAll("\\-\\-+", "-");
+      String newReplacement = DASHES.matcher(replacement).replaceAll("-");
       if (!newReplacement.equals(original) && isCorrectSpell(newReplacement)) {
         newReplacements.add(newReplacement);
       }
@@ -212,9 +240,9 @@ public abstract class AbstractCompoundRule extends Rule {
 
   private String normalize(String inStr) {
     String str = inStr.trim();
-    str = str.replace(" - ", " ");
-    str = str.replace("-", " ");
-    str = str.replaceAll("\\s+", " ");
+    str = WHITESPACE_DASH.matcher(str).replaceAll(" ");
+    str = str.replace('-', ' ');
+    str = WHITESPACE.matcher(str).replaceAll(" ");
     return str;
   }
 

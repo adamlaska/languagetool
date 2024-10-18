@@ -58,6 +58,14 @@ public class MorfologikAmericanSpellerRuleTest extends AbstractEnglishSpellerRul
   }
 
   @Test
+  public void testSuggestionForMisspelledHyphenatedWords() throws IOException {
+    // one word in compound misspelled:
+    assertSuggestion("one-diminensional", "one-dimensional");
+    //assertSuggestion("web-bassed", "web-based");
+    assertSuggestion("parple-people-eater", "purple-people-eater");
+  }
+
+  @Test
   public void testNamedEntityIgnore() throws IOException {
     Language language = Languages.getLanguageForShortCode("en-US");
     Map<String, Integer> map = new HashMap<>();
@@ -148,6 +156,26 @@ public class MorfologikAmericanSpellerRuleTest extends AbstractEnglishSpellerRul
     assertEquals(0, rule.match(lt.getAnalyzedSentence("The statements¹ of⁷ the⁵⁰ government⁹‽")).length);
     assertEquals(0, rule.match(lt.getAnalyzedSentence("At 3 o'clock.")).length);
     assertEquals(0, rule.match(lt.getAnalyzedSentence("At 3 o’clock.")).length);
+    assertEquals(0, rule.match(lt.getAnalyzedSentence("fast⇿superfast")).length);
+
+    // multiwords.txt
+    assertEquals(0, rule.match(lt.getAnalyzedSentence("C'est la vie.")).length);
+    assertEquals(0, rule.match(lt.getAnalyzedSentence("c’est la guerre!")).length);
+    assertEquals(0, rule.match(lt.getAnalyzedSentence("Andorra la Vella is the capital and largest city of Andorra.")).length);
+    assertEquals(0, rule.match(lt.getAnalyzedSentence("bona fides.")).length);
+    assertEquals(0, rule.match(lt.getAnalyzedSentence("doctor honoris causa")).length);
+
+    assertSuggestion("Abu-Bakr", "Abu Bakr");
+    assertSuggestion("Abudhabi", "Abu Dhabi");
+    assertSuggestion("Burkina-Faso", "Burkina Faso");
+    assertSuggestion("Deutschmark", "Deutsche Mark");
+    assertSuggestion("Casagrande", "Casa Grande");
+    assertSuggestion("ELPASO", "El Paso");
+    assertSuggestion("Eldorado", "El Dorado");
+    assertSuggestion("nom-de-plume", "nom de plume");
+    assertSuggestion("sui-generis", "sui generis");
+    assertSuggestion("Wiener-Neustadt", "Wiener Neustadt");
+    assertSuggestion("Zyklon-B", "Zyklon B");
     
     // test words in language-specific spelling_en-US.txt
     assertEquals(0, rule.match(lt.getAnalyzedSentence("USTestWordToBeIgnored")).length);
@@ -206,7 +234,8 @@ public class MorfologikAmericanSpellerRuleTest extends AbstractEnglishSpellerRul
     List<RuleMatch> ruleMatchesWithoutMerge = lt.check("sux\u00AD tainability");
     assertEquals(2, ruleMatchesWithoutMerge.size());
     // make sure we offset correctly for ignored characters
-    assertEquals(Arrays.asList(0, 4), Arrays.asList(ruleMatchesWithoutMerge.get(0).getFromPos(), ruleMatchesWithoutMerge.get(0).getToPos()));
+    // changed 0,4 -> 0,3 after \00AD is handled by annotated text
+    assertEquals(Arrays.asList(0, 3), Arrays.asList(ruleMatchesWithoutMerge.get(0).getFromPos(), ruleMatchesWithoutMerge.get(0).getToPos()));
     assertEquals(Arrays.asList(5, 16), Arrays.asList(ruleMatchesWithoutMerge.get(1).getFromPos(), ruleMatchesWithoutMerge.get(1).getToPos()));
 
     // see issue #1769
@@ -286,6 +315,11 @@ public class MorfologikAmericanSpellerRuleTest extends AbstractEnglishSpellerRul
     assertThat(matches10[0].getToPos(), is(7));
     assertThat(matches10[0].getSuggestedReplacements().get(0), is("show")); // not really a good first suggestion... "throw" is 5th
     
+    RuleMatch[] matches11 = rule.match(lt.getAnalyzedSentence("dditionally, this is it."));
+    assertThat(matches11.length, is(1));
+    assertThat(matches11[0].getSuggestedReplacements().get(0), is("Additionally"));
+    assertThat(matches11[0].getFromPos(), is(0));
+    assertThat(matches11[0].getToPos(), is(11));
   }
 
   @Test
@@ -352,43 +386,6 @@ public class MorfologikAmericanSpellerRuleTest extends AbstractEnglishSpellerRul
     assertFalse(rule.isMisspelled("bicycle"));
     assertFalse(rule.isMisspelled("table"));
     assertFalse(rule.isMisspelled("tables"));
-  }
-  
-  @Test
-  // case: signature is (mostly) English, user starts typing in German -> first, EN is detected for whole text
-  // Also see GermanSpellerRuleTest
-  public void testMultilingualSignatureCase() throws IOException {
-    String sig = "-- " +
-                 "Department of Electrical and Electronic Engineering\n" +
-                 "Office XY, Sackville Street Building, The University of Manchester, Manchester\n";
-    assertZZ("Hallo Herr Müller, wie geht\n\n" + sig);  // "Herr" and "Müller" are accepted by EN speller
-    assertZZ("Hallo Frau Müller, wie\n\n" + sig);  // "Frau" and "Müller" are accepted by EN speller
-    assertZZ("Hallo Frau Sauer, wie\n\n" + sig);
-    //assertZZ("Hallo Frau Müller,\n\n" + sig);  // only "Hallo" not accepted by EN speller
-  }
-
-  private void assertZZ(String input) throws IOException {
-    List<AnalyzedSentence> analyzedSentences = lt.analyzeText(input);
-    assertThat(analyzedSentences.size(), is(2));
-    assertThat(rule.match(analyzedSentences.get(0))[0].getErrorLimitLang(), is("zz"));
-    assertNull(rule.match(analyzedSentences.get(1))[0].getErrorLimitLang());
-  }
-
-  @Test
-  @Ignore
-  public void testInteractiveMultilingualSignatureCase() throws IOException {
-    String sig = "-- " +
-            "Department of Electrical and Electronic Engineering\n" +
-            "Office XY, Sackville Street Building, The University of Manchester, Manchester\n";
-    List<AnalyzedSentence> analyzedSentences = lt.analyzeText("Hallo Herr Müller, wie geht\n\n" + sig);
-    for (AnalyzedSentence analyzedSentence : analyzedSentences) {
-      RuleMatch[] matches = rule.match(analyzedSentence);
-      System.out.println("===================");
-      System.out.println("S:" + analyzedSentence.getText());
-      for (RuleMatch match : matches) {
-        System.out.println("  getErrorLimitLang: " + match.getErrorLimitLang());
-      }
-    }
   }
 
   @Test

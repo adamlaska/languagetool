@@ -24,6 +24,7 @@ import org.languagetool.rules.RuleMatch;
 import org.languagetool.rules.patterns.RuleFilter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -518,6 +519,27 @@ public class AdverbFilter extends RuleFilter {
     put("casually", "casual");
     put("unevenly", "uneven");
     put("enormously", "enormous");
+    put("callously", "callous");
+    put("imperiously", "imperious");
+    put("messily", "messy");
+    put("alternatively", "alternative");
+    put("gladly", "glad");
+    put("adversely", "adverse");
+    put("petulantly", "petulant");
+    put("shakily", "shaky");
+    put("menacingly", "menacing");
+    put("consensually", "consensual");
+    put("bitterly", "bitter");
+    put("terminally", "terminal");
+    put("faintly", "faint");
+    put("brusquely", "brusque");
+    put("humbly", "humble");
+    put("promptly", "prompt");
+    put("identically", "identical");
+    put("militarily", "military");
+    put("neatly", "neat");
+    put("insanely", "insane");
+    put("analytically", "analytical");
     put("firstly", "first");
     put("secondly", "second");
     put("twice", "second"); // special case
@@ -527,7 +549,7 @@ public class AdverbFilter extends RuleFilter {
 
   @Nullable
   @Override
-  public RuleMatch acceptRuleMatch(RuleMatch match, Map<String, String> arguments, int patternTokenPos, AnalyzedTokenReadings[] patternTokens) {
+  public RuleMatch acceptRuleMatch(RuleMatch match, Map<String, String> arguments, int patternTokenPos, AnalyzedTokenReadings[] patternTokens, List<Integer> tokenPositions) {
     String adverb = arguments.get("adverb");
     String noun = arguments.get("noun");
     String adjective = adverb2Adj.get(adverb);

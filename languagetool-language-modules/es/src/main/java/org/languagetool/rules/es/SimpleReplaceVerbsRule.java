@@ -50,7 +50,7 @@ public class SimpleReplaceVerbsRule extends AbstractSimpleReplaceRule {
   private static final Locale ES_LOCALE = new Locale("ES");
 
   @Override
-  protected Map<String, List<String>> getWrongWords() {
+  public Map<String, List<String>> getWrongWords() {
     return wrongWords;
   }
 
@@ -60,11 +60,12 @@ public class SimpleReplaceVerbsRule extends AbstractSimpleReplaceRule {
       + "arse|arme|arte|arlos|arles|arlas|arnos|aros";
   private static final Pattern desinencies_1conj_0 = Pattern.compile("(.+?)(" + endings + ")");
   private static final Pattern desinencies_1conj_1 = Pattern.compile("(.+)(" + endings + ")");
-  private SpanishTagger tagger;
-  private SpanishSynthesizer synth;
+
+  private final SpanishTagger tagger;
+  private final SpanishSynthesizer synth;
 
   public SimpleReplaceVerbsRule(final ResourceBundle messages, Language language) {
-    super(messages);
+    super(messages, language);
     super.setCategory(Categories.TYPOS.getCategory(messages));
     super.setLocQualityIssueType(ITSIssueType.Misspelling);
     super.setIgnoreTaggedWords();
@@ -90,7 +91,7 @@ public class SimpleReplaceVerbsRule extends AbstractSimpleReplaceRule {
 
   @Override
   public String getMessage(String tokenStr, List<String> replacements) {
-    return "Verbo incorrecto.";
+    return "Verbo incorrecto: $match";
   }
 
   @Override

@@ -18,6 +18,7 @@
  */
 package org.languagetool;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.languagetool.noop.NoopLanguage;
 import org.languagetool.tools.MultiKeyProperties;
@@ -43,7 +44,10 @@ public final class Languages {
 
   private static final List<Language> languages = getAllLanguages();
   private static final List<Language> dynLanguages = new ArrayList<>();
-  
+
+  private static final List<Language> staticAndDynamicLanguages = new ArrayList<>(getAllLanguages());
+  private static final List<Language> staticAndDynamicLanguagesImmutable = Collections.unmodifiableList(staticAndDynamicLanguages);
+
   private Languages() {
   }
 
@@ -60,6 +64,7 @@ public final class Languages {
       throw new RuntimeException("Please specify a dictPath that ends in '.dict' (Morfologik binary dictionary) or '.dic' (Hunspell dictionary): " + dictPath);
     }
     dynLanguages.add(lang);
+    staticAndDynamicLanguages.add(lang);
     return lang;
   }
   
@@ -87,11 +92,11 @@ public final class Languages {
    * @return an unmodifiable list
    */
   public static List<Language> getWithDemoLanguage() {
-    return Collections.unmodifiableList(getStaticAndDynamicLanguages());
+    return getStaticAndDynamicLanguages();
   }
 
   private static List<Language> getStaticAndDynamicLanguages() {
-    return Stream.concat(languages.stream(), dynLanguages.stream()).collect(Collectors.toList());
+    return staticAndDynamicLanguagesImmutable;
   }
 
   private static List<Language> getAllLanguages() {
@@ -145,8 +150,13 @@ public final class Languages {
     }
   }
 
-  private static boolean hasPremium(String className) {
-    return className.matches("org\\.languagetool\\.language\\.(German|GermanyGerman|AustrianGerman|SwissGerman|Dutch|French|Spanish|English|AustralianEnglish|AmericanEnglish|BritishEnglish|CanadianEnglish|NewZealandEnglish|SouthAfricanEnglish)");
+  static boolean hasPremium(String className) {
+    return className.matches("org\\.languagetool\\.language\\.(" +
+      "Portuguese|AngolaPortuguese|BrazilianPortuguese|MozambiquePortuguese|PortugalPortuguese|" +
+      "German|GermanyGerman|AustrianGerman|SwissGerman|" +
+      "Dutch|French|Spanish|" +
+      "English|AustralianEnglish|AmericanEnglish|BritishEnglish|CanadianEnglish|NewZealandEnglish|SouthAfricanEnglish" +
+      ")");
   }
 
   /**
@@ -168,6 +178,7 @@ public final class Languages {
       Constructor<?> constructor = aClass.getConstructor();
       Language language = (Language) constructor.newInstance();
       dynLanguages.add(language);
+      staticAndDynamicLanguages.add(language);
       return language;
     } catch (ClassNotFoundException e) {
       throw new RuntimeException("Class '" + className + " could not be found in classpath", e);
@@ -213,20 +224,35 @@ public final class Languages {
   public static Language getLanguageForShortCode(String langCode, List<String> noopLanguageCodes) {
     Language language = getLanguageForShortCodeOrNull(langCode);
     if (language == null) {
+      // e.g. 'fr-FR' requested (happens with LibreOffice 7.4):
+      language = Languages.getLongCodeToLangMapping().get(langCode);
+    }
+    if (language == null) {
       if (noopLanguageCodes.contains(langCode)) {
         return NOOP_LANGUAGE;
       } else {
-        List<String> codes = new ArrayList<>();
-        for (Language realLanguage : getStaticAndDynamicLanguages()) {
-          codes.add(realLanguage.getShortCodeWithCountryAndVariant());
-        }
-        Collections.sort(codes);
         throw new IllegalArgumentException("'" + langCode + "' is not a language code known to LanguageTool." +
-                " Supported language codes are: " + String.join(", ", codes) + ". The list of languages is read from " + PROPERTIES_PATH +
+                " Supported language codes are: " + String.join(", ", getLangCodes()) + ". The list of languages is read from " + PROPERTIES_PATH +
                 " in the Java classpath. See https://dev.languagetool.org/java-api for details.");
       }
     }
     return language;
+  }
+
+  @NotNull
+  private static List<String> getLangCodes() {
+    List<String> codes = new ArrayList<>();
+    for (Language realLanguage : getStaticAndDynamicLanguages()) {
+      codes.add(realLanguage.getShortCodeWithCountryAndVariant());
+    }
+    Map<String, Language> longCodeToLang = getLongCodeToLangMapping();
+    for (Map.Entry<String, Language> entry : longCodeToLang.entrySet()) {
+      if (!codes.contains(entry.getKey())) {
+        codes.add(entry.getKey());
+      }
+    }
+    Collections.sort(codes);
+    return codes;
   }
 
   /**
@@ -263,6 +289,22 @@ public final class Languages {
       }
     }
     throw new RuntimeException("No appropriate language found, not even en-US. Supported languages: " + get());
+  }
+
+  /**
+   * <b>For internal use only.</b>
+   * Returns a mapping from {@code fr-FR} to its language etc. Used to support requests
+   * from LibreOffice 7.4, which sends these language codes.
+   */
+  public static Map<String,Language> getLongCodeToLangMapping() {
+    Map<String,Language> map = new HashMap<>();
+    List<Language> languages = Languages.get();
+    for (Language language : languages) {
+      if (language.getCountries().length > 0 && !language.getCountries()[0].isEmpty()) {
+        map.put(language.getShortCode() + "-" + language.getCountries()[0], language);
+      }
+    }
+    return map;
   }
 
   @Nullable

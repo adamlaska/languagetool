@@ -30,17 +30,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TokenizeMultiwordsTest {
 
   private final static String MULTIWORDS_FILE = "/en/multiwords.txt";
 
-  private final List<String> filesToTest = Arrays.asList("spelling_global.txt", "/en/added.txt", "/en/removed.txt",
+  private final List<String> filesToTest = Arrays.asList("/en/added.txt", "/en/removed.txt",
       "/en/hunspell/ignore.txt", "/en/hunspell/prohibit.txt", "/en/hunspell/prohibit_custom.txt",
       "/en/hunspell/spelling.txt", "/en/hunspell/spelling_custom.txt", "/en/hunspell/spelling_en-AU.txt",
       "/en/hunspell/spelling_en-CA.txt", "/en/hunspell/spelling_en-GB.txt", "/en/hunspell/spelling_en-NZ.txt",
       "/en/hunspell/spelling_en-US.txt", "/en/hunspell/spelling_en-ZA.txt", "/en/hunspell/spelling_merged.txt");
-
+  // "spelling_global.txt",
+  
   @Test
   public void testTokenize() {
     final EnglishWordTokenizer wordTokenizer = new EnglishWordTokenizer();
@@ -66,9 +68,10 @@ public class TokenizeMultiwordsTest {
       for (String word : wordList) {
         if (!multiwords.contains(word.replaceAll("’", "'"))) {
           List<String> tokens = wordTokenizer.tokenize(word);
-          if (tokens.size() > 1) {
+          List<String> tokensBySpace = Arrays.asList(word.split(" "));
+          if (tokens.size() > 1 && !tokens.stream().filter(k -> !k.equals(" ")).collect(Collectors.toList()).equals(tokensBySpace)) {
             System.out.println("WARNING: '" + word + "' in '" + fileName
-                + "' is multi-token and useless here for English spelling. Add it to multiwords.txt or disambiguation.xml.");
+                + "' is multi-token - please make sure it actually works. For spelling, consider adding it to multiwords.txt or disambiguation.xml.");
           }
         }
       }
@@ -85,7 +88,6 @@ public class TokenizeMultiwordsTest {
         if (line.isEmpty() || line.charAt(0) == '#') { // ignore comments
           continue;
         }
-        //
         String[] parts = line.split("\t");
         lines.add(parts[0]);
       }

@@ -7,6 +7,8 @@ ménage à trois	NN
 Ménage à Trois	NN
 Moulin Rouge	NNP
 Organisation of Islamic Cooperation	NNP # www.oic-oci.org/home/?lan=en
+status quo	NN:UN
+Status Quo	NN:UN
 quid pro quo	NN
 Quid Pro Quo	NN
 quid pro quos	NNS
@@ -175,11 +177,13 @@ Flemish Region	NNP
 Walloon Region	NNP
 La Louvière	NNP
 Braine-l'Alleud	NNP
+Braine-l’Alleud	NNP
 Grand Est	NNP
 Centre-Val de Loire	NNP
 Pays de la Loire	NNP
 Le Havre	NNP
 Côte-d'Or	NNP
+Côte-d’Or	NNP
 Le Mans	NNP
 Centre-Val de Loire	NNP
 Le Tampon	NNP
@@ -210,6 +214,7 @@ Mount Airy	NNP
 con forza	RB
 SAP Litmos	NNP
 salicylic acid	NN:U
+oxalic acid	NN:U
 Getty Images	NNP
 Frankfurter Allgemeine	NNP
 Frankfurter Allgemeine Zeitung	NNP
@@ -256,7 +261,6 @@ Rio Rancho	NNP
 Casas Adobes	NNP
 Lake Havasu	NNP
 Oro Valley	NNP
-Eau Claire	NNP
 West Allis	NNP
 Menomonee Falls	NNP
 Mililani Town	NNP
@@ -325,7 +329,6 @@ Minas Gerais	NNP
 Mato Grosso do Sul	NNP
 Rio Grande do Sul	NNP
 Rio Grande do Norte	NNP
-Espírito Santo	NNP
 Distrito Federal	NNP
 Belo Horizonte	NNP
 Porto Alegre	NNP
@@ -567,6 +570,7 @@ Red Deer River	NNP
 Great Whale River	NNP
 Porcupine River	NNP
 Pend d'Oreille River	NNP
+Pend d’Oreille River	NNP
 Saguenay River	NNP
 Saint John River	NNP
 Stewart River	NNP
@@ -581,6 +585,7 @@ Jama Masjid	NNP
 Booking.com	NNP
 Porsche Cayman	NNP
 Coeur d'Alene	NNP
+Coeur d’Alene	NNP
 Eid Mubarak	NNP
 Banco Santander	NNP
 170 Systems	NNP
@@ -1159,11 +1164,15 @@ Carver County	NNP
 SIG Sauer	NNP
 Su Shi	NNP
 Lupita Nyong'o	NNP
+Lupita Nyong’o	NNP
 Lupita Amondi Nyong'o	NNP
 Peter Anyang' Nyong'o	NNP
 chargés d'affaires	NNS
+chargés d’affaires	NNS
 chargé d'affaires	NN
+chargé d’affaires	NN
 L'Amour	NNP
+L’Amour	NNP
 Sidewise Award	NNP
 Sidewise Awards	NNPS
 Gucci Mane	NNP
@@ -1359,7 +1368,9 @@ Entrepot Mediatic	NNP
 Laboratoire Mediatic	NNP
 Mediatic Labs	NNP
 Produits L'Action	NNP
+Produits L’Action	NNP
 Stand L'Action	NNP
+Stand L’Action	NNP
 Stand Mediatic	NNP
 Usine Mediatic	NNP
 Arlington National Cemetery	NNP
@@ -1453,6 +1464,7 @@ Wear OS	NNP
 Android Wear	NNP
 Violet Evergarden	NNP
 Viz-Jaq'taar	NNP
+Viz-Jaq’taar	NNP
 Sempra Energy	NNP
 Violet Evergarden	NNP
 oxaloacetic acid	NN:U
@@ -1538,6 +1550,7 @@ Rishon LeTsiyon	NNP
 Bet Shemesh	NNP
 Petah Tikva	NNP
 Be'er Sheva	NNP
+Be’er Sheva	NNP
 Ramat HaSharon	NNP
 Kiryat Ata	NNP
 Haifa District	NNP
@@ -1638,6 +1651,7 @@ South Tyrol	NNP
 High Tatras	NNPS
 Pend Oreille River	NNP
 Pend-d'Oreille River	NNP
+Pend-d’Oreille River	NNP
 The Swinge	NNP
 Flo Rida	NNP
 Aga Khan	NNP
@@ -1665,6 +1679,7 @@ News Corp	NNP
 Herbert Lindenberger	NNP
 The Decameron	NNP
 Secolo d'Italia	NNP
+Secolo d’Italia	NNP
 coureur de bois	NN
 coureurs de bois	NNS
 Nalleli Cobo	NNP
@@ -1744,6 +1759,7 @@ Al Gore	NNP
 Al Green	NNP
 Al Jazeera	NNP
 Al Pacino	NNP
+al pari	RB
 Albert Einstein	NNP
 Albert Schweitzer	NNP
 Alboran Sea	NNP
@@ -1846,6 +1862,8 @@ au jus	JJ
 au naturel	JJ
 Audemars Piguet	NNP
 audi alteram partem	_multiword_
+op cit	_multiword_
+op. cit.	_multiword_
 Audi TT	NNP
 Audrey Hepburn	NNP
 auld lang syne	NN:U
@@ -1861,12 +1879,14 @@ Axel Springer	NNP
 Axl Rose	NNP
 Backstreet Boys	NNP
 Bahá'í	NNP
+Bahá’í	NNP
 Baillie Gifford	NNP
 Baja California	NNP
 Baja California Sur	NNP
 Bajina Bašta	NNP
 BaleFire Global	NNP
 Ballon d'Or	NNP
+Ballon d’Or	NNP
 Ballona Creek	NNP
 Ballona Wetlands	NNP
 Ban Ki-moon	NNP
@@ -1916,6 +1936,7 @@ Bertolt Brecht	NNP
 Bertrand Russell	NNP
 Best Buy	NNP
 Beto O'Rourke	NNP
+Beto O’Rourke	NNP
 Bette Davis	NNP
 Better Call Saul	NNP
 Betty Grable	NNP
@@ -1973,12 +1994,13 @@ bottlenose dolphins	NNS
 Boynton Beach	NNP
 Brad Pitt	NNP
 Braine-l'Alleud	NNP
+Braine-l’Alleud	NNP
 Bretton Woods	NNP
 Brevard County	NNP
 Brian Eno	NNP
 Brigitte Bardot	NNP
 Bristol Myers	NNP
-Bristol Myers Squibb	NNP
+Bristol-Myers Squibb	NNP
 British Airways	NNP
 Britney Spears	NNP
 Brokeback Mountain	NNP
@@ -2013,7 +2035,6 @@ Business and Legal Resources	NNP
 Business Monitor International	NNP
 bête noire	NN
 bête noires	NNS
-c'est la guerre	_multiword_
 C++	NNP
 café au lait	NN:U
 café noir	NN:U
@@ -2069,7 +2090,9 @@ Chadwick Boseman	NNP
 Champions League	NNP
 Channing Tatum	NNP
 chargé d'affaires	NN
+chargé d’affaires	NN
 chargés d'affaires	NNS
+chargés d’affaires	NNS
 Charles de Gaulle	NNP
 Charles Dickens	NNP
 Charles River Associates	NNP
@@ -2082,7 +2105,9 @@ Charlotte Hornets	NNP
 Che Guevara	NNP
 Cheadle-Möller-Barlow syndrome	NN:U
 chef-d'œuvre	NN
+chef-d’œuvre	NN
 chefs-d'œuvre	NNS
+chefs-d’œuvre	NNS
 Chemical Abstracts Service	NNP
 cherchez la femme	_multiword_
 Chiang Rai	NNP
@@ -2162,6 +2187,7 @@ Costa Rican	NNP
 Costa Ricans	NNP
 Counter Strike	NNP
 coup d'état	NN
+coup d’état	NN
 coup de foudre	NN
 coup de grâce	NN
 Coup de grâce	NNS
@@ -2169,6 +2195,7 @@ Coup de Grâce	NNP
 coup de main	NN
 coup de théâtre	NN
 coups d'état	NNS
+coups d’état	NNS
 coups de foudre	NNS
 coups de grâce	NNS
 coups de main	NNS
@@ -2204,10 +2231,14 @@ Cul de Sac	NNP
 Culver City	NNP
 Curtis Mayfield	NNP
 Côte d'Azur	NNP
+Côte d’Azur	NNP
 Côte d'Ivoire	NNP
+Côte d’Ivoire	NNP
 Côte d'Or	NNP
+Côte d’Or	NNP
 Cú Roí	NNP
 D'Arcy	NNP
+D’Arcy	NNP
 da Silva	NNP
 da Vinci	NNP
 Da Vinci Code	NNP
@@ -2319,6 +2350,7 @@ Dun & Bradstreet	NNP
 Dungeons & Dragons	NNP
 Dungeons and Dragons	NNP
 Dunkin' Donuts	NNP
+Dunkin’ Donuts	NNP
 DuPage County	NNP
 Duran Duran	NNP
 Dustin Hoffman	NNP
@@ -2469,6 +2501,7 @@ Final Fantasy	NNP
 Financial Times	NNP
 First Fuel Software	NNP
 Flannery O'Connor	NNP
+Flannery O’Connor	NNP
 Flo Rida	NNP
 folie de grandeur	NN:U
 folie à deux	NN
@@ -2594,6 +2627,7 @@ Gregory Peck	NNP
 Greta Garbo	NNP
 Greta Thunberg	NNP
 Grey's Anatomy	NNP
+Grey’s Anatomy	NNP
 Guillain-Barré syndrome	NN:U
 gumbo filé	NN:U
 Gumbo Filé	NN:U
@@ -2620,7 +2654,9 @@ Hans Christian Andersen	NNP
 Harley Davidson	NNP
 Harman Kardon	NNP
 Harper's Bazaar	NNP
+Harper’s Bazaar	NNP
 Harper's BAZAAR	NNP
+Harper’s BAZAAR	NNP
 Harris Corporation	NNP
 Harrison Ford	NNP
 Harry Potter	NNP
@@ -2652,8 +2688,12 @@ hoi polloi	NNS
 Home Depot	NNP
 Homer Simpson	NNP
 Honest Buildings	NNP
+hors d’oeuvre	NN
+hors d’oeuvres	NNS
 hors d'oeuvre	NN
+hors d’oeuvre	NN
 hors d'oeuvres	NNS
+hors d’oeuvres	NNS
 hors de combat	JJ
 House of Cards	NNP
 Houston Astros	NNP
@@ -2783,9 +2823,12 @@ Jerome Powell	NNP
 Jerry Lee Lewis	NNP
 Jessica Alba	NNP
 jeu d'esprit	NN
+jeu d’esprit	NN
 jeunesse dorée	NNS
 jeux d'esprit	NNS
+jeux d’esprit	NNS
 jeux d'esprits	NNS
+jeux d’esprits	NNS
 Jill Biden	NNP
 Jimi Hendrix	NNP
 Jimmy Carter	NNP
@@ -2867,6 +2910,7 @@ Keira Knightley	NNP
 Keith Richards	NNP
 Keith Urban	NNP
 Kellogg's	NNP
+Kellogg’s	NNP
 Kenai Fjords	NNP
 Kendale Lakes	NNP
 Kendall Jenner	NNP
@@ -2905,6 +2949,7 @@ Kweichow Moutai	NNP
 Kylie Jenner	NNP
 Kylo Ren	NNP
 L'Oréal	NNP
+L’Oréal	NNP
 La Crosse	NNP
 La Gazzetta dello Sport	NNP
 La Guardia	NNP
@@ -2941,6 +2986,7 @@ Le Figaro	NNP
 Le Monde	NNP
 League of Legends	NNP
 Learn'd Astronomer	NNP
+Learn’d Astronomer	NNP
 Lebor Gabála Érenn	NNP
 LeBron James	NNP
 Legal Science Partners	NNP
@@ -2966,7 +3012,9 @@ Lil Wayne	NNP
 Lilly Open Innovation Drug Discovery	NNP
 Lindsey Graham	NNP
 lingua franca	NN
+Lingua Franca	NN
 lingua francas	NNS
+Lingua Francas	NNS
 Linkin Park	NNP
 Linus van Pelt	NNP
 Lionel Messi	NNP
@@ -2999,6 +3047,7 @@ Louis Vuitton	NNP
 Louise Brooks	NNP
 LOVELAND Technologies	NNP
 Lowe's	NNP
+Lowe’s	NNP
 Lucid Motors	NNP
 Lucille Ball	NNP
 Lucy van Pelt	NNP
@@ -3067,8 +3116,11 @@ Mayne Coaches	NNP
 Mayne Island	NNP
 maître d'	NN
 maître d'hôtel	NN
+maître d’hôtel	NN
 maîtres d'hôtel	NNS
+maîtres d’hôtel	NNS
 McDonald's	NNP
+McDonald’s	NNP
 McGraw Hill Financial	NNP
 Megan Thee Stallion	NNP
 Meghan Markle	NNP
@@ -3123,8 +3175,8 @@ Mont Blanc	NNP
 Montreal Canadiens	NNP
 Monty Python	NNP
 Moody's	NNP
+Moody’s	NNP
 Moon Jae-in	NNP
-Morgan Freeman	NNP
 Morgan Stanley	NNP
 Mortal Kombat	NNP
 mot juste	NN
@@ -3201,6 +3253,7 @@ Nissan Rogue	NNP
 Nissan Sentra	NNP
 Niçoise salad	NN:U
 No Man's Sky	NNP
+No Man’s Sky	NNP
 Noam Chomsky	NNP
 noblesse oblige	NN:U
 Node.js	NNP
@@ -3230,38 +3283,68 @@ NY Times	NNP
 Nye County	NNP
 O Tannenbaum	NNP
 O'Banion	NNP
+O’Banion	NNP
 O'Brien	NNP
+O’Brien	NNP
 O'Callaghan	NNP
+O’Callaghan	NNP
 O'Carroll	NNP
+O’Carroll	NNP
 O'Connell	NNP
+O’Connell	NNP
 O'Conner	NNP
+O’Conner	NNP
 O'Connor	NNP
+O’Connor	NNP
 O'Dell	NNP
+O’Dell	NNP
 O'Doneven	NNP
+O’Doneven	NNP
 O'Donnell	NNP
+O’Donnell	NNP
 O'Donoghue	NNP
+O’Donoghue	NNP
 O'Donovan	NNP
+O’Donovan	NNP
 O'Driscoll	NNP
+O’Driscoll	NNP
 O'Gowan	NNP
+O’Gowan	NNP
 O'Grady	NNP
+O’Grady	NNP
 O'Hanlon	NNP
+O’Hanlon	NNP
 O'Hara	NNP
+O’Hara	NNP
 O'Keefe	NNP
+O’Keefe	NNP
 O'Kelly	NNP
+O’Kelly	NNP
 O'Mahony	NNP
+O’Mahony	NNP
 O'Malley	NNP
+O’Malley	NNP
 O'Meara	NNP
+O’Meara	NNP
 O'Neil	NNP
+O’Neil	NNP
 O'Neill	NNP
+O’Neill	NNP
 O'Reilly	NNP
+O’Reilly	NNP
 O'Rourke	NNP
+O’Rourke	NNP
 O'Shee	NNP
+O’Shee	NNP
 O'Toole	NNP
+O’Toole	NNP
 obiter dicta	NNS
 obiter dictum	NN
 objet d'art	NN
+objet d’art	NN
 objet trouvé	NN
 objets d'art	NNS
+objets d’art	NNS
 objets trouvés	NNS
 Oculus Quest	NNP
 Oculus Rift	NNP
@@ -3302,7 +3385,9 @@ pacta sunt servanda	_multiword_
 Pago Pago	NNP
 Palantir Technologies	NNP
 Palme d'or	NNP
+Palme d’or	NNP
 Palme d'Or	NNP
+Palme d’Or	NNP
 Palo Alto	NNP
 Palo Cedro	NNP
 Palo Pinto	NNP
@@ -3335,6 +3420,7 @@ Personal Democracy Media	NNP
 Peter Parker	NNP
 Peter Thiel	NNP
 Peterson's	NNP
+Peterson’s	NNP
 Ph.D.	NNP
 Phi Phi	NNP
 Phil Collins	NNP
@@ -3394,6 +3480,7 @@ Progressive Insurance Group	NNP
 Propeller Health	NNP
 ProSiebenSat.1	NNP
 Provence-Alpes-Côte d'Azur	NNP
+Provence-Alpes-Côte d’Azur	NNP
 Proxima Centauri	NNP
 Proxima Nova	NNP
 proxime accessit	_multiword_
@@ -3412,11 +3499,14 @@ Quizlet Live	NNP
 quod erat demonstrandum	UH
 quod vide	_multiword_
 Qur'an	NNP
+Qur’an	NNP
 R R Donnelley	NNP
 Radisson Blu	NNP
 Rainer Werner Fassbinder	NNP
 raison d'être	NN
+raison d’être	NN
 raisons d'être	NNS
+raisons d’être	NNS
 Rajpur Sonarpur	NNP
 Ralik Chain	NNP
 Ralph Lauren	NNP
@@ -3553,6 +3643,7 @@ Scale Unlimited	NNP
 Scania AB	NNP
 Scarlett Johansson	NNP
 Schitt's Creek	NNP
+Schitt’s Creek	NNP
 Schneider Electric	NNP
 Science Exchange	NNP
 Scott Fitzgerald	NNP
@@ -3607,6 +3698,7 @@ Sophia Loren	NNP
 Sophic Systems Alliance	NNP
 Sophie Scholl	NNP
 Sotheby's	NNP
+Sotheby’s	NNP
 #sotto voce	NNP
 South Dumdum	NNP
 South Ossetia	NNP
@@ -3624,6 +3716,7 @@ St. Gallen	NNP
 Stack Overflow	NNP
 Stamen Design	NNP
 Standard and Poor's	NNP
+Standard and Poor’s	NNP
 Stanley Kubrick	NNP
 STAR Bharat	NNP
 Star Trek	NNP
@@ -3670,8 +3763,10 @@ São Tomé	NNP
 São Tomé and Príncipe	NNP
 Søren Kierkegaard	NNP
 table d'hôte	NN
+table d’hôte	NN
 Tableau Software	NNP
 tables d'hôte	NNS
+tables d’hôte	NNS
 tabula rasa	NN
 Taco Bell	NNP
 TAG Heuer	NNP
@@ -3754,6 +3849,7 @@ tout de suite	RB
 tout le monde	NN
 Toyota Prius	NNP
 Trader Joe's	NNP
+Trader Joe’s	NNP
 Travis CI	NNP
 très chic	_multiword_
 Três Lagoas	NNP
@@ -3982,6 +4078,7 @@ Belaid Ait Ali	NNP
 Isleworth Ait	NNP
 Lounis Ait Menguellet	NNP
 Oliver's Ait	NNP
+Oliver’s Ait	NNP
 One Over the Ait	NNP
 Holiday on Ice	NNP
 Daunte Wright	NNP
@@ -4010,6 +4107,7 @@ Tim Ferriss	NNP
 Joe Rogan	NNP
 Mount Meron	NNP
 Lag B'Omer	NNP
+Lag B’Omer	NNP
 Derek Chauvin	NNP
 Castro Valley	NNP
 pad thai	NN:U
@@ -4035,6 +4133,7 @@ Eid al-Adha	NNP
 Phnom Penh	NNP
 Gaza City	NNP
 Khan Yunis	NNP
+Khan Younis	NNP
 Beit Lahia	NNP
 Deir al-Balah	NNP
 Bani Suheila	NNP
@@ -4174,6 +4273,7 @@ Diners Club International	NNP
 Jack the Ripper	NNP
 Matt LeBlanc	NNP
 Sarah's Scribbles	NNP
+Sarah’s Scribbles	NNP
 Boom Supersonic	NNP
 J.Lo	NNP
 J. Lo	NNP
@@ -4215,6 +4315,7 @@ Isabella Stewart Gardner Museum	NNP
 Google Slides	NNP
 Google Assistant	NNP
 Let's Encrypt	NNP
+Let’s Encrypt	NNP
 Hobbs & Shaw	NNP
 Mies van der Rohe	NNP
 van der Rohe	NNP
@@ -4225,6 +4326,7 @@ Galaxy Buds	NNPS
 Core Web Vitals	NNPS
 Global Times	NNP
 People's Daily	NNP
+People’s Daily	NNP
 Fast Company	NNP
 Jefferson Davis	NNP
 Morning Brew	NNP
@@ -4246,7 +4348,6 @@ Patrick Süskind	NNP
 Spring Boot	NNP
 HCL Domino	NNP
 HCL Notes	NNP
-Lotus Notes	NNP
 Amazon Basics	NNP
 Kai Havertz	NNP
 Martin Fowler	NNP
@@ -4607,6 +4708,7 @@ mai tais	NNS
 Muay Thai	NNP
 Jean Todt	NNP
 Fédération Internationale de l'Automobile	NNP
+Fédération Internationale de l’Automobile	NNP
 Scuderia Ferrari	NNP
 Kimi Räikkönen	NNP
 Felipe Massa	NNP
@@ -5060,10 +5162,15 @@ Marty McFly	NNP
 Paul Löbe	NNP
 Friedrich Ebert	NNP
 jack o'lantern	NN
+jack o’lantern	NN
 jack o'lanterns	NNS
+jack o’lanterns	NNS
 Jack O'Lantern	NN
+Jack O’Lantern	NN
 jack o'lanterns	NNS
+jack o’lanterns	NNS
 Jack O'Lanterns	NNS
+Jack O’Lanterns	NNS
 Merrick Garland	NNP
 Deus Ex	NNP
 Deus Ex Go	NNP
@@ -5071,7 +5178,6 @@ Paul Atreides	NNP
 Benjamin Button	NNP
 Eugene Goodman	NNP
 Nigel Farage	NNP
-Willy Wonka	NNP
 Elizabeth Truss	NNP
 Liz Truss	NNP
 Hrithik Roshan	NNP
@@ -5111,6 +5217,7 @@ Peggy Sue	NNP
 Meat Loaf	NNP
 Banach–Tarski	NNP
 L'Équipe	NNP
+L’Équipe	NNP
 Robin Thick	NNP
 Need for Speed Underground	NNP
 Number One Observatory Circle	NNP
@@ -5145,6 +5252,7 @@ Cooper Kupp	NNP
 Eric Weddle	NNP
 Matt Gay	NNP
 Ja'Marr Chase	NNP
+Ja’Marr Chase	NNP
 Joe Mixon	NNP
 Evan McPherson	NNP
 Tyler Boyd	NNP
@@ -5205,6 +5313,7 @@ Stephen Colbert	NNP
 Seth Meyers	NNP
 David Letterman	NNP
 Conan O'Brien	NNP
+Conan O’Brien	NNP
 Wintershall Dea	NNP
 App Tracking Transparency	NNP
 La Stampa	NNP
@@ -5340,7 +5449,9 @@ Brown Jackson	NNP
 George Russell	NNP
 Lando Norris	NNP
 Rubrik's cube	NNP
+Rubrik’s cube	NNP
 Rubrik's cubes	NNPS
+Rubrik’s cubes	NNPS
 Raiffeisen Bank	NNP
 Marie-Philip Poulin	NNP
 Ebenezer Scrooge	NNP
@@ -5581,3 +5692,2335 @@ Nikolai Patrushev	NNP
 Sergei Shoigu	NNP
 Super League	NNP
 GitHub Copilot	NNP
+Teutoburg Forest	NNP
+Anna Wintour	NNP
+Met Gala	NNP
+Solange Knowles	NNP
+Thierry Mugler	NNP
+Lauda Air	NNP
+Opel Zafira	NNP
+Sepp Blatter	NNP
+Tom Jones	NNP
+Estée Lauder	NNP
+Kate Millett	NNP
+Giro d'Italia	NNP
+Giro d’Italia	NNP
+Triple Entente	NNP
+Villa Reale di Marlia	NNP
+mm/dd/yyyy	SYM
+MM/DD/YYYY	SYM
+dd/mm/yyyy	SYM
+DD/MM/YYYY	SYM
+Rudolf Caracciola	NNP
+Glastonbury Festival	NNP
+Hội An	NNP
+Hawai'i	NNP
+Hawai’i	NNP
+Hawaiʻi	NNP
+Stieg Larsson	NNP
+Charli D'Amelio	NNP
+Charli D’Amelio	NNP
+Yolanda Díaz	NNP
+Ruja Ignatova	NNP
+Wassily Leontief	NNP
+Sheldon Cooper	NNP
+Kate Bush	NNP
+Starsky & Hutch	NNPS
+Starsky and Hutch	NNPS
+Highland Park	NNP
+George Ezra	NNP
+Stavns Fjord	NNP
+William Cronon	NNP
+Ambroise Vollard	NNP
+NTT DoCoMo	NNP
+NTT Docomo	NNP
+Nintendo DS	NNP
+Sony Xperia	NNP
+Es Vedrà	NNP
+Sajid Javid	NNP
+Chris Pincher	NNP
+Christopher Pincher	NNP
+Nadine Dorries	NNP
+Vijay Mallya	NNP
+WIZZ Air	NNP
+Stephen Daldry	NNP
+Bruno Fernandes	NNP
+Stepan Bandera	NNP
+Nick Kyrgios	NNP
+MTV Unplugged	NNP
+Timothy Chandler	NNP
+Cypress Hill	NNP
+Chrome DevTools	NNPS
+Grigor Dimitrov	NNP
+Chris Pratt	NNP
+Anna Faris	NNP
+Robert Oppenheimer	NNP
+Three Arrows Capital	NNP
+Gianni Versace	NNP
+Álvaro Uribe	NNP
+Álvaro Uribe Vélez	NNP
+Jacob Burckhardt	NNP
+Edelweiss Air	NNP
+Penny Mordaunt	NNP
+Rishi Sunak	NNP
+Nadhim Zahawi	NNP
+Adam Neumann	NNP
+Jade Wesker	NNP
+Albert Wesker	NNP
+Billie Wesker	NNP
+Jill Valentine	NNP
+Chris Redfield	NNP
+Sheva Alomar	NNP
+Ada Wong	NNP
+Rafael Caro Quintero	NNP
+Lisandro Martínez	NNP
+Frenkie de Jong	NNP
+Dacia Duster	NNP
+Matthijs de Ligt	NNP
+Kopa Trophy	NNP
+Jong Ajax	NNP
+Vitesse Arnhem	NNP
+Lokomotiv Moscow	NNP
+de Ligt	NNP
+Darkwing Duck	NNP
+Daisy Duck	NNP
+Fauntleroy Duck	NNP
+Minnie Mouse	NNP
+Dacia Logan	NNP
+Renault Sandero	NNP
+Robbie Williams	NNP
+Champions Hockey League	NNP
+Tom Steyer	NNP
+Andrew Yang	NNP
+Cory Booker	NNP
+Klaus Schwab	NNP
+Oliver Blume	NNP
+Lady Bunny	NNP
+Arleigh Burke	NNP
+D. B. Cooper	NNP
+D.B. Cooper	NNP
+van Zant	NNP
+van Zandt	NNP
+Dell Technologies	NNP
+Toyota Crown	NNP
+Toyota Century	NNP
+Toyota Cressida	NNP
+Toyota bZ4X	NNP
+Pet Shop Boys	NNPS
+Jonas Vingegaard	NNP
+Wout van Aert	NNP
+Tadej Pogačar	NNP
+Primož Roglič	NNP
+Sepp Kuss	NNP
+Jakob Fuglsang	NNP
+Magnus Cort	NNP
+Geraint Thomas	NNP
+Filippo Ganna	NNP
+Britta Ernst	NNP
+Sami Slimani	NNP
+Drew McIntyre	NNP
+John Wick	NNP
+Jack Reacher	NNP
+Chris Evans	NNP
+Cinema EOS	NNP
+Three Mile Island	NNP
+Amazon SageMaker	NNP
+AWS SageMaker	NNP
+Amazon Lightsail	NNP
+AWS Lightsail	NNP
+Hacker News	NNP
+Benjamin Harrison	NNP
+Grover Cleveland	NNP
+Millard Fillmore	NNP
+Franklin Pierce	NNP
+Calvin Coolidge	NNP
+Herbert Hoover	NNP
+Zachary Taylor	NNP
+Lyndon Baines Johnson	NNP
+James Knox Polk	NNP
+James K. Polk	NNP
+Warren Gamaliel Harding	NNP
+Warren G. Harding	NNP
+William Henry Harrison	NNP
+William H. Harrison	NNP
+Martin Van Buren	NNP
+van Buren	NNP
+Franklin Delano Roosevelt	NNP
+Franklin D. Roosevelt	NNP
+James Abram Garfield	NNP
+James A. Garfield	NNP
+James Garfield	NNP
+Giorgia Meloni	NNP
+Fratelli d'Italia	NNP
+Via della	NNP
+Mario Monti	NNP
+Forza Italia	NNP
+Mara Carfagna	NNP
+Elisabetta Casellati	NNP
+Pier Ferdinando Casini	NNP
+Elisabetta Belloni	NNP
+Sabino Cassese	NNP
+Marta Cartabia	NNP
+Enrico Letta	NNP
+Terrence Howard	NNP
+Petro Doroshenko	NNP
+Darwin Núñez	NNP
+Tesla Grohmann	NNP
+Andrew Tate	NNP
+Bill Burns	NNP
+Collabora Online	NNP
+Collabora Office	NNP
+Banque Populaire	NNP
+Alfa Bank	NNP
+Tinkoff Bank	NNP
+HP EliteBook	NNP
+HP ProBook	NNP
+Fort Bragg	NNP
+NYU Langone	NNP
+Dodi Fayed	NNP
+Dodi Al-Fayed	NNP
+HP OfficeJet	NNP
+Peter Ustinov	NNP
+Rainbow Warrior	NNP
+Olivia Newton-John	NNP
+Dušan Tadić	NNP
+Jimmy Neutron	NNP
+Marcus Mumford	NNP
+Emma Watson	NNP
+Anne Heche	NNP
+Ocean Pointe	NNP
+Royal Kunia	NNP
+Ewa Beach	NNP
+E=mc²	SYM
+E = mc²	SYM
+Jason Calacanis	NNP
+Salman Rushdie	NNP
+Ashraf Ghani	NNP
+Model Ys	NNPS
+Model 3s	NNPS
+&nbsp;	SYM
+Stacy Abrams	NNP
+IG Farben	NNP
+I.G. Farben	NNP
+Patek Philippe	NNP
+Jim Ratcliffe	NNP
+Country Garden	NNP
+Pete Doherty	NNP
+Balmoral Castle	NNP
+Gautam Adani	NNP
+Charlie Crist	NNP
+Ewa Beach	NNP
+Hana Highway	NNP
+Road to Hana	NNP
+Amy Gutmann	NNP
+Jennifer Coolidge	NNP
+Jennifer Connelly	NNP
+Val Kilmer	NNP
+Miles Teller	NNP
+Alessandro Chiocchetti	NNP
+Fort DeRussy	NNP
+Kuhio Beach	NNP
+Dr. Ing.	SYM
+Gigi Hadid	NNP
+Vox Media	NNP
+basso continuo	NN:UN
+basso continuos	NNS
+Ferrari Purosangue	NNP
+T. Rowe Price	NNP
+T Rowe Price	NNP
+Anthony Modeste	NNP
+Mike Lindell	NNP
+Grand Cherokee	NNP
+Subaru Outback	NNP
+Dodge Charger	NNP
+Jeep Cherokee	NNP
+Ford Explorer	NNP
+Nissan Altima	NNP
+Toyota Camry	NNP
+Honda Civic	NNP
+David Malpass	NNP
+Ilham Aliyev	NNP
+Lorenzo Brown	NNP
+Bob Chapek	NNP
+Martha's Vineyard	NNP
+Martha’s Vineyard	NNP
+Son Heung-min	NNP
+Heung-min Son	NNP
+Nan Madol	NNP
+Crystal Palace	NNP
+James Corden	NNP
+Stora Enso	NNP
+Winneshiek County	NNP
+University of Lucknow	NNP
+Howey Test	NNP
+We Bare Bears	NNP
+Li Lu	NNP
+John F. Kennedy	NNP
+Tyson Foods	NNP
+Biscayne Bay	NNP
+Nikolai Valuev	NNP
+George Pataki	NNP
+Ala Moana	NNP
+Warren G	NNP
+N.W.A.	NNP
+Mathias Döpfner	NNP
+Lula da Silva	NNP
+Remington Steele	NNP
+Erik ten Hag	NNP
+ten Hag	NNP
+Jorge Mendes	NNP
+Accenture Song	NNP
+Amal Clooney	NNP
+Kwasi Kwarteng	NNP
+Garry Kasparov	NNP
+Herschel Walker	NNP
+Alibaba Group	NNP
+Herschel Grynszpan	NNP
+Jeddah Tower	NNP
+Svante Pääbo	NNP
+Mahsa Amini	NNP
+Schottky diode	NN
+Schottky diodes	NNS
+Chicago Blackhawks	NNPS
+Kerch Bridge	NNP
+Kerch Strait Bridge	NNP
+Edin Terzić	NNP
+Jim Cramer	NNP
+Iker Casillas	NNP
+Anna Sorokin	NNP
+Philipp Plein	NNP
+Tyra Banks	NNP
+Ekstra Bladet	NNP
+Max Beckmann	NNP
+Otto Dix	NNP
+Max Liebermann	NNP
+Lovis Corinth	NNP
+Emil Nolde	NNP
+Qwest Communications	NNP
+Ghawar Field	NNP
+Safaniya Field	NNP
+DMG Mori	NNP
+Eurofighter Typhoon	NNP
+Ben Bernanke	NNP
+KION Group	NNP
+Kion Group	NNP
+Jean Hyppolite	NNP
+Sarah Parcak	NNP
+Jeffrey Dahmer	NNP
+Jeremy Hunt	NNP
+Tom Tugendhat	NNP
+Marcus Butler	NNP
+Jeff Dahmer	NNP
+Federico Valverde	NNP
+Fede Valverde	NNP
+Rio Ferdinand	NNP
+Charlie Hunnam	NNP
+Haus Publishing	NNP
+Arba Minch	NNP
+mazel tov	UH
+Bahir Dar	NNP
+Gilmore Girls	NNPS
+ID Buzz	NNP
+Wolf of Wall Street	NNP
+Kevin Spacey	NNP
+Robin Wright	NNP
+Ben Wallace	NNP
+Los Angeles Times	NNP
+LA Times	NNP
+L.A. Times	NNP
+Tampa Bay Times	NNP
+Maharashtra Times	NNP
+Brittney Griner	NNP
+Horizon Worlds	NNP
+Golden Dragon China Index	NNP
+Airbus Beluga	NNP
+Nova Kakhovka	NNP
+Dneprostroi Dam	NNP
+Kryvyi Rih	NNP
+Süddeutsche Zeitung	NNP
+Thierry Breton	NNP
+Patong Beach	NNP
+Doug Mastriano	NNP
+Ali Daei	NNP
+Fahmi Quadir	NNP
+Swiss Federal Railways	NNP
+Aleph Alpha	NNP
+Springer Nature	NNP
+Eli Lilly	NNP
+Inglourious Basterds	NNP
+Daniel Brühl	NNP
+Til Schweiger	NNP
+Michael Fassbender	NNP
+Björn Gulden	NNP
+Jordan Bardella	NNP
+Kari Lake	NNP
+ignis fatuus	NN
+ignes fatui	NNS
+Precision Air	NNP
+John Fetterman	NNP
+Maxwell Frost	NNP
+Maura Healey	NNP
+Lee Zeldin	NNP
+Huckabee Sanders	NNP
+Brian Kemp	NNP
+Wes Moore	NNP
+Markwayne Mullin	NNP
+Brian Dahle	NNP
+Abigail Spanberger	NNP
+Jennifer Wexton	NNP
+Gretchen Whitmer	NNP
+Tudor Dixon	NNP
+Chichén Itzá	NNP
+Bill Bowerman	NNP
+Lenovo ThinkStation	NNP
+Richard von Weizsäcker	NNP
+von Weizsäcker	NNP
+Niclas Füllkrug	NNP
+Justin Verlander	NNP
+Youssoufa Moukoko	NNP
+Mario Götze	NNP
+Changpeng Zhao	NNP
+Karim Adeyemi	NNP
+VMware ESXi	NNP
+Niklas Süle	NNP
+Patrick Esume	NNP
+Joko Widodo	NNP
+Anies Baswedan	NNP
+Mahathir Mohamad	NNP
+Ismail Sabri Yaakob	NNP
+Sabri Yaakob	NNP
+Pete Davidson	NNP
+Paw Patrol	NNP
+PAW Patrol	NNP
+Sundance Film Festival	NNP
+San Andrés	NNP
+Fools Garden	NNP
+San Marcos	NNP
+Robinson Crusoe	NNP
+Universal Records	NNP
+Toronto Blue Jays	NNP
+GP Bullhound	NNP
+Ivan Toney	NNP
+Cadillac Escalade	NNP
+Jeremy Fragrance	NNP
+Telefónica Germany	NNP
+Prosciutto di Parma	NNP
+Stormy Daniels	NNP
+Antonio Rüdiger	NNP
+John Stumpf	NNP
+Jared Kushner	NNP
+Freddie Mac	NNP
+Jung Kook	NNP
+Kia Sportage	NNP
+Enner Valencia	NNP
+Diomede Islands	NNPS
+Big Diomede	NNP
+Little Diomede	NNP
+vox populi vox Dei	UH
+vox populi, vox Dei	UH
+Sporting de Braga	NNP
+S.C. Braga	NNP
+SC Braga	NNP
+Sporting Cristal	NNP
+Mick Wallace	NNP
+Steve Bannon	NNP
+Alex Jones	NNP
+Bukayo Saka	NNP
+Marcus Rashford	NNP
+Mechanical Turk	NNP
+Bob Iger	NNP
+Timothy Weah	NNP
+Guido Crosetto	NNP
+World Wide Web Consortium	NNP
+Stable Diffusion	NNP
+Dani Olmo	NNP
+Brian Cox	NNP
+Brian Wilson	NNP
+GitHub Packages	NNP
+ad captandum	JJ
+ad captandum vulgus	JJ
+rara avis	NN
+rara avis	NN
+rarae aves	NNS
+rara avises	NNS
+Christian Pulisic	NNP
+Glenn Greenwald	NNP
+Mauna Loa	NNP
+Mauna Kea	NNP
+Cody Gakpo	NNP
+Bruno Fernandes	NNP
+Olivier Giroud	NNP
+Didier Reynders	NNP
+Banco do Brasil	NNP
+Denzel Dumfries	NNP
+Max Seddon	NNP
+Sam Altman	NNP
+Sergio Massa	NNP
+Louis van Gaal	NNP
+van Gaal	NNP
+Dinamo Zagreb	NNP
+Air Malta	NNP
+Monte Carlo	NNP
+Académie des sciences	NNP
+Viktor Bout	NNP
+Charles Schwab	NNP
+Redwood City	NNP
+Vinícius Júnior	NNP
+Vinícius Jr	NNP
+Bugsy Siegel	NNP
+Meyer Lansky	NNP
+Lucky Luciano	NNP
+Frank Costello	NNP
+Xin Zhui	NNP
+Lady Dai	NNP
+Ethan Hawke	NNP
+Eva Kaili	NNP
+Erich Mielke	NNP
+Sam Brinton	NNP
+Klaus Barbie	NNP
+Morbid Angel	NNP
+Kumho Tire	NNP
+Kumho Tyre	NNP
+Lionel Scaloni	NNP
+Di María	NNP
+Emiliano Martínez	NNP
+Marcos Acuña	NNP
+Kolo Muani	NNP
+Hyundai Rotem	NNP
+Zürcher Geschnetzeltes	NNP
+Absolut Vodka	NNP
+Pernod Ricard	NNP
+Isles of Scilly	NNP
+mastodon.social	NNP
+Michael Bublé	NNP
+Caroline Ellison	NNP
+El Gordo	NNP
+Sig Sauer	NNP
+FN Herstal	NNP
+Sun Microsystems	NNP
+Alan Watts	NNP
+Fira Sans	NNP
+Thulsa Doom	NNP
+Franklin Gothic	NNP
+Johanna Elberskirchen	NNP
+Helene Lange	NNP
+Giacomo Agostini	NNP
+Place de l'Étoile	NNP
+Place Charles de Gaulle	NNP
+Markus Krebber	NNP
+erythema multiforme	NN:UN
+erythema multiformes	NNS
+bin Zayed	NNP
+Al Nahyan	NNP
+Mel C	NNP
+Pete Buttigieg	NNP
+J. B. Pritzker	NNP
+Nina Hoss	NNP
+Théophile Gautier	NNP
+Oude Kerk	NNP
+camera lucida	NN
+camera lucidas	NNS
+camera obscura	NN
+camera obscuras	NNS
+Musée du Louvre	NNP
+Simon Duiker	NNP
+Dirck van Baburen	NNP
+van Baburen	NNP
+Alameda Research	NNP
+Stamford Hill	NNP
+Pontiac Trans Am	NNP
+Trans Am	NNP
+Andy Milonakis	NNP
+El Rubius	NNP
+Pontiac Firebird	NNP
+Pontiac Aztek	NNP
+Eddie Vedder	NNP
+Norges Bank	NNP
+Hockney–Falco	NNP
+Rishab Shetty	NNP
+Forest Whitaker	NNP
+Steven Tyler	NNP
+Mick Jagger	NNP
+Ally Pally	NNP
+Guillermo del Toro	NNP
+Andrea Pirlo	NNP
+Paolo Maldini	NNP
+Al Nassr	NNP
+Peter Lynch	NNP
+Dana White	NNP
+Kris Jenner	NNP
+Caitlyn Jenner	NNP
+Hakeem Jeffries	NNP
+Subramanian Swamy	NNP
+Dorothy Dandridge	NNP
+Next.js	NNP
+Express.js	NNP
+Cash App	NNP
+Fortescue Metals	NNP
+Port Hedland	NNP
+BHP Billiton	NNP
+Sole 24 Ore	NNP
+Il Sole 24 Ore	NNP
+GE HealthCare	NNP
+GE Healthcare	NNP
+AWS CloudWatch	NNP
+Amazon CloudWatch	NNP
+Edward Norton	NNP
+Hugging Face	NNP
+George Santos	NNP
+Hovey Channel	NNP
+Lenox Hills	NNP
+Lenox Hill	NNP
+Tobosa Basin	NNP
+Capitan Formation	NNP
+Nuri Şahin	NNP
+Michael Andretti	NNP
+Byron Donalds	NNP
+John Cornyn	NNP
+Lloyd Doggett	NNP
+Freedom Caucus	NNP
+Jim Jordan	NNP
+Andy Biggs	NNP
+Scott Perry	NNP
+Inspector Clouseau	NNP
+Bobby Charlton	NNP
+Paolo Rossi	NNP
+Bed Bath & Beyond	NNP
+United World Wrestling	NNP
+Daley Blind	NNP
+Colonia Dignidad	NNP
+El Niños	NNPS
+von Bellingshausen	NNP
+Fabian Gottlieb von Bellingshausen	NNP
+Sierra Madre	NNP
+Saxo Bank	NNP
+Fulda Gap	NNP
+Ovidio Guzmán	NNP
+Ovidio Guzmán López	NNP
+Frankie Muniz	NNP
+Ibaneis Rocha	NNP
+Palácio do Planalto	NNP
+José Sarney	NNP
+Palácio da Alvorada	NNP
+TUI Cruises	NNP
+Vince McMahon	NNP
+Jil Sander	NNP
+Marc Jacobs	NNP
+Taylor Wessing	NNP
+Joachim Wuermeling	NNP
+Barney Stinson	NNP
+Remo Ruffini	NNP
+Lisa Marie Presley	NNP
+Santa Ynez	NNP
+hidradenitis suppurativa	NN:U
+aplastic anemia	NN:UN
+aplastic anemias	NNS
+Boehringer Ingelheim	NNP
+Yeti Airlines	NNP
+Boris Pistorius	NNP
+Kenneth Rogoff	NNP
+Paul Gosar	NNP
+alopecia totalis	NN:U
+Étienne Davignon	NNP
+Optimus Prime	NNP
+Mikhail Fridman	NNP
+Ultra Magnus	NNP
+Rodimus Prime	NNP
+Sentinel Prime	NNP
+Ted Mosby	NNP
+Sergio Ramos	NNP
+LinkedIn Sales Navigator	NNP
+Mark Milley	NNP
+La Pedrera	NNP
+Tom Zhu	NNP
+RWE Offshore Wind	NNP
+Petróleo Brasileiro	NNP
+Chris Hipkins	NNP
+Ron Perlman	NNP
+Grand Seiko	NNP
+Societas Europaea	NNP
+STOXX Europe	NNP
+Linsey Davis	NNP
+Mike Sievert	NNP
+Marcel Sabitzer	NNP
+Segunda División	NNP
+Thibaut Courtois	NNP
+Manuel Pellegrini	NNP
+Alberto Fernández	NNP
+João Cancelo	NNP
+Rúben Dias	NNP
+João Félix	NNP
+Shaquille O’Neal	NNP
+Shaq O’Neal	NNP
+Shaquille O'Neal	NNP
+Shaq O'Neal	NNP
+Costa Concordia	NNP
+Sándor Márai	NNP
+Steffen Hebestreit	NNP
+Tyre Nichols	NNP
+An Lushan	NNP
+Raquel Welch	NNP
+Jane Fonda	NNP
+Norfolk Southern	NNP
+Norfolk Southern Railways	NNP
+Canterville Ghost	NNP
+Markus Eisenbichler	NNP
+Karl Geiger	NNP
+Dayot Upamecano	NNP
+Seymour Hersh	NNP
+Piotr Zieliński	NNP
+Victor Osimhen	NNP
+Linux Mint	NNP
+Jordan Peterson	NNP
+Tommy Fury	NNP
+Heidelberg Materials	NNP
+Victoria Nuland	NNP
+Adani Group	NNP
+Basler Zeitung	NNP
+Molson Coors	NNP
+Grant Thornton	NNP
+Bernstein Research	NNP
+Sigur Rós	NNP
+Bella Ramsey	NNP
+Pedro Pascal	NNP
+Frogmore Cottage	NNP
+Frogmore House	NNP
+Meghan Trainor	NNP
+Giovanni Trapattoni	NNP
+Hilary Duff	NNP
+Hilary Swank	NNP
+Luiz Inácio Lula da Silva	NNP
+Tate Modern	NNP
+Tate Gallery	NNP
+Ikke Hüftgold	NNP
+William Turner	NNP
+Grand Hyatt	NNP
+Satudarah MC	NNP
+Ig Nobel Prize	NNP
+Milton Friedman	NNP
+pro rata temporis	RB
+Stierlin Court	NNP
+Silicon Valley Bank	NNP
+RBC Capital Markets	NNP
+First Republic Bank	NNP
+Signature Bank	NNP
+Apollo Global Management	NNP
+Johannes von Wesel	NNP
+de minimis	JJ
+Gunderson Dettmer	NNP
+Van Horne	NNP
+Alvin Bragg	NNP
+Saudi National Bank	NNP
+Joan Mir	NNP
+Val di Noto	NNP
+San Gregorio	NNP
+Google Bard	NNP
+Kofi Annan	NNP
+PacWest Bancorp	NNP
+Steve Miller Band	NNP
+Joan Miró	NNP
+Max Ernst	NNP
+Maria Dolors Miró	NNP
+Conan Doyle	NNP
+Reed Smith	NNP
+ING Group	NNP
+Rajang River	NNP
+Crédit Mutuel	NNP
+Crédit Mutuel Arkéa	NNP
+Crédit Industriel et Commercial	NNP
+Crédit Industriel	NNP
+Lamar Jackson	NNP
+Alicia Keys	NNP
+Swizz Beatz	NNP
+Christina Aguilera	NNP
+John Legend	NNP
+Pharrell Williams	NNP
+Bruno Mars	NNP
+John Mayer	NNP
+Jennifer Hudson	NNP
+Bobby Brown	NNP
+Clive Davis	NNP
+Toni Braxton	NNP
+Diana Ross	NNP
+Sanssouci Park	NNP
+Sanssouci Palace	NNP
+Joy Behar	NNP
+Evan Gershkovich	NNP
+Cuba libre	NNP
+Cuba Libre	NNP
+Baker McKenzie	NNP
+Juan Merchan	NNP
+Doogie Howser	NNP
+Fritz Haber	NNP
+William Crookes	NNP
+Honoré de Balzac	NNP
+Reliance Industries	NNP
+Crate&Barrel	NNP
+Crate & Barrel	NNP
+BMW XM	NNP
+British Telecom	NNP
+BT Group	NNP
+Chun Doo-hwan	NNP
+Bandar Seri Begawan	NNP
+Han Zheng	NNP
+William J. Burns	NNP
+William Burns	NNP
+Sono Motors	NNP
+Jack Teixeira	NNP
+Alex Teixeira	NNP
+Qin Gang	NNP
+Mike Lawler	NNP
+Yevgeny Prigozhin	NNP
+Hannover Messe	NNP
+expl.	JJ
+ABN AMRO	NNP
+Forrester Wave	NNP
+IDC MarketScape	NNP
+Alexander Wynaendts	NNP
+James Quincey	NNP
+Ramon Laguarta	NNP
+Indra Nooyi	NNP
+Olof Palme	NNP
+Frederick Handley Page	NNP
+guanylyl cyclase	NN:U
+Friedrich Naumann Foundation	NNP
+Friedrich Naumann	NNP
+Theodor Heuss	NNP
+Heinrich Lübke	NNP
+Horst Köhler	NNP
+Mount Tamalpais	NNP
+Mount Tam	NNP
+Julie Chávez Rodríguez	NNP
+Chief Wiggum	NNP
+Clancy Wiggum	NNP
+Charles Montgomery Burns	NNP
+Montgomery Burns	NNP
+Mr. Burns	NNP
+Mr. Smithers	NNP
+Waylon Smithers	NNP
+Matt Groening	NNP
+Marge Simpson	NNP
+Bart Simpson	NNP
+Marge Simpson	NNP
+Lisa Simpson	NNP
+Maggie Simpson	NNP
+Peter Griffin	NNP
+Ned Flanders	NNP
+Flying Goose	NNP
+hors d'oeuvre	NN:UN
+hors d'oeuvres	NNS
+Jeff Goldblum	NNP
+Rami Malek	NNP
+Steve Carell	NNP
+Dennis Hastert	NNP
+Frank Carlucci	NNP
+Matsu Island	NNP
+Matsu Islands	NNPS
+Lianjiang County	NNP
+Howard Carter	NNP
+Adi Dassler	NNP
+Adolf Dassler	NNP
+D.K. Metcalf	NNP
+B-52 Stratofortress	NNP
+B52 Stratofortress	NNP
+Darth Maul	NNP
+Count Dooku	NNP
+Mace Windu	NNP
+Qui-Gon Jinn	NNP
+Fred Durst	NNP
+Santo Niño	NNP
+Kia ProCeed	NNP
+Bild am Sonntag	NNP
+Diebold Nixdorf	NNP
+Vint Cerf	NNP
+Vinton Cerf	NNP
+Vinton G. Cerf	NNP
+Martina Voss-Tecklenburg	NNP
+Jan Åge Fjørtoft	NNP
+Espiritu Santo	NNP
+Human Rights Watch	NNP
+Kentucky Derby	NNP
+sensu lato	RB
+sensu stricto	RB
+De Excidio et Conquestu Britanniae	NNP
+São Nicolau	NNP
+Ray Liotta	NNP
+Hamburg Altona	NNP
+Jean Carroll	NNP
+E. Jean Carroll	NNP
+Marla Maples	NNP
+Gwynne Shotwell	NNP
+Armin Papperger	NNP
+Silver Lake	NNP
+Paper Trail Media	NNP
+Kemal Kılıçdaroğlu	NNP
+Linda Yaccarino	NNP
+Ahold Delhaize	NNP
+Jimmy Wales	NNP
+Conor Maynard	NNP
+Isaias Afwerki	NNP
+Neel Kashkari	NNP
+Jeune Afrique	NNP
+Lady Macbeth	NNP
+sippy cup	NN
+sippy cups	NNS
+Andy Bechtolsheim	NNP
+Led Zeppelin	NNP
+Albert Ballin	NNP
+San Siro	NNP
+Werner von Siemens	NNP
+von Siemens	NNP
+Mata Hari	NNP
+Sanshiro Sugata	NNP
+Sanshiro Murao	NNP
+La Rochelle	NNP
+Kyriakos Mitsotakis	NNP
+Catherine Colonna	NNP
+Adobe Firefly	NNP
+Queen Mab	NNP
+S tronic	NNP
+S line	NNP
+Imran Khan	NNP
+Pamela Rendi-Wagner	NNP
+Jean-Claude Trichet	NNP
+Hermes Fulfilment	NNP
+Sag Harbor	NNP
+Cesc Fabregas	NNP
+verruca vulgaris	NN:U
+Xabi Alonso	NNP
+David Villa	NNP
+Fernando Torres	NNP
+Carles Puyol	NNP
+Sergio Busquets	NNP
+Juan Mata	NNP
+Camille Saint-Saëns	NNP
+Dassault Systèmes	NNP
+Dassault Aviation	NNP
+Dassault Group	NNP
+Diehl Defence	NNP
+DIEHL Defence	NNP
+Serge Dassault	NNP
+Marcel Dassault	NNP
+Veolia Environnement	NNP
+Compagnie Générale	NNP
+Compagnie Générale des	NNP
+Compagnie générale des	NNP
+Miroslav Klose	NNP
+Michael Ballack	NNP
+Antipope Natalius	NNP
+Bill Browder	NNP
+Samsung Knox	NNP
+WD Elements	NNP
+Praia da Luz	NNP
+Praia da Rocha	NNP
+Praia da Vitória	NNP
+Praia da Oura	NNP
+Praia do Cassino	NNP
+Playa del Ingles	NNP
+Shannon Sharpe	NNP
+mellitic acid	NN:U
+mellitic anhydride	NNP
+Wacken Open Air	NNP
+Kendall Roy	NNP
+de novo	RB
+Schrems II	NNP
+Till Lindemann	NNP
+Borsa Italiana	NNP
+London Stock Exchange	NNP
+Bolsa Mexicana de Valores	NNP
+Bertha Benz	NNP
+Heinrich Schliemann	NNP
+Sophia Schliemann	NNP
+Melitta Bentz	NNP
+Valery Gerasimov	NNP
+Bigben Interactive	NNP
+Peter Greenaway	NNP
+Tom Tykwer	NNP
+Tommy Shelby	NNP
+Cat Stevens	NNP
+Leonard Cohen	NNP
+Tampa Bay Lightning	NNP
+Billboard 200	NNP
+Columbia University Press	NNP
+Los Angeles Galaxy	NNP
+Rutherford B. Hayes	NNP
+H. G. Wells	NNP
+H.G. Wells	NNP
+Manchester United F.C.	NNP
+Bahá'í Faith	NNP
+Anže Kopitar	NNP
+Los Angeles Avengers	NNPS
+Los Angeles Daily News	NNP
+Los Angeles Philharmonic	NNP
+Richard Ramirez	NNP
+Desiderius Erasmus	NNP
+Thomas Cromwell	NNP
+Thomas Wolsey	NNP
+Anne Boleyn	NNP
+Jane Colt	NNP
+L. L. Zamenhof	NNP
+L.L. Zamenhof	NNP
+James K. Polk	NNP
+T. S. Eliot	NNP
+Arthur C. Clark	NNP
+Kareem Abdul-Jabbar	NNP
+Ron Suskind	NNP
+First Solar	NNP
+Bill Burr	NNP
+Hannah Waddingham	NNP
+Karl Lauterbach	NNP
+Nancy Faeser	NNP
+Jojo Rabbit	NNP
+Taika Waititi	NNP
+Yokota Air Base	NNP
+Emma Chamberlain	NNP
+Jack Harlow	NNP
+James Charles	NNP
+Ellie Thumann	NNP
+Doja Cat	NNP
+lupus erythematosus	NN:U
+Jeff Merkley	NNP
+Bluetooth LE	NNP
+Addams Family	NNP
+Li Shangfu	NNP
+Ogg Vorbis	NNP
+Fort Belvoir	NNP
+Bernie Madoff	NNP
+Luiz Inácio Lula	NNP
+Île de France	NNP
+Isabel Diaz Ayuso	NNP
+Lech Wałęsa	NNP
+Ferdinand Piëch	NNP
+Ōsanbashi Pier	NNP
+Hernán Crespo	NNP
+Doña Ana	NNP
+Dušan Vlahović	NNP
+Cesc Fàbregas	NNP
+André Rieu	NNP
+Bjørn Gulden	NNP
+Ferenc Puskás	NNP
+Anton Piëch	NNP
+Sean Combs	NNP
+Szymon Marciniak	NNP
+Croix County	NNP
+H.P. Lovecraft	NNP
+H. P. Lovecraft	NNP
+S.S.C. Napoli	NNP
+Juventus F.C.	NNP
+force majeure	NN
+force majeures	NNS
+Wladimir Klitschko	NNP
+Ange Postecoglou	NNP
+Vision Pro	NNP
+Arlo Parks	NNP
+Reality Composer	NNP
+Reality Composer Pro	NNP
+Fraunhofer SIT	NNP
+Los Feliz	NNP
+Pacific Coast Highway	NNP
+César Chávez	NNP
+Hassanal Bolkiah	NNP
+Howard Hughes	NNP
+Hanwha Group	NNP
+Hanwha Corporation	NNP
+Elbridge A. Colby	NNP
+Elbridge Colby	NNP
+William Egan Colby	NNP
+William Colby	NNP
+Sam Levinson	NNP
+Shell V-Power	NNP
+Saint Louis Sucre	NNP
+Fulham F.C.	NNP
+Apple Inc.	NNP
+Union Pacific Corp.	NNP
+Elbridge A. Colby	NNP
+George H. W. Bush	NNP
+J.D. Salinger	NNP
+J. D. Salinger	NNP
+J.J. Thomson	NNP
+J. J. Thomson	NNP
+Arthur C. Clarke	NNP
+Chelsea F.C.	NNP
+Arsenal F.C.	NNP
+Liverpool F.C.	NNP
+Baotou Steel	NNP
+Peter Altmaier	NNP
+Android Auto	NNP
+La Chaux-de-Fonds	NNP
+Alexander Donski	NNP
+Lionel Souque	NNP
+Robert Kennedy	NNP
+Robert F. Kennedy	NNP
+William E. Colby	NNP
+G.K. Chesterton	NNP
+G. K. Chesterton	NNP
+Harry S. Truman	NNP
+Consolidated Edison	NNP
+Tan Hock Eng	NNP
+Hock Tan	NNP
+Jack Grealish	NNP
+Accona desert	NNP
+Menlo Ventures	NNP
+Lanford Wilson	NNP
+Naby Keïta	NNP
+Boca Burger	NNP
+Grey Poupon	NNP
+Realty Income	NNP
+Digital Realty	NNP
+Digital Realty Trust	NNP
+DWS Group	NNP
+Air Liquide	NNP
+Hermann Graßmann	NNP
+Phil Foden	NNP
+Dan Waldschmidt	NNP
+Geert Wilders	NNP
+Pulau Ubin	NNP
+Oleksii Reznikov	NNP
+Inter Miami	NNP
+Inter Miami CF	NNP
+Fiat Fullback	NNP
+RasenBallsport Leipzig	NNP
+RB Leipzig	NNP
+Jamal Murray	NNP
+Cormac McCarthy	NNP
+Ted Kaczynski	NNP
+Thomas Pynchon	NNP
+Don DeLillo	NNP
+David Foster Wallace	NNP
+Foster Wallace	NNP
+Francis Crick	NNP
+Rachel Carson	NNP
+Gregor Mendel	NNP
+John Kornblum	NNP
+John C. Kornblum	NNP
+Tommy Bahama	NNP
+CUPRA Born	NNP
+Cupra Born	NNP
+CUPRA Leon	NNP
+Cupra Leon	NNP
+CUPRA Formentor	NNP
+Cupra Formentor	NNP
+Declan Rice	NNP
+Frasers Group	NNP
+Pratt & Whitney	NNP
+Angelique Kerber	NNP
+John Hollins	NNP
+Margarita Robles	NNP
+John C. Bogle	NNP
+John Bogle	NNP
+Jack Bogle	NNP
+Joachim von Ribbentrop	NNP
+Francis X. Suarez	NNP
+Francis Suarez	NNP
+Leonard Bosack	NNP
+Sandy Lerner	NNP
+Bukit Asam	NNP
+United Tractors	NNP
+Paul Vieille	NNP
+Lily-Rose Depp	NNP
+Lily-Rose Melody Depp	NNP
+James Dewar	NNP
+Geoffrey K. Pullum	NNP
+Geoffrey Pullum	NNP
+Geoffrey Keith Pullum	NNP
+Daniel Ellsberg	NNP
+Gregg Berhalter	NNP
+Robert Falcon Scott	NNP
+Falcon Scott	NNP
+Robert F. Scott	NNP
+Erich Honecker	NNP
+Egon Krenz	NNP
+Ken Loach	NNP
+Herbert Quandt	NNP
+Carrefour Banque	NNP
+Mikhail Khodorkovsky	NNP
+Hamish Harding	NNP
+Meyer Werft	NNP
+Li Ka-shing	NNP
+Ernest Bourget	NNP
+Henri Cartier-Bresson	NNP
+Port Hedland	NNP
+Napo River	NNP
+Coca River	NNP
+Corrado Passera	NNP
+Fnac Darty	NNP
+Alain Delon	NNP
+Alica Schmidt	NNP
+Abel Tesfaye	NNP
+Sinopharm Group	NNP
+Banca Sistema	NNP
+Houston Public Media	NNP
+Puy de Dôme	NNP
+Itaú BBA	NNP
+Brunello Cucinelli	NNP
+Paul Mashatile	NNP
+Xavi Simons	NNP
+Wallis Simpson	NNP
+Wallis Warfield	NNP
+Peter Madsen	NNP
+Jane Birkin	NNP
+Bernardo Silva	NNP
+Rive Gauche	NNP
+Mercado Libre	NNP
+Ashoka Mody	NNP
+Cyril Ramaphosa	NNP
+Amin H. Nasser	NNP
+Amin Nasser	NNP
+Amin Hassan Naser	NNP
+Julius Malema	NNP
+Tshepo Motsepe	NNP
+Ace Magashule	NNP
+Fikile Mbalula	NNP
+Gabor Steingart	NNP
+Bert Rürup	NNP
+Walter Riester	NNP
+Franklin Templeton	NNP
+Franklin Resources	NNP
+Roelf Meyer	NNP
+Atlas Copco	NNP
+Microsoft Corp	NNP
+UnitedHealth Group	NNP
+Oracle Corp	NNP
+McDonalds Corp	NNP
+Moët & Chandon	NNP
+Moët et Chandon	NNP
+Tokyo Electron	NNP
+Abbott Laboratories	NNP
+Abbott Labs	NNP
+D. R. Horton	NNP
+D.R. Horton	NNP
+Dominick Napolitano	NNP
+Sonny Black	NNP
+Glenn Research Center	NNP
+William Somerset Maugham	NNP
+W. Somerset Maugham	NNP
+William Maugham	NNP
+Somerset Maugham	NNP
+Vivek Ramaswamy	NNP
+Vivek Ganapathy Ramaswamy	NNP
+Vivek G. Ramaswamy	NNP
+John Frieda	NNP
+Williams Sonoma	NNP
+Jason Aldean	NNP
+Isabel Perón	NNP
+Isabel Martínez de Perón	NNP
+José López Rega	NNP
+Jorge Rafael Videla	NNP
+Rafael Videla	NNP
+Jorge Videla	NNP
+Alberto Núñez Feijóo	NNP
+Núñez Feijóo	NNP
+Enrico Fermi	NNP
+Paul Dirac	NNP
+Otto Hahn	NNP
+Leó Szilárd	NNP
+Ettore Majorana	NNP
+Dalian Wanda	NNP
+Piper Sandler	NNP
+malum in se	_multiword_
+mala in se	_multiword_
+Posh Spice	NNP
+MCI WorldCom	NNP
+Fani Willis	NNP
+Javier Milei	NNP
+Joe Lewis	NNP
+Pan Gongsheng	NNP
+Sam Kerr	NNP
+Alexia Putellas	NNP
+Ada Hegerberg	NNP
+Megan Rapinoe	NNP
+Lucy Bronze	NNP
+Sarina Wiegman	NNP
+Keira Walsh	NNP
+Millie Bright	NNP
+Beth Mead	NNP
+Lauren James	NNP
+Alexandra Popp	NNP
+Aitana Bonmati	NNP
+Jennifer Hermoso Fuentes	NNP
+Jennifer Fuentes	NNP
+Alba Redondo	NNP
+Hinata Miyazawa	NNP
+Kadidiatou Diani	NNP
+Ariadina Alves Borges	NNP
+Ariadina Borges	NNP
+Ary Borges	NNP
+Sophie Haug	NNP
+Lauren Hemp	NNP
+Alessia Russo	NNP
+Mary Earps	NNP
+Mackenzie Arnold	NNP
+Vestas Wind	NNP
+Vestas Wind Systems	NNP
+Stuart Weitzman	NNP
+Capri Holdings	NNP
+Jimmy Choo	NNP
+Hyperemesis gravidarum	NN:U
+hyperemesis gravidarum	NN:U
+Luis Rubiales	NNP
+Jorge Vilda	NNP
+Olga Carmona	NNP
+Maccabi Tel Aviv	NNP
+Daniel Peretz	NNP
+J. M. Coetzee	NNP
+J.M. Coetzee	NNP
+U.S. Food and Drug Administration	NNP
+GoCardless Ltd.	NNP
+Croix County	NNP
+J. R. R. Tolkien	NNP
+J.R.R. Tolkien	NNP
+C.S. Lewis	NNP
+C. S. Lewis	NNP
+Guggenheim Securities	NNP
+Alice Weidel	NNP
+Tino Chrupalla	NNP
+smart aleck	NN
+smart alecks	NNS
+Porsche Targa	NNP
+911 Targa	NNP
+Martha MacCallum	NNP
+Bret Baier	NNP
+EQT Partners	NNP
+Thoma Bravo	NNP
+Bain Capital	NNP
+Digital Services Act	NNP
+Wayback Machine	NNP
+Yolyn Am	NNP
+Hin Wong Bay	NNP
+Hin Wong Beach	NNP
+Terry Gou	NNP
+Armel Bella-Kotchap	NNP
+Thilo Kehrer	NNP
+Roméo Lavia	NNP
+Ao Hin Wong	NNP
+Rodman's Neck	NNP
+Rodman’s Neck	NNP
+Glenn Quagmire	NNP
+Gérald Darmanin	NNP
+Aguas fresca	NNP
+Aguas frescas	NNPS
+Mark Thompson	NNP
+Jennifer Grey	NNP
+Patrick Swayze	NNP
+Geoff Duncan	NNP
+Gabriel Attal	NNP
+Takeshi's Castle	NNP
+Takeshi’s Castle	NNP
+Bianca Censori	NNP
+NewView Capital	NNP
+Embry-Riddle Aeronautical University	NNP
+Embry-Riddle University	NNP
+Sarah Jessica Parker	NNP
+Carrie Bradshaw	NNP
+Petyr Baelish	NNP
+George R. R. Martin	NNP
+Mountain Dew	NNP
+Mtn Dew	NNP
+GSV Ventures	NNP
+INEOS Group	NNP
+Royal Brompton	NNP
+Frost & Sullivan	NNP
+Novo Holdings	NNP
+Plainsboro Township	NNP
+Jennifer Love Hewitt	NNP
+Siemens Mobility	NNP
+Assa Abloy	NNP
+Hugo Ekitiké	NNP
+Marco Asensio	NNP
+Gonçalo Ramos	NNP
+Luka Jović	NNP
+Peter Dodds	NNP
+Oak Brook	NNP
+Cornel West	NNP
+Black Rock City	NNP
+Reno Gazette Journal	NNP
+Reno Gazette	NNP
+Lars Mapstead	NNP
+Levski Sofia	NNP
+James A. Garfield	NNP
+Ulysses S. Grant	NNP
+St. Croix County	NNP
+Reader's Digest	NNP
+Reader’s Digest	NNP
+Hector Barbossa	NNP
+Penguin Random House	NNP
+Coco Gauff	NNP
+Hauck Aufhäuser Lampe	NNP
+Linda Evangelista	NNP
+Star Bharat	NNP
+STAR Bharat	NNP
+Wood Mackenzie	NNP
+Saudi Telecom	NNP
+Fiat Scudo	NNP
+Citroën Jumpy	NNP
+Citroën C3	NNP
+Citroën C4	NNP
+NextEra Energy	NNP
+Becton Dickinson	NNP
+Alex Gerko	NNP
+Froot Loop	NNP
+Froot Loops	NNP
+Pearl S. Buck	NNP
+Andreas Obst	NNP
+Paolo Banchero	NNP
+Gordon Herbert	NNP
+Niels Giffey	NNP
+Johannes Voigtmann	NNP
+Daniel Theis	NNP
+Johannes Thiemann	NNP
+Tibor Pleiß	NNP
+Bobby Portis	NNP
+Franz Wagner	NNP
+Robin Benzing	NNP
+Svetislav Pešić	NNP
+Stefan Jović	NNP
+Bogdan Bogdanović	NNP
+Vladimir Kara-Murza	NNP
+Walter Isaacson	NNP
+Aaron Sorkin	NNP
+Paolo Gentiloni	NNP
+Kemi Badenoch	NNP
+Richard Sackler	NNP
+Arthur Sackler	NNP
+Barratt Developments	NNP
+Bastei Lübbe	NNP
+Purdue Pharma	NNP
+BNY Mellon	NNP
+Affinity Publisher	NNP
+Tommy Trojan	NNP
+Bernard Looney	NNP
+Loro Piana	NNP
+Donna Karan	NNP
+Erin Meyer	NNP
+Schott Pharma	NNP
+Victor Boniface	NNP
+Cem Özdemir	NNP
+Russell Brand	NNP
+Hans-Dieter Flick	NNP
+Julian Nagelsmann	NNP
+James Coburn	NNP
+Fritz Machlup	NNP
+Friedrich Lewy	NNP
+Charter Communications	NNP
+Engelbert Strauss	NNP
+Jeffrey B. Straubel	NNP
+Jeffrey Brian Straubel	NNP
+Jeffrey Straubel	NNP
+JB Straubel	NNP
+J. B. Straubel	NNP
+Martin Eberhard	NNP
+Sandro Wagner	NNP
+Peter Falk	NNP
+Karl Menger	NNP
+Carl Menger	NNP
+Hans Hahn	NNP
+Oskar Morgenstern	NNP
+Friedrich Hayek	NNP
+Wacker Neuson	NNP
+Wacker Burghausen	NNP
+Thomas Shelby	NNP
+Jennifer Morgan	NNP
+Li Auto	NNP
+Lufthansa Technik	NNP
+Columb Minor	NNP
+Columb Major	NNP
+Marc Overmars	NNP
+St. Columba	NNP
+St Columba	NNP
+Saint Columba	NNP
+Round Rock ISD	NNP
+Union Berlin	NNP
+FC Union Berlin	NNP
+Leonardo Bonucci	NNP
+Robin Gosens	NNP
+Brenden Aaronson	NNP
+Sheraldo Becker	NNP
+David Datro Fofana	NNP
+Kevin Volland	NNP
+Pauline Newman	NNP
+Juicy J	NNP
+Bangko Sentral	NNP
+Bangko Sentral ng Pilipinas	NNP
+Banco de Oro	NNP
+Debbie Rowe	NNP
+Paris Jackson	NNP
+Prince Jackson	NNP
+Pte Ltd	_multiword_
+Pte. Ltd.	_multiword_
+Robert V. Remini	NNP
+Robert Remini	NNP
+Irven M. Resnick	NNP
+Irven Resnick	NNP
+Lachlan Murdoch	NNP
+Rupert Murdoch	NNP
+Alphonso Davies	NNP
+Mathys Tel	NNP
+Eli Crane	NNP
+Dan Bishop	NNP
+Matt Rosendale	NNP
+Gerald Holtom	NNP
+Sven Ulreich	NNP
+Serhou Guirassy	NNP
+Granit Xhaka	NNP
+Valdis Dombrovskis	NNP
+Anders Åslund	NNP
+Fiat 600	NNP
+Fiat 600e	NNP
+Jaguar F-PACE	NNP
+Jaguar F-Pace	NNP
+Meta Platforms	NNP
+thank yous	NNS
+Travis Kelce	NNP
+Bob Menendez	NNP
+Travis Kelce	NNP
+Bob Menendez	NNP
+Marta Ortega	NNP
+Okeh Records	NNP
+Paramount Records	NNP
+Crown Court	NNP
+Charles M. Schulz	NNP
+Mehmet Ali Ağca	NNP
+Stena Line	NNP
+Laphonza Butler	NNP
+Robert Fico	NNP
+Keefe D	NNP
+Duane Davis	NNP
+Mette-Marit Tjessem Høiby	NNP
+Katalin Karikó	NNP
+Drew Weissman	NNP
+in vivo	_multiword_
+Ferenc Krausz	NNP
+Pierre Agostini	NNP
+Anne L’Huillier	NNP
+Anne L'Huillier	NNP
+Kais Saied	NNP
+Nabil Karoui	NNP
+Lyca Mobile	NNP
+Diamondback Energy	NNP
+Rory McIlroy	NNP
+Jon Fosse	NNP
+Monumenta Germaniae Historica	NNP
+Ural Airlines	NNP
+Metro Bank	NNP
+Iron Dome	NNP
+Pastel de nata	NNP
+Permian Basin	NNP
+Redcare Pharmacy	NNP
+Marfa Basin	NNP
+Schwarz Group	NNP
+Klaus Holzkamp	NNP
+Steve Scalise	NNP
+Raphael Bostic	NNP
+Yoav Gallant	NNP
+Milli Vanilli	NNP
+Kelvin Kiptum	NNP
+Leon Draisaitl	NNP
+Ben Gurion Airport	NNP
+Narges Mohammadi	NNP
+East Hartford	NNP
+Ali Ağca	NNP
+Andreas Lubitz	NNP
+Ora Funky Cat	NNP
+Avion Express	NNP
+Amazon QuickSight	NNP
+mumbo jumbo	NN
+Étienne-Gaspard Robert	NNP
+Eugen von Böhm-Bawerk	NNP
+von Böhm-Bawerk	NNP
+Eugen Ritter von Böhm-Bawerk	NNP
+Gaston de Chasseloup-Laubat	NNP
+Dino Polska	NNP
+Saint Helier	NNP
+Nuku'alofa	NNP
+Charlotte Amalie	NNP
+Mata Utu	NNP
+Nay Pyi Taw	NNP
+Historia Brittonum	NNP
+Chilcotin Country	NNP
+Para-Commando Brigade	NNP
+École Polytechnique	NNP
+École polytechnique	NNP
+Intesa Sanpaolo	NNP
+Xavier Bettel	NNP
+Al Shifa	NNP
+Oleksandr Usyk	NNP
+Clooney Foundation for Justice	NNP
+Omar Sy	NNP
+Kareem Jackson	NNP
+Las Cruces	NNP
+George Mallory	NNP
+Peter Hillary	NNP
+Andrew Irvine	NNP
+Reinhold Messner	NNP
+Tom Bourdillon	NNP
+George Lowe	NNP
+Charles Evans	NNP
+Dominique Strauss-Kahn	NNP
+Shawn Fain	NNP
+Ehud Olmert	NNP
+Jim McGovern	NNP
+Loïs Openda	NNP
+Chandler Bing	NNP
+John J. Pershing	NNP
+John Pershing	NNP
+Shani Louk	NNP
+Nicolaus Zinzendorf	NNP
+David Bebbington	NNP
+David W. Bebbington	NNP
+Isaac Herzog	NNP
+Abba Eban	NNP
+Shawn Carter	NNP
+Leo Varadkar	NNP
+M2 Bradley	NNP
+M1 Abrams	NNP
+Premiere Pro	NNP
+Horst Hrubesch	NNP
+David Ben-Gurion	NNP
+Golda Meir	NNP
+Aitana Bonmatí	NNP
+Adobe Express	NNP
+550 Spyder	NNP
+Porsche Spyder	NNP
+Wendelin Wiedeking	NNP
+Key Largo	NNP
+David Chipperfield	NNP
+Neues Museum	NNP
+One Pancras Square	NNP
+Haus der Kunst	NNP
+beaux arts	JJ
+Cass Gilbert	NNP
+Colección Jumex	NNP
+Santiago Calatrava	NNP
+John Soane	NNP
+Cersei Lannister	NNP
+Jaime Lannister	NNP
+Tywin Lannister	NNP
+Arnaud Montebourg	NNP
+Yuba City	NNP
+Sanwa Bank	NNP
+Huntington Ingalls	NNP
+Huntington Ingalls Industries	NNP
+Yao Ming	NNP
+Quack Pack	NNP
+Liberty Broadband	NNP
+Cape Arkona	NNP
+Arthur F. Engoron	NNP
+Arthur Engoron	NNP
+Mülheim an der Ruhr	NNP
+Bad Homburg v. d. Höhe	NNP
+Bad Homburg vor der Höhe	NNP
+Freiburg im Breisgau	NNP
+Esslingen am Neckar	NNP
+Neustadt an der Weinstraße	NNP
+Rüsselsheim am Main	NNP
+La Brea	NNP
+La Pineda	NNP
+Mount Saint Helens	NNP
+Mount St. Helens	NNP
+Pineda de Mar	NNP
+Punta Cana	NNP
+Auld Lang Syne	NNP
+Feliz Navidad	_multiword_
+Kaiser Permanente	NNP
+Gary Barlow	NNP
+Mark Owen	NNP
+Young Sheldon	NNP
+Signal Iduna	NNP
+Rey Mysterio	NNP
+Robert Bayley Osgood	NNP
+Bayley Osgood	NNP
+Carl Schlatter	NNP
+Julian Ryerson	NNP
+Jane Fraser	NNP
+Ten Hag	NNP
+Jadon Sancho	NNP
+Día del Amor y la Amistad	NNP
+Día de Andalucía	NNP
+Día de Asturias	NNP
+Día de la Armada de México	NNP
+Día de la Bandera	NNP
+Día de Canarias	NNP
+Día de la Candelaria	NNP
+Día de Castilla-La Mancha	NNP
+Día de Ceuta	NNP
+Día de la Comunitat Valenciana	NNP
+Día de la Constitución	NNP
+Día de la Constitución Española	NNP
+Día del Ejército	NNP
+Día del Estudiante	NNP
+Día de Extremadura	NNP
+Día de la Independencia	NNP
+Día de las Instituciones de Cantabria	NNP
+Día Internacional de la Mujer	NNP
+Día de las Islas Baleares	NNP
+Día del Justicia de Aragón	NNP
+Día de las Letras Gallegas	NNP
+Día de las Madres	NNP
+Día del Maestro	NNP
+Día de la Marina	NNP
+Día de Melilla	NNP
+Día de Muertos	NNP
+Día de los Muertos	NNP
+Día del Niño	NNP
+Día de los Niños Héroes	NNP
+Día del Padre	NNP
+Día de la Raza	NNP
+Día de la Región de Murcia	NNP
+Día de la Revolución	NNP
+Día de los Reyes Magos	NNP
+Día de La Rioja	NNP
+Día de los Santos Inocentes	NNP
+Día de Todos los Santos	NNP
+Día de todos los Santos	NNP
+Día del Trabajador	NNP
+Día del Trabajo	NNP
+Día de la Virgen de Guadalupe	NNP
+Jueves Santo	NNP
+Sant Esteve	NNP
+Viernes Santo	NNP
+Bosch Ventures	NNP
+Burda Principal	NNP
+Burda Verlag	NNP
+Bruce Flatt	NNP
+Signal Iduna Park	NNP
+Emerson Electric	NNP
+Marvel Fusion	NNP
+Siemens Healthineers	NNP
+Siemens Gamesa	NNP
+Siemens AG	NNP
+Harlan Coben	NNP
+Dillon Brooks	NNP
+James Harden	NNP
+Eras Tour	NNP
+Sigara böreği	NNP
+A$AP Ferg	NNP
+Baby Keem	NNP
+Ja Rule	NNP
+HP Inc	NNP
+Enel SpA	NNP
+Coterra Energy	NNP
+Jinko Solar	NNP
+3i Group	NNP
+Ontario Hydro	NNP
+Hydro One	NNP
+Grande Comore	NNP
+Gezira Island	NNP
+Sabrina Singh	NNP
+Tina Fey	NNP
+Lisa Su	NNP
+Jens Söring	NNP
+Ronna McDaniel	NNP
+Lester Holt	NNP
+Lincoln Nautilus	NNP
+Nissan TITAN	NNP
+Subaru Solterra	NNP
+Killah Priest	NNP
+Ryan Blaney	NNP
+Michelle Hunziger	NNP
+Trentino-Alto Adige	NNP
+William Ruto	NNP
+Herbert Kickl	NNP
+Suella Braverman	NNP
+Bedford County	NNP
+Rocky Horror Picture Show	NNP
+myasthenia gravis	NN:U
+Daiichi Sankyo	NNP
+Merck KGaA	NNP
+Tele Columbus	NNP
+Álex Grimaldo	NNP
+Las Vegas Sands	NNP
+Hermann Zapf	NNP
+Brie Larson	NNP
+Metonic cycle	NN
+Metonic cycles	NNS
+Cortex XDR	NNP
+Dubai Airshow	NNP
+Amazon eero	NNP
+Hon Hai	NNP
+Hon Hai Precision Industry	NNP
+Día de San José	NNP
+Día de los Santos	NNP
+Día Nacional de la Memoria por la Verdad y la Justicia	NNP
+Día del Respeto a la Diversidad Cultural	NNP
+Día de la Soberanía Nacional	NNP
+Día del Perdón	NNP
+Lundi de Pâques	NNP
+Fête du Travail	NNP
+Lundi de Pentecôte	NNP
+Dia do Trabalhador	NNP
+Dia do Trabalho	NNP
+Dia da Independência	NNP
+Dia da Liberdade	NNP
+Dia da Região Autónoma dos Açores	NNP
+Dia da Pombinha	NNP
+Dia do Bodo	NNP
+Dia de Portugal	NNP
+Dia da Região Autónoma da Madeira	NNP
+Dia de Todos-os-Santos	NNP
+Dia do Concelho	NNP
+Dia de São José	NNP
+Dia de São Jorge	NNP
+Dia de Santo António	NNP
+Dia de São João	NNP
+Dia de São Pedro	NNP
+Dia de Santa Isabel	NNP
+Dia da Cidade do Funchal	NNP
+Dia de São Mateus	NNP
+Antonín Dvořák	NNP
+Emma Hayes	NNP
+Sociedad Química	NNP
+Sociedad Química y Minera	NNP
+Sociedad Química y Minera de Chile	NNP
+Merthyr Tydfil	NNP
+George Peppard	NNP
+Tibesti Mountains	NNPS
+Michael Witbrock	NNP
+George Church	NNP
+Peter Diamandis	NNP
+Nick Bostrom	NNP
+Kevin Leyton-Brown	NNP
+Rumelia Eyalet	NNP
+Tori Spelling	NNP
+Albertus Magnus	NNP
+Alderson Broaddus	NNP
+Austin Peay	NNP
+Bacone College	NNP
+Bellin College	NNP
+Berea College	NNP
+Berklee College of Music	NNP
+Biola University	NNP
+Boricua College	NNP
+Brazosport College	NNP
+Brenau University	NNP
+Bryn Athyn	NNP
+Bryn Mawr	NNP
+San Luis Obispo	NNP
+Carlos Albizu	NNP
+Carlow University	NNP
+Chowan University	NNP
+Claflin University	NNP
+Medgar Evers	NNP
+Medgar Wiley Evers	NNP
+Daemen College	NNP
+Dalhousie University	NNP
+DePauw University	NNP
+DeSales University	NNP
+DeVry University	NNP
+Dordt College	NNP
+East Stroudsburg	NNP
+Edinboro University of Pennsylvania	NNP
+Evangel University	NNP
+Fairleigh Dickinson	NNP
+Felician College	NNP
+Ferrum College	NNP
+Harvey Mudd	NNP
+Husson University	NNP
+Keiser University	NNP
+La Salle	NNP
+Le Moyne	NNP
+LeTourneau University	NNP
+Loras College	NNP
+Medaille College	NNP
+Menlo College	NNP
+Midstate College	NNP
+Millsaps College	NNP
+Misericordia University	NNP
+Montreat College	NNP
+Naropa University	NNP
+Olivet College	NNP
+Olivet Nazarene University	NNP
+Patten University	NNP
+Peirce College	NNP
+Behrend College	NNP
+Penn State Behrend	NNP
+Pittsburg State University	NNP
+Pitzer College	NNP
+Pontifical College Josephinum	NNP
+Principia College	NNP
+Ranken Technical College	NNP
+Rivier University	NNP
+Samford University	NNP
+Shimer College	NNP
+Sinte Gleska	NNP
+Soka Gakkai	NNP
+Sul Ross	NNP
+New Paltz	NNP
+Trevecca Nazarene University	NNP
+Trine University	NNP
+Walla Walla	NNP
+Wingate University	NNP
+La Salle	NNP
+David DePape	NNP
+Rob Lowe	NNP
+Wilfrid Laurier	NNP
+Iwo Jima	NNP
+Shih Tzu	NN
+Shih Tzus	NNS
+shih tzu	NN
+shih tzus	NNS
+La Caixa	NNP
+Hannah Montana	NNP
+Gordon Gekko	NNP
+Emmett Shear	NNP
+Mira Murati	NNP
+Lou Ferrigno	NNP
+Jonathan Clauss	NNP
+Artista Networks	NNP
+döner kebab	NN
+döner kebabs	NNS
+doner kebab	NN
+doner kebabs	NNS
+Greg Brockman	NNP
+Hormel Foods	NNP
+Public Enemy	NNP
+Flavor Flav	NNP
+Dutch Bros Coffee	NNP
+Kinder Bueno	NNP
+Cardo Systems	NNP
+Sheikh Jarrah	NNP
+Parerga and Paralipomena	NNP
+Josquin des Prez	NNP
+Karlie Kloss	NNP
+Kevin Scott	NNP
+Jean Paul Prates	NNP
+Microsoft Visio	NNP
+boba tea	NN:UN
+boba teas	NNS
+Battle of the Hydaspes	NNP
+Bethune-Cookman University	NNP
+Cynthia Rylant	NNP
+Jacob Riis	NNP
+Shemia Fagan	NNP
+Helen Juntunen	NNP
+Orcinus orca	_multiword_
+Hogan Lovells	NNP
+Bits & Pretzels	NNP
+Baix Camp	NNP
+Philips Sonicare	NNP
+Alejandro Grimaldo	NNP
+Jean-Michel Basquiat	NNP
+Julius Baer	NNP
+Terry Venables	NNP
+Glenn Hoddle	NNP
+Ana Ivanović	NNP
+Layda Sansores	NNP
+Aimé Césaire	NNP
+Rigoberta Menchu	NNP
+Rigoberta Menchú	NNP
+İbrahim Eren	NNP
+Lensey Namioka	NNP
+Foie gras	NNP
+ad valorem	JJ
+Jedem das Seine	UH
+Zwarte Piet	NNP
+Schlieffen Plan	NNP
+ag industry	NN:U
+Angkor Thom	NNP
+Angkor Wat	NNP
+anno domini	FW
+anno mundi	FW
+Bon Jovi	NNP
+Buckminster Fuller	NNP
+cantus firmus	NN
+the Carolinas	NNPS
+Commedia dell'Arte	NNP
+County Meath	NNP
+Das Kapital	NNP
+de la Renta	NNP
+de las Casas	NNP
+de rigeur	FW
+duffel bag	NN
+en banc	FW
+Faroe Islands	NNPS
+gallic acid	NN
+Ge'ez	NNP
+Hail Marys	NNS
+Hercule Poirot	NNP
+Herodes Atticus	NNP
+in utero	FW
+Kievan Rus	NNP
+Le Corbusier	NNP
+Los Cabos	NNP
+Margaret Cho	NNP
+Michelle Yeoh	NNP
+Mount Athos	NNP
+number cruncher	NN
+number crunchers	NNS
+Pend Oreille	NNP
+pontifex maximus	NN
+Pope Sixtus	NNP
+Puerto Rican-American	JJ
+Puerto Rican-American	NNP
+Punta Cana	NNP
+Rogers Centre	NNP
+S.p.A.	FW
+Shi'ites	NNPS
+shish kebab	NN
+shish kebabs	NNS
+St Pancras	NNP
+St. Germain des Pres	NNP
+St. Germain des Près	NNP
+St. Pancras	NNP
+Subcarpathian Rus	NNP
+Tarquinius Superbus	NNP
+White Sox	NNP
+Ybor City	NNP
+Milton Wexler	NNP
+Marjorie Guthrie	NNP
+Maryam Moshiri	NNP
+Lucy Hockings	NNP
+Woody Guthrie	NNP
+W. P. Carey	NNP
+Janeane Garofalo	NNP
+CeeLo Green	NNP
+Spratly Islands	NNPS
+Meyer Burger	NNP
+Al Nahyan	NNP
+Cherie Dimaline	NNP
+Hock E. Tan	NNP
+Hock Tan	NNP
+Charlotte Dujardin	NNP
+Isabell Werth	NNP
+Friedrich Vorwerk	NNP
+Tesla Optimus	NNP
+Osama bin Laden	NNP
+D'Youville	NNP
+ETC/RMT	_multiword_
+I/ITSEC	_multiword_
+Al Khobar	NNP
+Andrei Rublev	NNP
+Anna Karenina	NNP
+Canis Majoris	NNP
+Canis Minoris	NNP
+Charles Munger	NNP
+Eduard Norden	NNP
+El Centro	NNP
+El Cerrito	NNP
+El Sordo	NNP
+Eva Brunne	NNP
+Felis domestica	NNP
+Frank Wisner	NNP
+George Sarton	NNP
+George Stults	NNP
+Georgy Rerberg	NNP
+Gianna Rolandi	NNP
+Ingrid Berghmans	NNP
+Jacques Demers	NNP
+James Basker	NNP
+Jane Bolin	NNP
+Jane Leeves	NNP
+Jean Casto	NNP
+Jean Cayrol	NNP
+Jimmie Foxx	NNP
+John Bester	NNP
+John Boye	NNP
+John Ryden	NNP
+John Varley	NNP
+Joseph Kalt	NNP
+Joseph Lannin	NNP
+Aa River	NNP
+BG Group	NNP
+Blu-ray Discs	NNPS
+Île Royale	NNP
+La Espero	NNP
+La Franja	NNP
+La Haie	NNP
+Les Atomes	NNP
+Les Délices	NNP
+Los Banos	NNP
+Mark Opitz	NNP
+Mark Waid	NNP
+María Casares	NNP
+Michael Huemer	NNP
+Michael Mantler	NNP
+Michael Stifel	NNP
+Mohammed Salameh	NNP
+Mötley Crüe	NNP
+NS Group	NNP
+Parerga und Paralipomena	NNP
+Peter Sauber	NNP
+Philip Senter	NNP
+Piter De Vries	NNP
+Qantas Airways	NNP
+Richard Brooker	NNP
+Robert Burks	NNP
+Robert de Sorbon	NNP
+Roberto Alomar	NNP
+Roberto Longhi	NNP
+Rudy Vallée	NNP
+San Nicolaas	NNP
+San Vicente	NNP
+San Vincenzo	NNP
+Serie D	NNP
+Sierra Leonean	NNP
+SS Columbus	NNP
+Stevan Jovetić	NNP
+São Toméan	NNP
+Tom DeLay	NNP
+Wayne Rainey	NNP
+William Burges	NNP
+bao bun	NN
+bao buns	NNS
+House of Welser	NNP
+William Corlett	NNP
+Nissin Foods	NNP
+Van Baerlestraat	NNP
+Super Bowl XLI	NNP
+Super Bowl XLII	NNP
+Super Bowl XLIII	NNP
+Super Bowl XLVI	NNP
+Super Bowl XLVII	NNP
+Super Bowl XLVIII	NNP
+Super Bowl XLIX	NNP
+Super Bowl LVIII	NNP
+rigor mortis	NN:U
+Digvijay Singh	NNP
+E pluribus unum	_multiword_
+Adam Michna	NNP
+André Wilms	NNP
+Camille Coduri	NNP
+John Dehner	NNP
+John Poulson	NNP
+John Sloman	NNP
+John Tooker	NNP
+Jon Beutjer	NNP
+La Poésie alexandrine	NNP
+La Segreta	NNP
+Nintendo DSi	NNP
+Paulus Atreides	NNP
+Liber Planetis et Mundi Climatibus	NNP
+le Moyen Âge	NNP
+BPL Group	NNP
+La Coka Nostra	NNP
+Juan Carlos Valerón	NNP
+Mini Cooper D	NNP
+Muhammad ibn Abi Bakr	NNP
+Asma bint Abi Bakr	NNP
+Abdullah ibn Abi Bakr	NNP
+Ras al Hadd	NNP
+Ràs al Hadd	NNP
+E Agia Graphe	NNP
+e Agía Graphḗ	NNP
+Orientalia et Classica	NNP
+Palo Verde	NNP
+Cabernet Sauvignons	NNPS
+Dungeness crab	NN
+Dungeness crabs	NNS
+Roch Kubatko	NNP
+feng shui	NN:U
+Gracechurch Street	NNP
+Mount Vesuvius	NNP
+Elizabeth Haysom	NNP
+Goodison Park	NNP
+ductus arteriosus	NN:U
+truncus arteriosus	NN:U
+de Burgh	NNP
+Chris de Burgh	NNP
+Brigitte van der Burg	NNP
+Kiryat Gat	NNP
+Lee Jae-myung	NNP
+Suzu City	NNP
+Ciox Health	NNP
+Y tu mamá también	NNP
+Y Tu Mamá También	NNP
+Libro de los juegos	NNP
+las Casas	NNP
+c'est la guerre	FW
+c’est la guerre	FW
+c'est la vie	FW
+c’est la vie	FW
+Andorra la Vella	NNP
+ad majorem Dei gloriam	_multiword_
+ad personam	_multiword_
+Anno Domini	_multiword_
+Atharva Veda	NNP
+Barbizon School	NNP
+Bouvet Island	NNP
+Bulli soil	NN:U
+Chesil Beach	NNP
+Civvy Street	NNP
+crus cerebri	NN
+de haut en bas	_multiword_
+disjecta membra	_multiword_
+ejusdem generis	_multiword_
+ex hypothesi	_multiword_
+exempli causa	_multiword_
+fusel oil	NN:U
+Geissler tube	NN
+Geneu'r Glyn	NNP
+gratia Dei	_multiword_
+guelder rose	NN
+hapax legomena	NNS
+hapax legomenon	NN
+Hawkeye State	NNP
+Hebdomadal Council	NNP
+HeLa cells	NNS
+honoris causa	_multiword_
+hors concours	_multiword_
+hortus siccus	_multiword_
+Hradec Králové	NNP
+incertae sedis	_multiword_
+InSight Lander	NNP
+juris doctor	NN
+Kaby Lake	NNP
+Karlovy Vary	NNP
+Laccadive Islands	NNPS
+Lacus Magni	_multiword_
+Laureus World Sports Awards	NNP
+les jeux sont faits	NNP
+lex talionis	NN:U
+Ligeia Mare	NNP
+Mare Frigoris	NNP
+Mare Nectaris	NNP
+Milankovitch cycles	NNS
+My Belarusy	NNP
+Nissen hut	NN
+persona grata	NN
+personae gratae	NNS
+pons Varolii	NN
+Quatorze Juillet	NNP
+Quindar tones	NNS
+Rowman & Littlefield	NNP
+Sieg Heil	_multiword_
+Sinus Meridiani	NNP
+sortes biblicae	NN:U
+Stabat Mater	NNP
+Stara Zagora	NNP
+subsolar point	NN
+Utopia Planitia	NNP
+Valles Marineris	NNP
+Vanitory unit	NN
+ventre à terre	RB
+Vetus Testamentum	NNP
+vice anglais	NN
+Walpurgis Night	NNP
+Wardour Street	NNP
+weatherstruck joint	NN:U
+Yajur Veda	NNP
+Zeta Tauri	NNP
+nepo baby	NN
+nepo babies	NNS
+Andrew Birkin	NNP
+Chris Calger	NNP
+Gary Gulman	NNP
+Jean Moréas	NNP
+John Lindow	NNP
+John Malalas	NNP
+John Motson	NNP
+Jon Scheyer	NNP
+Michael Balter	NNP
+Michael Callen	NNP
+Paul Bäumer	NNP
+Thomas Müntzer	NNP
+Victor Francen	NNP
+De bono mortis	NNP
+sui iuris	_multiword_
+Coureur des Bois	NNP
+A&T Systems	NNP
+Eric Dier	NNP
+Suwałki Gap	NNP
+Ningaloo Reef	NNP
+Ningaloo Coast	NNP
+St. Jean-Baptiste Day	NNP
+Saint-Jean-Baptiste Day	NNP
+Joey Logano	NNP
+Pedro Reinel	NNP
+La scuola de' gelosi	NNP
+píob mór	_multiword_
+píob mhór	_multiword_
+Fred Wilpon	NNP
+Andrew Veniamin	NNP
+sogo shosha	_multiword_
+pastel de nata	NN:U
+Fernand Cabrol	NNP
+Giuseppe Peroni	NNP
+Carlo Broschi	NNP
+Peter Dobbie	NNP
+Thomas Jech	NNP
+Giuseppe Parini	NNP
+Cruzcampo Especial	NNP
+panna cotta	_multiword_
+colla di pesce	_multiword_
+Bab El Oued	NNP
+Sofya Kovalevskaya	NNP
+Maya Plisetskaya	NNP
+Levi ben Gershon	NNP
+Académie des Sciences Morales et Politiques	NNP
+Académie des Beaux-Arts	NNP
+Académie des Inscriptions et Belles Lettres	NNP
+Académie Française	NNP
+Pinot noir	_multiword_
+Folie à deux	_multiword_
+Mount Erebus	NNP
+GE Appliances	NNP
+Neuer Markt	NNP
+Belle Isle	NNP
+Stenka Razin	NNP
+cyt c	NN:U
+Hurricane Iniki	NNP
+Andrey Belousov	NNP
+Mohammad Mokhber	NNP
+Ebrahim Raisi	NNP
+Normalització Lingüística	NNP
+Sukhoi Su-57	NNP
+ad infinitum	RB
+Assemblée nationale	NNP
+Assembleia Nacional	NNP
+Asamblea Nacional	NNP
+Vitello tonnato	NNP
+Vitello Tonnato	NNP
+Cala Millor	NNP
+Cala Ratjada	NNP
+Cala d'Or	NNP
+caffe latte	NN:UN
+Maillard reaction	NN
+Farfetch'd	NNP
+Farfetch’d	NNP
+Mr. Mime	NNP
+Mime Jr.	NNP
+Type: Null	NNP
+Tapu Koko	NNP
+Tapu Lele	NNP
+Tapu Bulu	NNP
+Tapu Fini	NNP
+Sirfetch'd	NNP
+Sirfetch’d	NNP
+Mr. Rime	NNP
+Great Tusk	NNP
+Scream Tail	NNP
+Brute Bonnet	NNP
+Flutter Mane	NNP
+Slither Wing	NNP
+Sandy Shocks	NNP
+Iron Treads	NNP
+Iron Bundle	NNP
+Iron Hands	NNP
+Iron Jugulis	NNP
+Iron Moth	NNP
+Iron Thorns	NNP
+Roaring Moon	NNP
+Iron Valiant	NNP
+Walking Wake	NNP
+Iron Leaves	NNP
+Gouging Fire	NNP
+Raging Bolt	NNP
+Cap de Formentor	NNP
+hawk tuah	UH
+Morgan Wallen	NNP
+Khan Yunes	NNP
+Golan Heights	NNP
+Kim Ju-ae	NNP
+Dickson Fjord	NNP
+Iron Boulder	NNP
+prima facie	UH
+Masoud Pezeshkian	NNP
+o tempora, o mores	UH
+O tempora! O mores!	UH
+Daffy Duck	NNP
+rima glottidis	NN:U
+Pavel Durov	NNP
+Ahmed Aboutaleb	NNP
+Iron Crown	NNP
+Harold Shipton	NNP
+David Aaker	NNP
+David Bamber	NNP

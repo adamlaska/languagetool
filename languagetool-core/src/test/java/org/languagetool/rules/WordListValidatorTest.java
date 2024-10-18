@@ -31,21 +31,30 @@ import static junit.framework.TestCase.fail;
 public class WordListValidatorTest {
 
   private static final String VALID_CHARS =
-          "[ 0-9a-zA-ZöäüÖÄÜßëçèéáàóòÈÉÁÀÓÒÍãñíîŞş&*_:\\\\" +
+          "[ 0-9a-zA-ZöäüÖÄÜßëçèéáàóòŁÈÉÁÀÓÒÍãñíîŞş&*_:\\\\" +
           "___INSERT___" +
-          "Œ€ūαΑβΒγɣΓδΔεΕζΖηΗθΘιΙκΚλΛμΜνΝξΞοΟπΠρΡσΣτΤυΥφΦχΧψΨωΩάΆέΈίΊήΉύΎϊϋΰΐœţłń" +
-          "ŚśōżúïÎôêâû" +
+          "Œ€ūαΑβΒγɣΓδΔεΕζΖηΗθΘιΙκΚλΛμΜνΝξΞοΟπΠρΡσΣτΤυΥφΦχΧψΨωΩάΆέΈίΊήΉύΎϊϋΰΐœţłńÿ" +
+          "ČŚśŌōżúïÎôêâû" +
+          "ÇÃÕÚÊÂÔ" +
+          "ă" +
+          "å" +
+          "ħ" +
           "'’" +
-          "./-]+" +
+          "./%-]+" +
           "|[khmcdµ]?m[²³]|°[CFR]|C?O₂-?.*|mc²";
 
   // Words that are valid but with special characters so that we don't want to
   // allow them in general:
   private static final Set<String> VALID_WORDS = new HashSet<>(Arrays.asList(
+          "Prešov",
+          "Martinů",
+          "Şanlıurfa",
+          "Žižek",
           "Háček",
           "Varaždin/S",
           "Będzin",
           "Aydın",
+          "Pavlović",
           "Poreč",
           "Čeferin",
           "Čeferin/S",
@@ -55,6 +64,9 @@ public class WordListValidatorTest {
           "Modrić/S",
           "Miłosz",
           "Arnautović/S",
+          "Dàoxuān",
+          "Sigara böreği",
+          "Sigara böreği/S",
           "Bhagavad-gītā",
           "Sønderjylland/S",
           "Utøya/S",
@@ -87,6 +99,7 @@ public class WordListValidatorTest {
           "Hyndluljóð",
           "Kazanlǎk",
           "Kesäranta",
+          "Krišjānis",
           "Kŭrdzhali",
           "Malko Tŭrnovo",
           "Rígsþula",
@@ -143,18 +156,47 @@ public class WordListValidatorTest {
           "S&P",
           "ČSSR",
           "V&D",
+          "Loïc/S",
           "İlkay",
           "Gündoğan",
           "Tuğrul",
+          "Kīlauea",
+          "Māori",
+          "Chișinău",
+          "Chișinău/S",
+          "Křetínský/S",
+          "Terzić",
+          "Jūjutsu/S",
           "Ñuñoa",
+          "Stevanović",
+          "Børge",
+          "Børge/S",
+          "Bjørn Gulden/S",
+          "Snæfellsjökull/S",
+          "Višegrad/S",
+          "Clément/S",
+          "Snæfellsjökull",
+          "Grudziądz",
+          "Skåneland",
+          "Øresund",
+          "Jokić",
           "Ibišević",
           "Fríður",
           "Łódź",
           "Ørsted",
+          "Samsø/S",
+          "Kılıçdaroğlu/S",
+          "Vlahović/S",
+          "Sønderborg/S",
+          "Sønderborg",
           "Mirotić",
           "Subotić",
           "Pÿur",
           "Subašić",
+          "Wałęsa",
+          "Çalhanoğlu",
+          "Çalhanoğlu/S",
+          "Szczęsny",
           "celebrytę", // for PL
           "antybiotykoterapię", // for PL
           "elektromobilność", // for PL
@@ -166,6 +208,8 @@ public class WordListValidatorTest {
           "dtº",  // for PT
           "ª",  // for PT
           "º",  // for PT
+          "ĉi",  // for PT
+          "R$",  // for PT
           // Greek letters / Mathematics and physics variables
           "Α", "Β", "Γ", "Δ", "Ε", "Ζ", "Η", "Θ", "Ι", "Κ", "Λ", "Μ", "Ν", "Ξ", "Ο", "Π", "Ρ", "Σ", "Τ", "Υ", "Φ", "Χ", "Ψ", "Ω", 
           "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "λ", "μ", "ν", "ξ", "ο", "π", "ρ", "σ", "τ", "υ", "φ", "χ", "ψ", "ω"          
@@ -193,7 +237,7 @@ public class WordListValidatorTest {
         SpellingCheckRule sRule = (SpellingCheckRule) rule;
         String file = sRule.getSpellingFileName();
         if (JLanguageTool.getDataBroker().resourceExists(file) && !checked.contains(file)) {
-          System.out.println("Checking " + file);
+          System.out.println("Checking validity of word list file " + file);
           CachingWordListLoader loader = new CachingWordListLoader();
           List<String> words = loader.loadWords(file);
           validateWords(words, file);

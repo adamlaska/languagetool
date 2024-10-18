@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+  <properties>
+    <property name="timeout" value="10"/>
+    <property name="poolMaximumActiveConnections" value="10"/>
+  </properties>
   <settings>
     <setting name="logImpl" value="SLF4J"/>
+    <setting name="defaultStatementTimeout" value="${timeout}"/>
   </settings>
   <typeAliases>
     <typeAlias type="org.languagetool.server.DBGroup" alias="Group"/>
     <typeAlias type="org.languagetool.server.DBGroupMember" alias="GroupMember"/>
     <typeAlias type="org.languagetool.server.DBInvite" alias="Invite"/>
   </typeAliases>
+  <typeHandlers>
+    <typeHandler handler="org.languagetool.server.UUIDTypeHandler"/>
+  </typeHandlers>
   <plugins>
     <plugin interceptor="org.languagetool.server.LoggingInterceptor"/>
   </plugins>
@@ -24,6 +32,7 @@
         <property name="poolPingQuery" value="/* ping */ select 1;"/>
         <property name="poolPingEnabled" value="true" />
         <property name="poolPingConnectionsNotUsedFor" value="600000" /> <!-- 10 minutes (in milliseconds), default wait_timeout in mysql is 28800 seconds = 8 hours -->
+        <property name="poolMaximumActiveConnections" value="${poolMaximumActiveConnections}"/>
       </dataSource>
     </environment>
   </environments>

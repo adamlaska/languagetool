@@ -218,7 +218,7 @@ public final class Tools {
     lt.setConfigValues(config.getConfigurableValues());
   }
   
-  static void addHyperlinkListener(JTextPane pane) {
+  public static void addHyperlinkListener(JTextPane pane) {
     pane.addHyperlinkListener(new HyperlinkListener() {
       @Override
       public void hyperlinkUpdate(HyperlinkEvent e) {
@@ -300,7 +300,7 @@ public final class Tools {
             JOptionPane.INFORMATION_MESSAGE);
   }
 
-  private static String encodeUrl(Rule rule) {
+  public static String encodeUrl(Rule rule) {
     try {
       return URLEncoder.encode(rule.getId(), "utf-8");
     } catch (UnsupportedEncodingException e) {
@@ -308,7 +308,7 @@ public final class Tools {
     }
   }
 
-  private static String getExampleSentences(Rule rule, ResourceBundle messages) {
+  public static String getExampleSentences(Rule rule, ResourceBundle messages) {
     StringBuilder examples = new StringBuilder(200);
     List<IncorrectExample> incorrectExamples = rule.getIncorrectExamples();
     if (incorrectExamples.size() > 0) {
@@ -337,7 +337,7 @@ public final class Tools {
     return examples.toString();
   }
 
-  private static String formatURL(URL url) {
+  public static String formatURL(URL url) {
     if (url == null) {
       return "";
     }

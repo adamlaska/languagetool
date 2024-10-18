@@ -18,15 +18,9 @@
  */
 package org.languagetool.rules.ca;
 
-import static org.languagetool.rules.patterns.PatternRuleBuilderHelper.csRegex;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.function.Supplier;
-
 import org.languagetool.AnalyzedTokenReadings;
+import org.languagetool.Language;
+import org.languagetool.Tag;
 import org.languagetool.language.Catalan;
 import org.languagetool.rules.AbstractRepeatedWordsRule;
 import org.languagetool.rules.SynonymsData;
@@ -35,10 +29,16 @@ import org.languagetool.synthesis.Synthesizer;
 import org.languagetool.synthesis.ca.CatalanSynthesizer;
 import org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRule;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.function.Supplier;
+
+import static org.languagetool.rules.patterns.PatternRuleBuilderHelper.csRegex;
+
 public class CatalanRepeatedWordsRule extends AbstractRepeatedWordsRule {
 
-  private static final CatalanSynthesizer synth = new CatalanSynthesizer(new Catalan());
-  
 private final Supplier<List<DisambiguationPatternRule>> antiPatterns;
   
   private static final List<List<PatternToken>> ANTI_PATTERNS = Arrays
@@ -51,9 +51,10 @@ private final Supplier<List<DisambiguationPatternRule>> antiPatterns;
     return antiPatterns.get();
   }
 
-  public CatalanRepeatedWordsRule(ResourceBundle messages) {
-    super(messages, new Catalan());
-    antiPatterns = cacheAntiPatterns(new Catalan(), ANTI_PATTERNS);
+  public CatalanRepeatedWordsRule(ResourceBundle messages, Language lang) {
+    super(messages, lang);
+    antiPatterns = cacheAntiPatterns(lang, ANTI_PATTERNS);
+    super.setTags(Arrays.asList(Tag.picky));
     // super.setDefaultTempOff();
   }
 
@@ -81,7 +82,7 @@ private final Supplier<List<DisambiguationPatternRule>> antiPatterns;
 
   @Override
   protected Synthesizer getSynthesizer() {
-    return synth;
+    return language.getSynthesizer();
   }
 
   @Override
@@ -114,7 +115,7 @@ private final Supplier<List<DisambiguationPatternRule>> antiPatterns;
     if (isAllUppercase || (isCapitalized && !sentStart)) {
       return true;
     }
-    if (tokens[i].hasPosTagStartingWith("NP")) {
+    if (tokens[i].hasPosTagStartingWith("NP") || tokens[i].hasPosTag("_english_ignore_")) {
       return true;
     }
     return false;

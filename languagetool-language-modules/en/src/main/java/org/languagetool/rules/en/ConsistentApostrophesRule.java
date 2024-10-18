@@ -23,6 +23,7 @@ import org.languagetool.AnalyzedTokenReadings;
 import org.languagetool.rules.Example;
 import org.languagetool.rules.RuleMatch;
 import org.languagetool.rules.TextLevelRule;
+import org.languagetool.tools.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +35,10 @@ import java.util.ResourceBundle;
  */
 public class ConsistentApostrophesRule extends TextLevelRule {
 
-  private final static String contractionRegex = "s|t|ll|d|m|ve|re";
-
   public ConsistentApostrophesRule(ResourceBundle messages) {
     super(messages);
     setDefaultTempOff(); // TODO
+    setUrl(Tools.getUrl("https://languagetool.org/insights/post/punctuation-guide/#what-is-an-apostrophe"));
     addExamplePair(Example.wrong("It's nice, but it <marker>doesn’t</marker> work."),
                    Example.fixed("It's nice, but it <marker>doesn't</marker> work."));
   }
@@ -68,7 +68,7 @@ public class ConsistentApostrophesRule extends TextLevelRule {
         String repl = null;
         if (token != null && token.getToken().contains("'") && !token.hasTypographicApostrophe()) {
           message = "You used a typewriter-style apostrophe here, but a typographic apostrophe elsewhere in this text.";
-          repl = token.getToken().replace("'", "’");
+          repl = token.getToken().replace('\'', '’');
         } else if (token != null && token.getToken().contains("'") && token.hasTypographicApostrophe()) {
           message = "You used a typographic apostrophe here, but a typewriter-style apostrophe elsewhere in this text.";
           repl = token.getToken();
@@ -79,7 +79,6 @@ public class ConsistentApostrophesRule extends TextLevelRule {
           match.setSuggestedReplacement(repl);
           matches.add(match);
         }
-        
       }
       pos += sentence.getCorrectedTextLength();
     }

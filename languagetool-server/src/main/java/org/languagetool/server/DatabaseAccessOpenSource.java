@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 /**
  * Encapsulate database access. Will do nothing if database access is not configured.
@@ -47,6 +48,7 @@ class DatabaseAccessOpenSource extends DatabaseAccess {
 
   private static final Logger logger = LoggerFactory.getLogger(DatabaseAccessOpenSource.class);
   private static final String NON_PREMIUM_MSG = "This server does not support username/password";
+  private static final Pattern WHITESPACE_PATTERN = Pattern.compile(".*\\s.*");
 
   private final Cache<String, Long> dbLoggingCache = CacheBuilder.newBuilder()
     .expireAfterAccess(1, TimeUnit.HOURS)
@@ -65,6 +67,8 @@ class DatabaseAccessOpenSource extends DatabaseAccess {
         properties.setProperty("username", config.getDatabaseUsername());
         properties.setProperty("password", config.getDatabasePassword());
         properties.setProperty("premium", Premium.isPremiumVersion() ? "Premium" : "OpenSource");
+        properties.setProperty("timeout", String.valueOf(config.getDbTimeoutSeconds()));
+        properties.setProperty("poolMaximumActiveConnections", String.valueOf(config.getDbMaxConnections()));
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, properties);
 
         // try to close connections even on hard restart
@@ -138,7 +142,7 @@ class DatabaseAccessOpenSource extends DatabaseAccess {
   @Override
   UserInfoEntry getUserInfoWithApiKey(String username, String apiKey) {
     Long userId = getUserId(username, apiKey);
-    UserInfoEntry user = new UserInfoEntry(userId, username, null, null, null, null, null, null, null, null,  apiKey, null);
+    UserInfoEntry user = new UserInfoEntry(userId, username, null, null, null, null, null, null, null, null, apiKey, null, null, null);
     return user;
   }
 
@@ -199,8 +203,9 @@ class DatabaseAccessOpenSource extends DatabaseAccess {
     if (apiKey == null || apiKey.trim().isEmpty()) {
       throw new IllegalArgumentException("apiKey must be set");
     }
-    if (sqlSessionFactory ==  null) {
-      throw new IllegalStateException("sqlSessionFactory not initialized - has the database been configured?");
+    if (sqlSessionFactory == null) {
+      throw new AuthException("This is the endpoint for the basic version of LanguageTool. " +
+        "When using 'username' and 'apiKey' to access the premium version, use api.languagetoolplus.com instead.");
     }
     try {
       Long value = dbLoggingCache.get(String.format("user_%s_%s", username, apiKey), () -> {
@@ -312,8 +317,8 @@ class DatabaseAccessOpenSource extends DatabaseAccess {
     if (word == null || word.trim().isEmpty()) {
       throw new BadRequestException("Invalid word, cannot be empty or whitespace only");
     }
-    if (word.matches(".*\\s.*")) {
-      throw new BadRequestException("Invalid word, you can only words that don't contain spaces: '" + word + "'");
+    if (WHITESPACE_PATTERN.matcher(word).matches()) {
+      throw new BadRequestException("Invalid word, you can only add words that don't contain spaces: '" + word + "'");
     }
   }
 

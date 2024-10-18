@@ -21,6 +21,7 @@ package org.languagetool.rules.de;
 import org.languagetool.Language;
 import org.languagetool.rules.Example;
 import org.languagetool.rules.GenericUnpairedBracketsRule;
+import org.languagetool.tools.Tools;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,22 +30,26 @@ import java.util.function.Supplier;
 
 public class GermanUnpairedBracketsRule extends GenericUnpairedBracketsRule {
 
-  private static final List<String> DE_START_SYMBOLS = Arrays.asList("[", "(", "{", "„", "»", "«", "\"");
-  private static final List<String> DE_END_SYMBOLS   = Arrays.asList("]", ")", "}", "“", "«", "»", "\"");
+  //  private static final List<String> DE_START_SYMBOLS = Arrays.asList("[", "(", "{", "„", "»", "«", "\"");
+  //  private static final List<String> DE_END_SYMBOLS   = Arrays.asList("]", ")", "}", "“", "«", "»", "\"");
+
+  private static final List<String> DE_START_SYMBOLS = Arrays.asList("[", "(", "{");
+  private static final List<String> DE_END_SYMBOLS   = Arrays.asList("]", ")", "}");
 
   public GermanUnpairedBracketsRule(ResourceBundle messages, Language language) {
     super(messages, DE_START_SYMBOLS, DE_END_SYMBOLS);
+    setUrl(Tools.getUrl("https://languagetool.org/insights/de/beitrag/klammern/"));
     addExamplePair(Example.wrong("Dem Präsidenten des Deutschen Bauernverbands <marker>(</marker>DBV zufolge habe die Dürre einen Schaden von 1,4 Millionen verursacht."),
                    Example.fixed("Dem Präsidenten des Deutschen Bauernverbands <marker>(</marker>DBV) zufolge habe die Dürre einen Schaden von 1,4 Millionen verursacht."));
   }
 
   @Override
   public String getId() {
-    return "UNPAIRED_BRACKETS";
-  }  // no "DE_" to be compatible with old versions
-
+    return "UNPAIRED_BRACKETS";  // no "DE_" to be compatible with old versions
+  }
+/*  TODO: Remove after tests
   @Override
-  protected List<String> getSuggestions(Supplier<String> text, int startPos, int endPos) {
+  protected List<String> getSuggestions(Supplier<String> text, int startPos, int endPos, Symbol symbol, String otherSymbol) {
     if (startPos > 0 && endPos <= text.get().length()) {
       String prevCh = text.get().substring(startPos-1, endPos-1);
       String ch = text.get().substring(startPos, endPos);
@@ -63,5 +68,5 @@ public class GermanUnpairedBracketsRule extends GenericUnpairedBracketsRule {
     }
     return null;
   }
-
+*/
 }

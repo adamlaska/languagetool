@@ -34,6 +34,7 @@ public class SimpleReplaceRule extends AbstractSimpleReplaceRule2 {
 
   public SimpleReplaceRule(ResourceBundle messages, Language language) {
     super(messages, language);
+    useSubRuleSpecificIds();
   }
 
   @Override
@@ -48,7 +49,7 @@ public class SimpleReplaceRule extends AbstractSimpleReplaceRule2 {
 
   @Override
   public String getDescription() {
-    return "Checks for wrong words/phrases";
+    return "Check for wrong words/phrases: $match";
   }
 
   @Override
@@ -61,16 +62,6 @@ public class SimpleReplaceRule extends AbstractSimpleReplaceRule2 {
     return "Did you mean $suggestions?";
   }
 
-  @Override
-  public String getSuggestionsSeparator() {
-    return ", ";
-  }
-
-  @Override
-  public boolean isCaseSensitive() {
-    return false;
-  }
-  
   @Override
   public Locale getLocale() {
     return EN_LOCALE;

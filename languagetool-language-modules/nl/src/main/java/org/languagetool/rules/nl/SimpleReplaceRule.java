@@ -47,8 +47,14 @@ public class SimpleReplaceRule extends AbstractSimpleReplaceRule2 {
     useSubRuleSpecificIds();
     setLocQualityIssueType(ITSIssueType.Misspelling);
     setCategory(new Category(new CategoryId("VERGISSINGEN"), "Vergissingen"));
-    addExamplePair(Example.wrong("<marker>ofzo</marker>."),
-                   Example.fixed("<marker>of zo</marker>."));
+    addExamplePair(Example.wrong("<marker>klaa</marker>."),
+                   Example.fixed("<marker>klaar</marker>."));
+  }
+
+  @Override
+  public CaseSensitivy getCaseSensitivy() {
+    // edit by R. Baars 19-11-2022 to make routine case sensitive
+    return CaseSensitivy.CS;
   }
 
   @Override
@@ -63,7 +69,7 @@ public class SimpleReplaceRule extends AbstractSimpleReplaceRule2 {
 
   @Override
   public String getDescription() {
-    return "Snelle correctie van veel voorkomende vergissingen";
+    return "Snelle correctie van veel voorkomende vergissingen ($match)";
   }
 
   @Override
@@ -83,11 +89,6 @@ public class SimpleReplaceRule extends AbstractSimpleReplaceRule2 {
   @Override
   public String getMessage() {
     return "'$match' zou fout kunnen zijn. Misschien bedoelt u: $suggestions";
-  }
-
-  @Override
-  public String getSuggestionsSeparator() {
-    return ", ";
   }
 
   @Override

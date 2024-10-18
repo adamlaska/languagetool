@@ -8,11 +8,7 @@ import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.languagetool.AnalyzedSentence;
-import org.languagetool.AnalyzedToken;
-import org.languagetool.AnalyzedTokenReadings;
-import org.languagetool.Premium;
-import org.languagetool.Tag;
+import org.languagetool.*;
 import org.languagetool.chunking.ChunkTag;
 import org.languagetool.rules.ml.MLServerProto;
 import org.languagetool.rules.ml.MLServerProto.Match;
@@ -136,6 +132,18 @@ public final class GRPCUtils
                                 .map(GRPCUtils::fromGRPC).toArray(AnalyzedTokenReadings[]::new));
   }
 
+  public static String getUrl(RuleMatch m) {
+    // URL can be attached to Rule or RuleMatch (or both); in Protobuf, only to RuleMatch
+    // prefer URL from RuleMatch, default to empty string
+    if (m.getUrl() != null) {
+      return m.getUrl().toString();
+    }
+    if (m.getRule().getUrl() != null) {
+      return m.getRule().getUrl().toString();
+    }
+    return "";
+  }
+
 
   public static Match toGRPC(RuleMatch m) {
     // could add better handling for conversion errors with enums
@@ -149,7 +157,7 @@ public final class GRPCUtils
       .setRuleDescription(nullAsEmpty(m.getRule().getDescription()))
       .setMatchDescription(nullAsEmpty(m.getMessage()))
       .setMatchShortDescription(nullAsEmpty(m.getShortMessage()))
-      .setUrl((m.getUrl() != null ? m.getUrl().toString() : ""))
+      .setUrl(getUrl(m))
       .setAutoCorrect(m.isAutoCorrect())
       .setType(Match.MatchType.valueOf(m.getType().name()))
       .setContextForSureMatch(m.getRule().estimateContextForSureMatch())
@@ -208,6 +216,20 @@ public final class GRPCUtils
       sb.setConfidence(s.getConfidence());
     }
     return sb;
+  }
+
+  public static JLanguageTool.Level fromGRPC(MLServerProto.ProcessingOptions.Level l) {
+    if (l.equals(MLServerProto.ProcessingOptions.Level.defaultLevel)) {
+      return JLanguageTool.Level.DEFAULT;
+    }
+    return JLanguageTool.Level.valueOf(l.name().toUpperCase());
+  }
+
+  public static MLServerProto.ProcessingOptions.Level toGRPC(JLanguageTool.Level level) {
+    if (level.equals(JLanguageTool.Level.DEFAULT)) {
+      return MLServerProto.ProcessingOptions.Level.defaultLevel;
+    }
+    return MLServerProto.ProcessingOptions.Level.valueOf(level.name().toLowerCase());
   }
 
 }
